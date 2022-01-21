@@ -36,29 +36,6 @@ void PlayScene::handleEvents()
 {
 	EventManager::Instance().update();
 
-	// handle player movement if no Game Controllers found
-
-	//if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
-	//{
-	//	//Move Up
-	//}
-	//else if (EventManager::Instance().isKeyUp(SDL_SCANCODE_S))
-	//{
-	//	//Move Down
-	//}
-
-	//if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
-	//{
-	//	//Move Left
-	//}
-	//else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
-	//{
-	//	//Move Right
-	//}
-
-
-	
-
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE))
 	{
 		TheGame::Instance().quit();
@@ -83,54 +60,6 @@ void PlayScene::start()
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
-	//m_playerFacingRight = true;
-
-	// Back Button
-	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
-	m_pBackButton->getTransform()->position = glm::vec2(300.0f, 400.0f);
-	m_pBackButton->addEventListener(CLICK, [&]()-> void
-	{
-		m_pBackButton->setActive(false);
-		TheGame::Instance().changeSceneState(START_SCENE);
-	});
-
-	m_pBackButton->addEventListener(MOUSE_OVER, [&]()->void
-	{
-		m_pBackButton->setAlpha(128);
-	});
-
-	m_pBackButton->addEventListener(MOUSE_OUT, [&]()->void
-	{
-		m_pBackButton->setAlpha(255);
-	});
-	addChild(m_pBackButton);
-
-	// Next Button
-	m_pNextButton = new Button("../Assets/textures/nextButton.png", "nextButton", NEXT_BUTTON);
-	m_pNextButton->getTransform()->position = glm::vec2(500.0f, 400.0f);
-	m_pNextButton->addEventListener(CLICK, [&]()-> void
-	{
-		m_pNextButton->setActive(false);
-		TheGame::Instance().changeSceneState(END_SCENE);
-	});
-
-	m_pNextButton->addEventListener(MOUSE_OVER, [&]()->void
-	{
-		m_pNextButton->setAlpha(128);
-	});
-
-	m_pNextButton->addEventListener(MOUSE_OUT, [&]()->void
-	{
-		m_pNextButton->setAlpha(255);
-	});
-
-	addChild(m_pNextButton);
-
-	/* Instructions Label */
-	m_pInstructionsLabel = new Label("Press the backtick (`) character to toggle Debug View", "Consolas");
-	m_pInstructionsLabel->getTransform()->position = glm::vec2(Config::SCREEN_WIDTH * 0.5f, 500.0f);
-
-	addChild(m_pInstructionsLabel);
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
 }
@@ -155,10 +84,6 @@ void PlayScene::GUI_Function() const
 	static float float3[3] = { 0.0f, 1.0f, 1.5f };
 	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
 	{
-		std::cout << float3[0] << std::endl;
-		std::cout << float3[1] << std::endl;
-		std::cout << float3[2] << std::endl;
-		std::cout << "---------------------------\n";
 	}
 	
 	ImGui::End();

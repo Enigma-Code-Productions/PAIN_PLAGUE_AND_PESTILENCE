@@ -63,9 +63,6 @@
     <ClCompile Include="..\src\Label.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ship.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Target.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
@@ -105,14 +102,8 @@
     <ClCompile Include="..\src\Sprite.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Plane.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp">
       <Filter>Singletons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Obstacle.cpp">
-      <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Agent.cpp">
       <Filter>Core</Filter>
@@ -185,9 +176,6 @@
     <ClInclude Include="..\src\Label.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ship.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Target.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -242,17 +230,11 @@
     <ClInclude Include="..\src\Sprite.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Plane.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\SoundType.h">
       <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ImGuiWindowFrame.h">
       <Filter>Singletons</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Obstacle.h">
-      <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Agent.h">
       <Filter>Core</Filter>

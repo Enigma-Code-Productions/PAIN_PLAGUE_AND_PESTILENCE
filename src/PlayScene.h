@@ -3,7 +3,6 @@
 #define __PLAY_SCENE__
 
 #include "Scene.h"
-#include "Plane.h"
 #include "Player.h"
 #include "Button.h"
 #include "Label.h"
@@ -28,12 +27,6 @@ private:
 	glm::vec2 m_mousePosition;
 
 	Player* m_pPlayer;
-	bool m_playerFacingRight;
-
-	// UI Items
-	Button* m_pBackButton;
-	Button* m_pNextButton;
-	Label* m_pInstructionsLabel;
 };
 
 #endif /* defined (__PLAY_SCENE__) */

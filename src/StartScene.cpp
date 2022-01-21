@@ -46,7 +46,9 @@ void StartScene::handleEvents()
 void StartScene::start()
 {
 	const SDL_Color blue = { 0, 0, 255, 255 };
-	m_pStartLabel = new Label("Pain Plague And Pestilence", "Consolas", 50, blue, glm::vec2(400.0f, 40.0f));
+	const SDL_Color red = { 128, 0, 0, 255 };
+
+	m_pStartLabel = new Label("Pain Plague And Pestilence", "YouMurderer", 90, red, glm::vec2(400.0f, 40.0f));
 	m_pStartLabel->setParent(this);
 	addChild(m_pStartLabel);
 
@@ -54,10 +56,6 @@ void StartScene::start()
 	m_pInstructionsLabel->setParent(this);
 	addChild(m_pInstructionsLabel);
 
-
-	m_pShip = new Ship();
-	m_pShip->getTransform()->position = glm::vec2(400.0f, 300.0f); 
-	addChild(m_pShip); 
 
 	// Start Button
 	m_pStartButton = new Button();
