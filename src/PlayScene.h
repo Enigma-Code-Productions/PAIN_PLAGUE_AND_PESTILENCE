@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "Player.h"
+#include "Skull.h"
 #include "Button.h"
 #include "Label.h"
 
@@ -27,6 +28,7 @@ private:
 	glm::vec2 m_mousePosition;
 
 	Player* m_pPlayer;
+	Skull* m_pSkull;
 };
 
 #endif /* defined (__PLAY_SCENE__) */
