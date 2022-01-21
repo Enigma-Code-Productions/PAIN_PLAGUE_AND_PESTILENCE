@@ -22,6 +22,13 @@ public:
 private:
 	void m_buildAnimations();
 
+	const int m_speed;
+
+	int getSpeed()
+	{
+		return m_speed;
+	}
+
 	PlayerAnimationState m_currentAnimationState;
 };
 
