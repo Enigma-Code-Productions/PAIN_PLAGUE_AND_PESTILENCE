@@ -37,6 +37,7 @@ void Ship::draw()
 	const auto y = getTransform()->position.y;
 
 	// draw the ship
+
 	TextureManager::Instance().draw("ship", x, y, getCurrentHeading(), 255, true);
 
 	// draw LOS

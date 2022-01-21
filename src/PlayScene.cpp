@@ -36,38 +36,25 @@ void PlayScene::handleEvents()
 {
 	EventManager::Instance().update();
 
-	// handle player movement with GameController
-	if (SDL_NumJoysticks() > 0)
-	{
-		if (EventManager::Instance().getGameController(0) != nullptr)
-		{
-			const auto deadZone = 10000;
-			if (EventManager::Instance().getGameController(0)->LEFT_STICK_X > deadZone)
-			{
-
-			}
-			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_X < -deadZone)
-			{
-
-			}
-			else
-			{
-
-			}
-		}
-	}
-
-
 	// handle player movement if no Game Controllers found
 
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
-	{
+	//if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
+	//{
+	//	//Move Up
+	//}
+	//else if (EventManager::Instance().isKeyUp(SDL_SCANCODE_S))
+	//{
+	//	//Move Down
+	//}
 
-	}
-	else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
-	{
-
-	}
+	//if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
+	//{
+	//	//Move Left
+	//}
+	//else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
+	//{
+	//	//Move Right
+	//}
 
 
 	
@@ -96,7 +83,7 @@ void PlayScene::start()
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
-	m_playerFacingRight = true;
+	//m_playerFacingRight = true;
 
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
