@@ -7,10 +7,10 @@ Player::Player(): m_speed(5) //m_currentAnimationState(PLAYER_IDLE_RIGHT)
 	
 
 	// set frame width
-	setWidth(90);
+	setWidth(56);
 
 	// set frame height
-	setHeight(96);
+	setHeight(70);
 
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);

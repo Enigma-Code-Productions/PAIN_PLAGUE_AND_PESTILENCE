@@ -31,6 +31,9 @@
     <Filter Include="DOCS">
       <UniqueIdentifier>{a44d29c3-2835-4901-a310-0039121b84b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{1375ecf6-5035-46e9-a633-04bffa82b258}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StartScene.cpp">
@@ -265,5 +268,13 @@
     <None Include="..\README.md">
       <Filter>DOCS</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\textures\Player1-idle-1.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\textures\Skull.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -292,6 +292,9 @@ bool CollisionManager::circleAABBCheck(GameObject* object1, GameObject* object2)
 			const auto angle = acos(dot / Util::magnitude(attackVector)) * Util::Rad2Deg;
 
 			switch (object2->getType()) {
+			case PLAYER:
+				std::cout << "Collision with Skull!" << std::endl;
+				break;
 			case TARGET:
 				std::cout << "Collision with Planet!" << std::endl;
 				SoundManager::Instance().playSound("yay", 0);

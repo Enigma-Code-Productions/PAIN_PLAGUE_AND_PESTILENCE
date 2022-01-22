@@ -19,12 +19,19 @@ PlayScene::~PlayScene()
 void PlayScene::draw()
 {
 	drawDisplayList();
+
+	//Draws Sprite Boundaries
+	Util::DrawRect(m_pPlayer->getTransform()->position, m_pPlayer->getWidth(), m_pPlayer->getHeight());
+	Util::DrawCircle(m_pSkull->getTransform()->position, m_pSkull->getWidth() * 0.5f);
+
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
 void PlayScene::update()
 {
 	updateDisplayList();
+
+	CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
 }
 
 void PlayScene::clean()
