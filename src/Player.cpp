@@ -30,7 +30,7 @@ void Player::draw()
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
 
-	TextureManager::Instance().draw("playerIdle", x, y, 0, 255, false);
+	TextureManager::Instance().draw("playerIdle", x, y, 0, 255, true);
 
 	// draw the player according to animation state
 	/*
