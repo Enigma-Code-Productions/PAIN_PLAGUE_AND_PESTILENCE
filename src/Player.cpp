@@ -1,4 +1,6 @@
 #include "Player.h"
+
+#include "CollisionManager.h"
 #include "TextureManager.h"
 #include "EventManager.h"
 Player::Player(): m_speed(5) //m_currentAnimationState(PLAYER_IDLE_RIGHT)
@@ -155,6 +157,26 @@ void Player::setIsAttacking(bool attacking)
 {
 	m_isAttacking = attacking;
 }
+
+void Player::PlayerAttack(Skull* enemy)
+{
+	if (CollisionManager::squaredDistance(enemy->getTransform()->position, getTransform()->position) <= 12000)
+	{
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE) && !getIsAttacking())
+		{
+			enemy->removeEnemyHealth(getPlayerDamage());
+			std::cout << "Hit Enemy!" << std::endl;
+			std::cout << "Enemy Health: " << enemy->getEnemyHealth() << std::endl;
+			setIsAttacking(true);
+		}
+		else if (EventManager::Instance().isKeyUp(SDL_SCANCODE_SPACE))
+		{
+			setIsAttacking(false);
+		}
+
+	}
+}
+
 
 
 

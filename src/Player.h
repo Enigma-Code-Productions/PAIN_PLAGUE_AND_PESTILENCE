@@ -3,6 +3,7 @@
 #define __PLAYER__
 
 #include "PlayerAnimationState.h"
+#include "Skull.h"
 #include "Sprite.h"
 
 class Player final : public Sprite
@@ -27,6 +28,8 @@ public:
 	void setPlayerMaxHealth(int health);
 	void setPlayerDamage(int damage);
 	void setIsAttacking(bool attacking);
+
+	void PlayerAttack(Skull* enemy);
 
 private:
 	int m_playerHealth = 100;
