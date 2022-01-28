@@ -116,3 +116,46 @@ void Player::m_buildAnimations()
 //
 //	setAnimation(runAnimation);
 }
+
+int Player::getPlayerDamage()
+{
+	return m_playerDamage;
+}
+
+int Player::getPlayerHealth()
+{
+	return m_playerHealth;
+}
+
+bool Player::getIsAttacking()
+{
+	return m_isAttacking;
+}
+
+
+
+void Player::setPlayerHealth(int health)
+{
+	m_playerHealth = health;
+}
+
+void Player::setPlayerMaxHealth(int health)
+{
+	m_playerMaxHealth = health;
+}
+
+void Player::setPlayerDamage(int damage)
+{
+	m_playerDamage = damage;
+}
+
+void Player::setIsAttacking(bool attacking)
+{
+	m_isAttacking = attacking;
+}
+
+
+
+
+
+

@@ -14,8 +14,13 @@ public:
 	virtual void update() override;
 	virtual void clean() override;
 
-private:
+	int getEnemyHealth();
+	void removeEnemyHealth(int health);
 
+private:
+	int m_enemyHealth;
+	static int m_maxEnemyHealth;
+	static int m_enemyDamage;
 };
 
 

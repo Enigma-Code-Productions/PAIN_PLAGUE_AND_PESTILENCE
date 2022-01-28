@@ -37,4 +37,14 @@ void Skull::clean()
 {
 }
 
+int Skull::getEnemyHealth()
+{
+	return m_enemyHealth;
+}
+
+void Skull::removeEnemyHealth(int health)
+{
+	m_enemyHealth -= health;
+}
+
 

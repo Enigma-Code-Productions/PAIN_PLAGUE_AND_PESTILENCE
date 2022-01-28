@@ -28,6 +28,14 @@ void PlayScene::update()
 	updateDisplayList();
 
 	CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
+	std::cout << "Enemy and Player Distance: " << CollisionManager::squaredDistance(m_pSkull->getTransform()->position, m_pPlayer->getTransform()->position) << std::endl;
+	if (CollisionManager::squaredDistance(m_pSkull->getTransform()->position, m_pPlayer->getTransform()->position) <= 10000)
+	{
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
+		{
+			m_pSkull->removeEnemyHealth(m_pPlayer->getPlayerDamage());
+		}
+	}
 }
 
 void PlayScene::clean()
