@@ -5,7 +5,9 @@ Player::Player(): m_speed(5) //m_currentAnimationState(PLAYER_IDLE_RIGHT)
 {
 	TextureManager::Instance().load("../Assets/textures/Player1-idle-1.png", "playerIdle");
 	
-
+	setPlayerMaxHealth(100);
+	setPlayerHealth(100);
+	setPlayerDamage(25);
 	// set frame width
 	setWidth(56);
 

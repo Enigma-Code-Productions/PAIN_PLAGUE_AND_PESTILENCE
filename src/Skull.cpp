@@ -6,6 +6,10 @@ Skull::Skull()
 {
 	TextureManager::Instance().load("../Assets/textures/Skull.png","Skull");
 
+	setEnemyMaxHealth(75);
+	setEnemyHealth(75);
+	setEnemyDamage(10);
+
 	const auto size = TextureManager::Instance().getTextureSize("Skull");
 	setWidth(size.x);
 	setHeight(size.y);
@@ -46,5 +50,23 @@ void Skull::removeEnemyHealth(int health)
 {
 	m_enemyHealth -= health;
 }
+
+void Skull::setEnemyDamage(int damage)
+{
+	m_enemyDamage = damage;
+}
+
+void Skull::setEnemyHealth(int health)
+{
+	m_enemyHealth = health;
+}
+
+void Skull::setEnemyMaxHealth(int health)
+{
+	m_maxEnemyHealth = health;
+}
+
+
+
 
 

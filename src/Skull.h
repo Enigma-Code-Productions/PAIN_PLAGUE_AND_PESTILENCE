@@ -15,12 +15,16 @@ public:
 	virtual void clean() override;
 
 	int getEnemyHealth();
-	void removeEnemyHealth(int health);
+	int getEnemyDamage();
 
+	void removeEnemyHealth(int health);
+	void setEnemyHealth(int health);
+	void setEnemyDamage(int damage);
+	void setEnemyMaxHealth(int health);
 private:
 	int m_enemyHealth;
-	static int m_maxEnemyHealth;
-	static int m_enemyDamage;
+	int m_maxEnemyHealth;
+	int m_enemyDamage;
 };
 
 

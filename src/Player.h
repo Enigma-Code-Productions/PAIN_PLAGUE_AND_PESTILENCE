@@ -30,8 +30,8 @@ public:
 
 private:
 	int m_playerHealth = 100;
-	static int m_playerMaxHealth;
-	static int m_playerDamage;
+	int m_playerMaxHealth;
+	int m_playerDamage;
 
 	bool m_isAttacking = false;
 
