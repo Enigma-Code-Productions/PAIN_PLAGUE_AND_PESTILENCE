@@ -25,6 +25,9 @@ void StartScene::update()
 void StartScene::clean()
 {
 	removeAllChildren();
+
+	SoundManager::Instance().stopMusic(0);
+	SoundManager::Instance().unload("../Assets/audio/Horror-Game-Intro.mp3", SOUND_MUSIC);
 }
 
 void StartScene::handleEvents()
@@ -47,6 +50,10 @@ void StartScene::start()
 {
 	const SDL_Color blue = { 0, 0, 255, 255 };
 	const SDL_Color red = { 128, 0, 0, 255 };
+
+	SoundManager::Instance().load("../Assets/audio/Horror-Game-Intro.mp3", "StartLevel-Music", SOUND_MUSIC);
+	SoundManager::Instance().playMusic("StartLevel-Music", -1, 0);
+	SoundManager::Instance().setMusicVolume(2);
 
 	m_pStartLabel = new Label("Pain Plague And Pestilence", "YouMurderer", 90, red, glm::vec2(400.0f, 40.0f));
 	m_pStartLabel->setParent(this);
