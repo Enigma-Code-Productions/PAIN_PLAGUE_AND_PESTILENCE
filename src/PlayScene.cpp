@@ -64,6 +64,9 @@ void PlayScene::start()
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
 
+	m_pknife = new SoyKnife(m_pPlayer);
+	addChild(m_pknife);
+
 	m_pSkull = new Skull();
 	addChild(m_pSkull);
 

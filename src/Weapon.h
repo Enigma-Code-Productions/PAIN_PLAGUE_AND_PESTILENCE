@@ -3,32 +3,33 @@
 #define __WEAPON__
 
 #include "DisplayObject.h"
-
+#include "Player.h"
+// Virtual class
 class Weapon : public DisplayObject
 {
 private:
 	int m_damage;
 	int m_range;
+	Player* m_owner;
 
 public:
-	Weapon();
-	virtual ~Weapon();
+	Weapon() {};
+	Weapon(Player*) {};
+	virtual ~Weapon() = default;
 
 	// Inherited via GameObject
-	virtual void draw() override;
-	virtual void update() override;
-	virtual void clean() override;
+	virtual void draw() override = 0;
+	virtual void update() override = 0;
+	virtual void clean() override = 0;
 
 	int getDamage() const { return m_damage; }
 	int getRange() const { return m_range; }
+	Player* getOwner() const { return  m_owner; }
 
 	void setDamage(int d) { m_damage = d; }
 	void setRange(int r) { m_range = r; }
-
+	void setOwner(Player* p) { m_owner = p; }
 private:
-	void m_move();
-	void m_checkBounds();
-	void m_reset();
 
 
 };
