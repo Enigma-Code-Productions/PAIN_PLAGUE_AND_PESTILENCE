@@ -27,19 +27,29 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
+	
 	//std::cout << "Enemy and Player Distance: " << CollisionManager::squaredDistance(m_pSkull->getTransform()->position, m_pPlayer->getTransform()->position) << std::endl;
-	if (CollisionManager::squaredDistance(m_pSkull->getTransform()->position, m_pPlayer->getTransform()->position) <= 12000)
+	if (m_pSkull != nullptr)
 	{
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE) && !m_pPlayer->getIsAttacking())
+		CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
+		if (CollisionManager::squaredDistance(m_pSkull->getTransform()->position, m_pPlayer->getTransform()->position) <= 12000)
 		{
-			m_pSkull->removeEnemyHealth(m_pPlayer->getPlayerDamage());
-			std::cout << "Hit Enemy!" << std::endl;
-			std::cout << "Enemy Health: " << m_pSkull->getEnemyHealth() << std::endl;
-			m_pPlayer->setIsAttacking(true);
-		}else if (EventManager::Instance().isKeyUp(SDL_SCANCODE_SPACE))
-		{
-			m_pPlayer->setIsAttacking(false);
+			if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE) && !m_pPlayer->getIsAttacking())
+			{
+				m_pSkull->removeEnemyHealth(m_pPlayer->getPlayerDamage());
+				std::cout << "Hit Enemy!" << std::endl;
+				std::cout << "Enemy Health: " << m_pSkull->getEnemyHealth() << std::endl;
+				m_pPlayer->setIsAttacking(true);
+			}
+			else if (EventManager::Instance().isKeyUp(SDL_SCANCODE_SPACE))
+			{
+				m_pPlayer->setIsAttacking(false);
+			}
+			if (m_pSkull->getEnemyHealth() <= 0)
+			{
+				m_pSkull->setEnabled(false);
+				m_pSkull = nullptr;
+			}
 		}
 	}
 }
