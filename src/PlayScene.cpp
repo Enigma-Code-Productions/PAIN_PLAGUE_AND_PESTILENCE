@@ -33,6 +33,8 @@ void PlayScene::update()
 void PlayScene::clean()
 {
 	removeAllChildren();
+	SoundManager::Instance().stopMusic(0);
+	SoundManager::Instance().unload("../Assets/audio/Aftermath.mp3", SOUND_MUSIC);
 }
 
 void PlayScene::handleEvents()
@@ -66,6 +68,11 @@ void PlayScene::start()
 
 	m_pSkull = new Skull();
 	addChild(m_pSkull);
+
+	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
+	SoundManager::Instance().playMusic("Level-Music", -1, 0);
+	SoundManager::Instance().setMusicVolume(3);
+
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
 }
