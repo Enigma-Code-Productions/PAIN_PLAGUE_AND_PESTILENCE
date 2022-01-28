@@ -48,10 +48,13 @@ void EndScene::handleEvents()
 
 void EndScene::start()
 {
+
+	
+
 	const SDL_Color blue = { 0, 0, 255, 255 };
 	const SDL_Color red = { 128, 0, 0, 255 };
 
-	m_label = new Label("YOU DIED", "YouMurderer", 120, red, glm::vec2(400.0f, 300.0f));
+	m_label = new Label("YOU DIED", "You Murderer", 120, red, glm::vec2(400.0f, 300.0f));
 	m_label->setParent(this);
 	addChild(m_label);
 

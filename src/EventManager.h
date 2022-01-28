@@ -9,6 +9,8 @@
 #include "GameController.h"
 #include "imgui.h"
 #include "imgui.h"
+#include "CollisionManager.h"
+#include "PlayScene.h"
 
 /* singleton with magic static */
 class EventManager
@@ -29,6 +31,8 @@ public:
 	// keyboard events
 	bool isKeyDown(SDL_Scancode key) const;
 	bool isKeyUp(SDL_Scancode key) const;
+
+	
 
 	// one-shot keyboard events
 	bool keyPressed(const SDL_Scancode c);

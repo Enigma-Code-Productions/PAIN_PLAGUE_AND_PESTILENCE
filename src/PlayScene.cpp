@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "EventManager.h"
 
+
 // required for IMGUI
 #include "imgui.h"
 #include "imgui_sdl.h"
@@ -25,10 +26,22 @@ void PlayScene::draw()
 
 void PlayScene::update()
 {
+
+	
+
+
+
+
 	updateDisplayList();
 
-	CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
+	if (CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer)) {
+
+		TheGame::Instance().changeSceneState(END_SCENE);
+	}
+		
 }
+
+
 
 void PlayScene::clean()
 {
