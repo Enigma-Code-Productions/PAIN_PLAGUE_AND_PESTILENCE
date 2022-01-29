@@ -8,6 +8,7 @@
 #include "Button.h"
 #include "Label.h"
 #include "SoyKnife.h"
+
 class PlayScene : public Scene
 {
 public:
@@ -29,7 +30,6 @@ private:
 
 	Player* m_pPlayer;
 	Skull* m_pSkull;
-	SoyKnife* m_pknife;
 };
 
 #endif /* defined (__PLAY_SCENE__) */

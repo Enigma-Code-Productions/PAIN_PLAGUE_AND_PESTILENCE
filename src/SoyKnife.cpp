@@ -4,7 +4,6 @@
 
 SoyKnife::SoyKnife(Player* player)
 {
-	//TextureManager::Instance().load("../Assets/textures/Soy-Knife-Anim/Soy-knife-1.png", "SoyKnife1");
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/Soy-Knife-Animation.txt",
 		"../Assets/sprites/Soy-Knife-Animation.png",
@@ -12,13 +11,10 @@ SoyKnife::SoyKnife(Player* player)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("SoyKnife"));
 
-	//const auto size = TextureManager::Instance().getTextureSize("SoyKinfe1");
-	//setWidth(size.x);
-	//setHeight(size.y);
 	setWidth(48);
 	setHeight(72);
 	setOwner(player);
-	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 20));
+	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
 
@@ -36,15 +32,9 @@ SoyKnife::~SoyKnife() = default;
 
 void SoyKnife::draw()
 {
-	/*const auto x = getTransform()->position.x;
-	const auto y = getTransform()->position.y;
-
-	TextureManager::Instance().draw("SoyKnife1", x, y, 0, 255, true);*/
-
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
 
-	// draw the player according to animation state
 	switch (m_currentAnimationState)
 	{
 	case SOY_KNIFE_IDLE_RIGHT:
@@ -116,7 +106,7 @@ void SoyKnife::m_buildAnimations()
 
 void SoyKnife::m_move()
 {
-	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 20));
+	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
 }
 
 

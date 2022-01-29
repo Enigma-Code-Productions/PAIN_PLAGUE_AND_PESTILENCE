@@ -3,8 +3,11 @@
 #define __WEAPON__
 
 #include "Sprite.h"
-#include "Player.h"
+//#include "Player.h"
 // Virtual class
+
+class Player;
+
 class Weapon : public Sprite
 {
 private:
