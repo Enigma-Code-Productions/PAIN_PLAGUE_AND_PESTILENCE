@@ -13,7 +13,7 @@ Skull::Skull()
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
 
-	setType(SKULL);
+	setType(ENEMY);
 }
 
 Skull::~Skull()

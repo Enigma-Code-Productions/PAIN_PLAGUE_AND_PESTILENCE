@@ -3,7 +3,7 @@
 #include"EventManager.h"
 #include "Game.h"
 
-SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(20)
+SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/Soy-Knife-Animation.txt",
@@ -48,11 +48,11 @@ void SoyKnife::draw()
 		break;
 	case SOY_KNIFE_ATTACK_RIGHT:
 		TextureManager::Instance().playAnimation("SoyKnife", getAnimation("attack"),
-			x, y, 0.75f, 0, 255, true);
+			x, y, 1.0f, 0, 255, true);
 		break;
 	case SOY_KNIFE_ATTACK_LEFT:
 		TextureManager::Instance().playAnimation("SoyKnife", getAnimation("attack"),
-			x, y, 0.75f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+			x, y, 1.0f, 0, 255, true, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;
@@ -73,14 +73,11 @@ void SoyKnife::update()
 		{
 			setAnimationState(SOY_KNIFE_IDLE_LEFT);
 		}
+
 	}
 	else
 	{
-		if (TheGame::Instance().getFrames() == m_AttackStart + ATTACK_TIME)
-		{
-			m_bIsAttacking = false;
-			//std::cout << "Attack finished" << std::endl;
-		}
+		
 		if (getOwner()->isFacingRight())
 		{
 			setAnimationState(SOY_KNIFE_ATTACK_RIGHT);
@@ -90,7 +87,11 @@ void SoyKnife::update()
 			setAnimationState(SOY_KNIFE_ATTACK_LEFT);
 		}
 	}
-
+	if (TheGame::Instance().getFrames() == m_AttackStart + ATTACK_TIME)
+	{
+		m_bIsAttacking = false;
+		std::cout << std::endl;
+	}
 	
 }
 
@@ -105,7 +106,6 @@ void SoyKnife::attack()
 		m_AttackStart = TheGame::Instance().getFrames();
 		m_bIsAttacking = true;
 
-		std::cout << "Start: " <<m_AttackStart << std::endl;
 
 		if (getOwner()->isFacingRight())
 		{
@@ -133,19 +133,20 @@ void SoyKnife::m_buildAnimations()
 	idleAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-idle"));
 	setAnimation(idleAnimation);
 
-	Animation runAnimation = Animation();
+	Animation attckAnimation = Animation();
 
-	runAnimation.name = "attack";
-	
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-0"));
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-1"));
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-2"));
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-3"));
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-4"));
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-5"));
-	runAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-6"));
+	attckAnimation.name = "attack";
 
-	setAnimation(runAnimation);
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-idle"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-0"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-1"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-2"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-3"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-4"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-5"));
+	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-6"));
+
+	setAnimation(attckAnimation);
 }
 
 void SoyKnife::m_move()
@@ -158,9 +159,4 @@ void SoyKnife::m_move()
 	{
 		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(-45, 15));
 	}
-}
-
-
-void SoyKnife::m_attack()
-{
 }
