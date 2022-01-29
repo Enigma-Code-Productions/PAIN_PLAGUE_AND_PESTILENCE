@@ -1,0 +1,8 @@
+SoyKnife-idle 0 0 48 72
+SoyKnife-attack-0 48 0 48 72
+SoyKnife-attack-1 96 0 48 72
+SoyKnife-attack-2 144 0 48 72
+SoyKnife-attack-3 192 0 48 72
+SoyKnife-attack-4 240 0 48 72
+SoyKnife-attack-5 288 0 48 72
+SoyKnife-attack-6 336 0 48 72

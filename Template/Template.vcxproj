@@ -166,7 +166,9 @@
     <ClCompile Include="..\src\Button.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
+    <ClCompile Include="..\src\SoyKnife.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
+    <ClCompile Include="..\src\TemplateObject.cpp" />
     <ClCompile Include="..\src\UIControl.cpp" />
     <ClCompile Include="..\src\DisplayObject.cpp" />
     <ClCompile Include="..\src\EndScene.cpp" />
@@ -202,9 +204,12 @@
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
+    <ClInclude Include="..\src\SoyKnifeAnimationState.h" />
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />
+    <ClInclude Include="..\src\SoyKnife.h" />
     <ClInclude Include="..\src\Sprite.h" />
+    <ClInclude Include="..\src\TemplateObject.h" />
     <ClInclude Include="..\src\UIControl.h" />
     <ClInclude Include="..\src\DisplayObject.h" />
     <ClInclude Include="..\src\EndScene.h" />
@@ -233,13 +238,19 @@
     <ClInclude Include="..\src\TextureManager.h" />
     <ClInclude Include="..\src\Transform.h" />
     <ClInclude Include="..\src\Util.h" />
+    <ClInclude Include="..\src\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Assets\sprites\Soy-Knife-Animation.tps" />
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Assets\sprites\Soy-Knife-Animation.png" />
     <Image Include="..\Assets\textures\Player1-idle-1.png" />
     <Image Include="..\Assets\textures\Skull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Assets\sprites\atlas.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

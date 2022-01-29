@@ -66,13 +66,19 @@ void PlayScene::start()
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
 
+	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
+	addChild(m_pPlayer->getWeapon());
+
+	//m_pknife = new SoyKnife(m_pPlayer);
+	//addChild(m_pknife);
+
 	m_pSkull = new Skull();
 	addChild(m_pSkull);
+
 
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
-
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
 }

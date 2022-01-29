@@ -4,7 +4,7 @@
 
 #include "PlayerAnimationState.h"
 #include "Sprite.h"
-
+#include"Weapon.h"
 class Player final : public Sprite
 {
 public:
@@ -18,6 +18,9 @@ public:
 
 	// setters
 	void setAnimationState(PlayerAnimationState new_state);
+	void setWeapon(Weapon* w);
+
+	Weapon* getWeapon();
 
 private:
 	void m_buildAnimations();
@@ -30,6 +33,8 @@ private:
 	}
 
 	PlayerAnimationState m_currentAnimationState;
+
+	Weapon* m_pWeapon;
 };
 
 #endif /* defined (__PLAYER__) */

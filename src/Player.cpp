@@ -93,6 +93,17 @@ void Player::setAnimationState(const PlayerAnimationState new_state)
 {
 	m_currentAnimationState = new_state;
 }
+
+void Player::setWeapon(Weapon* w)
+{
+	m_pWeapon = w;
+}
+
+Weapon* Player::getWeapon()
+{
+	return m_pWeapon;
+}
+
 //
 void Player::m_buildAnimations()
 {

@@ -7,6 +7,7 @@
 #include "Skull.h"
 #include "Button.h"
 #include "Label.h"
+#include "SoyKnife.h"
 
 class PlayScene : public Scene
 {
