@@ -1,7 +1,8 @@
 #pragma once
 #include "Weapon.h"
 #include "Player.h"
-class SoyKnife : public Weapon
+#include "SoyKnifeAnimationState.h"
+class SoyKnife final : public Weapon
 {
 public:
 	SoyKnife(Player* player);
@@ -12,8 +13,15 @@ public:
 	virtual void update() override;
 	virtual void clean() override;
 
+	void setAnimationState(SoyKnifeAnimationState new_state);
 private:
+	void m_buildAnimations();
+
+	SoyKnifeAnimationState m_currentAnimationState;
+
 	void m_move();
 	void m_attack();
+
+
 };
 

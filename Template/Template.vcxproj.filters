@@ -281,10 +281,16 @@
     <ClInclude Include="..\src\SoyKnife.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\SoyKnifeAnimationState.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
       <Filter>DOCS</Filter>
+    </None>
+    <None Include="..\Assets\sprites\Soy-Knife-Animation.tps">
+      <Filter>Textures</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -294,5 +300,13 @@
     <Image Include="..\Assets\textures\Skull.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="..\Assets\sprites\Soy-Knife-Animation.png">
+      <Filter>Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Assets\sprites\atlas.xml">
+      <Filter>Textures</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

@@ -204,6 +204,7 @@
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
+    <ClInclude Include="..\src\SoyKnifeAnimationState.h" />
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />
     <ClInclude Include="..\src\SoyKnife.h" />
@@ -240,11 +241,16 @@
     <ClInclude Include="..\src\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Assets\sprites\Soy-Knife-Animation.tps" />
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Assets\sprites\Soy-Knife-Animation.png" />
     <Image Include="..\Assets\textures\Player1-idle-1.png" />
     <Image Include="..\Assets\textures\Skull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\Assets\sprites\atlas.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

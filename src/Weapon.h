@@ -2,10 +2,10 @@
 #ifndef __WEAPON__
 #define __WEAPON__
 
-#include "DisplayObject.h"
+#include "Sprite.h"
 #include "Player.h"
 // Virtual class
-class Weapon : public DisplayObject
+class Weapon : public Sprite
 {
 private:
 	int m_damage;
