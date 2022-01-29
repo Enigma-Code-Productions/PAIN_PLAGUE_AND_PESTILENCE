@@ -289,9 +289,6 @@
     <None Include="..\README.md">
       <Filter>DOCS</Filter>
     </None>
-    <None Include="..\Assets\sprites\Soy-Knife-Animation.tps">
-      <Filter>Textures</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Assets\textures\Player1-idle-1.png">
@@ -301,6 +298,9 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="..\Assets\sprites\Soy-Knife-Animation.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\sprites\Player-animation.png">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

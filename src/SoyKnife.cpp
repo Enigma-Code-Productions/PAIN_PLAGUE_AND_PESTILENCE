@@ -60,16 +60,31 @@ void SoyKnife::draw()
 
 void SoyKnife::update()
 {
-	m_move();
+	
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
 	{
-		setAnimationState(SOY_KNIFE_ATTACK_RIGHT);
+		if (getOwner()->isFacingRight())
+		{
+			setAnimationState(SOY_KNIFE_ATTACK_RIGHT);
+		}
+		else
+		{
+			setAnimationState(SOY_KNIFE_ATTACK_LEFT);
+		}
+		
 	}
 	else
 	{
-		setAnimationState(SOY_KNIFE_IDLE_RIGHT);
+		if (getOwner()->isFacingRight())
+		{
+			setAnimationState(SOY_KNIFE_IDLE_RIGHT);
+		}
+		else
+		{
+			setAnimationState(SOY_KNIFE_IDLE_LEFT);
+		}
 	}
-
+	m_move();
 }
 
 void SoyKnife::clean()
@@ -106,7 +121,14 @@ void SoyKnife::m_buildAnimations()
 
 void SoyKnife::m_move()
 {
-	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
+	if (getOwner()->isFacingRight())
+	{
+		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
+	}
+	else
+	{
+		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(-45, 15));
+	}
 }
 
 

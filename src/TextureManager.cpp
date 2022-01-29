@@ -73,6 +73,7 @@ bool TextureManager::loadSpriteSheet(
 		// read one line at a time
 		while (std::getline(dataFile, inputLine))
 		{
+			std::cout << "Frame started" << std::endl;
 			Frame frame;
 			size_t linePosition = 0;
 			std::vector<std::string> tokens;

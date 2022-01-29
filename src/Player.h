@@ -21,6 +21,7 @@ public:
 	void setWeapon(Weapon* w);
 
 	Weapon* getWeapon();
+	bool isFacingRight();
 
 private:
 	void m_buildAnimations();

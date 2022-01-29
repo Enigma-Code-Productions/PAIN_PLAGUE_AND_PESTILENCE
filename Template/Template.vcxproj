@@ -241,10 +241,10 @@
     <ClInclude Include="..\src\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Assets\sprites\Soy-Knife-Animation.tps" />
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Assets\sprites\Player-animation.png" />
     <Image Include="..\Assets\sprites\Soy-Knife-Animation.png" />
     <Image Include="..\Assets\textures\Player1-idle-1.png" />
     <Image Include="..\Assets\textures\Skull.png" />
