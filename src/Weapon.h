@@ -25,6 +25,8 @@ public:
 	virtual void update() override = 0;
 	virtual void clean() override = 0;
 
+	virtual void attack() = 0;
+
 	int getDamage() const { return m_damage; }
 	int getRange() const { return m_range; }
 	Player* getOwner() const { return  m_owner; }

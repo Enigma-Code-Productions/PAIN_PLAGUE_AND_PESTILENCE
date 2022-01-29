@@ -69,11 +69,9 @@ bool TextureManager::loadSpriteSheet(
 	// if the file successfully opened
 	if (dataFile)
 	{
-		std::cout << "File opend!" << std::endl;
 		// read one line at a time
 		while (std::getline(dataFile, inputLine))
 		{
-			std::cout << "Frame started" << std::endl;
 			Frame frame;
 			size_t linePosition = 0;
 			std::vector<std::string> tokens;
@@ -93,7 +91,6 @@ bool TextureManager::loadSpriteSheet(
 
 			// add the new frame to the spritesheet
 			spriteSheet->addFrame(frame);
-			std::cout << "Frame added" << std::endl;
 		}
 	}
 	else

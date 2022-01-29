@@ -1,7 +1,9 @@
 #include "Player.h"
 #include "TextureManager.h"
 #include "EventManager.h"
-Player::Player(): m_speed(5) //m_currentAnimationState(PLAYER_IDLE_RIGHT)
+#include "Util.h"
+
+Player::Player(): m_speed(5)
 {
 	
 	TextureManager::Instance().loadSpriteSheet(
@@ -15,7 +17,7 @@ Player::Player(): m_speed(5) //m_currentAnimationState(PLAYER_IDLE_RIGHT)
 	setWidth(56);
 
 	// set frame height
-	setHeight(70);
+	setHeight(80);
 
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -34,11 +36,13 @@ void Player::draw()
 {
 	// alias for x and y
 	const auto x = getTransform()->position.x;
-	const auto y = getTransform()->position.y;
+	const auto y = getTransform()->position.y - 8;
 
 
 	// draw the player according to animation state
-	
+
+	Util::DrawRect(getTransform()->position - glm::vec2(getWidth() * 0.5f, getHeight()* 0.5f), getWidth(), getHeight());
+
 	switch(m_currentAnimationState)
 	{
 	case PLAYER_IDLE_RIGHT:
@@ -68,39 +72,57 @@ void Player::update()
 {
 
 	//Player Movement
+	bool running = false;
+	bool facingRight = isFacingRight();
 
-	if (m_currentAnimationState == PLAYER_RUN_LEFT)
-	{
-		setAnimationState(PLAYER_IDLE_LEFT);
-	}
-	else if (m_currentAnimationState == PLAYER_RUN_RIGHT)
-	{
-		setAnimationState(PLAYER_IDLE_RIGHT);
-	}
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 	{
 		this->getTransform()->position.y -= m_speed;
+		running = true;
 		
 	}
 	
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 	{
 		this->getTransform()->position.y += m_speed;
+		running = true;
 	}
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 	{
 		this->getTransform()->position.x -= m_speed;
-		setAnimationState(PLAYER_RUN_LEFT);
+		facingRight = false;
+		running = true;
 	}
 	
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 	{
 		this->getTransform()->position.x += m_speed;
-		setAnimationState(PLAYER_RUN_RIGHT);
+		facingRight = true;
+		running = true;
 	}
 
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
+	{
+		getWeapon()->attack();
+	}
+
+	if(running)
+	{
+		if (facingRight)
+			setAnimationState(PLAYER_RUN_RIGHT);
+		else
+			setAnimationState(PLAYER_RUN_LEFT);
+	}
+	else
+	{
+		if (facingRight)
+			setAnimationState(PLAYER_IDLE_RIGHT);
+		else
+			setAnimationState(PLAYER_IDLE_LEFT);
+	}
+	
 }
 
 void Player::clean()

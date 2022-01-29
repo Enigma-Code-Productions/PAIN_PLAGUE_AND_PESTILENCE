@@ -1,8 +1,9 @@
 #include "SoyKnife.h"
 #include "TextureManager.h"
 #include"EventManager.h"
+#include "Game.h"
 
-SoyKnife::SoyKnife(Player* player)
+SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(20)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/Soy-Knife-Animation.txt",
@@ -24,9 +25,9 @@ SoyKnife::SoyKnife(Player* player)
 	m_buildAnimations();
 }
 
-SoyKnife::SoyKnife()
-{
-}
+//SoyKnife::SoyKnife()
+//{
+//}
 
 SoyKnife::~SoyKnife() = default;
 
@@ -60,9 +61,52 @@ void SoyKnife::draw()
 
 void SoyKnife::update()
 {
-	
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
+	m_move();
+	if (!m_bIsAttacking)
 	{
+		
+		if (getOwner()->isFacingRight())
+		{
+			setAnimationState(SOY_KNIFE_IDLE_RIGHT);
+		}
+		else
+		{
+			setAnimationState(SOY_KNIFE_IDLE_LEFT);
+		}
+	}
+	else
+	{
+		if (TheGame::Instance().getFrames() == m_AttackStart + ATTACK_TIME)
+		{
+			m_bIsAttacking = false;
+			//std::cout << "Attack finished" << std::endl;
+		}
+		if (getOwner()->isFacingRight())
+		{
+			setAnimationState(SOY_KNIFE_ATTACK_RIGHT);
+		}
+		else
+		{
+			setAnimationState(SOY_KNIFE_ATTACK_LEFT);
+		}
+	}
+
+	
+}
+
+void SoyKnife::clean()
+{
+}
+
+void SoyKnife::attack()
+{
+	if (!m_bIsAttacking)
+	{
+		m_AttackStart = TheGame::Instance().getFrames();
+		m_bIsAttacking = true;
+
+		std::cout << "Start: " <<m_AttackStart << std::endl;
+
 		if (getOwner()->isFacingRight())
 		{
 			setAnimationState(SOY_KNIFE_ATTACK_RIGHT);
@@ -73,22 +117,7 @@ void SoyKnife::update()
 		}
 		
 	}
-	else
-	{
-		if (getOwner()->isFacingRight())
-		{
-			setAnimationState(SOY_KNIFE_IDLE_RIGHT);
-		}
-		else
-		{
-			setAnimationState(SOY_KNIFE_IDLE_LEFT);
-		}
-	}
-	m_move();
-}
-
-void SoyKnife::clean()
-{
+	
 }
 
 void SoyKnife::setAnimationState(SoyKnifeAnimationState new_state)
@@ -123,7 +152,7 @@ void SoyKnife::m_move()
 {
 	if (getOwner()->isFacingRight())
 	{
-		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
+		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15 ));
 	}
 	else
 	{
