@@ -34,6 +34,8 @@ public:
 	void setDamage(int d) { m_damage = d; }
 	void setRange(int r) { m_range = r; }
 	void setOwner(Player* p) { m_owner = p; }
+
+
 private:
 
 

@@ -32,7 +32,7 @@ public:
 
 	std::vector<DisplayObject*> getDisplayList() const;
 
-	std::vector<DisplayObject*> getObjecstOfType(GameObjectType tag);
+	//std::vector<DisplayObject*> getObjecstOfType(GameObjectType tag);
 
 private:
 	uint32_t m_nextLayerIndex = 0;

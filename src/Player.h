@@ -3,11 +3,15 @@
 #define __PLAYER__
 
 #include "PlayerAnimationState.h"
-#include "Sprite.h"
+#include "AliveObject.h"
 #include"Weapon.h"
-class Player final : public Sprite
+class Player final : public AliveObject
 {
-public:
+private: //Properties
+	const int m_speed;
+	Weapon* m_pWeapon;
+	PlayerAnimationState m_currentAnimationState;
+public: // Functions
 	Player();
 	~Player();
 
@@ -23,19 +27,11 @@ public:
 	Weapon* getWeapon();
 	bool isFacingRight();
 
-private:
+private: // Functions
+
 	void m_buildAnimations();
+	int getSpeed() const {return m_speed;}
 
-	const int m_speed;
-
-	int getSpeed()
-	{
-		return m_speed;
-	}
-
-	PlayerAnimationState m_currentAnimationState;
-
-	Weapon* m_pWeapon;
 };
 
 #endif /* defined (__PLAYER__) */

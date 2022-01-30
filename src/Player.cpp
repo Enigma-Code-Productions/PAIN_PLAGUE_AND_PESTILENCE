@@ -13,11 +13,11 @@ Player::Player(): m_speed(5)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 
-	// set frame width
+	// set players collider
 	setWidth(56);
-
-	// set frame height
 	setHeight(80);
+
+	//set players health
 
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -139,6 +139,7 @@ void Player::setWeapon(Weapon* w)
 	m_pWeapon = w;
 }
 
+
 Weapon* Player::getWeapon()
 {
 	return m_pWeapon;
@@ -156,7 +157,7 @@ bool Player::isFacingRight()
 	}
 }
 
-//
+
 void Player::m_buildAnimations()
 {
 	Animation idleAnimation = Animation();
@@ -180,3 +181,5 @@ void Player::m_buildAnimations()
 
 	setAnimation(runAnimation);
 }
+
+

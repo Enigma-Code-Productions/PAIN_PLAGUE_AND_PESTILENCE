@@ -11,7 +11,15 @@
 
 class PlayScene : public Scene
 {
-public:
+private: //Properties
+	// IMGUI Function
+	std::string m_guiTitle;
+
+	//Objects
+	Player* m_pPlayer;
+	Skull* m_pSkull;
+
+public: // Functions
 	PlayScene();
 	~PlayScene();
 
@@ -21,15 +29,13 @@ public:
 	virtual void clean() override;
 	virtual void handleEvents() override;
 	virtual void start() override;
-private:
+
+	void collisionCheck();
+
+private: //Functions
 	// IMGUI Function
 	void GUI_Function() const;
-	std::string m_guiTitle;
 	
-	glm::vec2 m_mousePosition;
-
-	Player* m_pPlayer;
-	Skull* m_pSkull;
 };
 
 #endif /* defined (__PLAY_SCENE__) */

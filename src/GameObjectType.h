@@ -1,7 +1,8 @@
 #pragma once
 #ifndef __GAME_OBJECT_TYPE__
 #define __GAME_OBJECT_TYPE__
-enum GameObjectType {
+enum GameObjectType
+{
 	NONE = -1,
 	AGENT,
 	PATH_NODE,
@@ -16,7 +17,8 @@ enum GameObjectType {
 	RESTART_BUTTON,
 	BACK_BUTTON,
 	NEXT_BUTTON,
-	WEAPON,
+	MELEE_WEAPON,
+	RANGED_WEAPON,
 	NUM_OF_TYPES
 };
 #endif /* defined (__GAME_OBJECT_TYPE__) */

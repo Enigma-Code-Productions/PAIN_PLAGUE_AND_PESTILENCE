@@ -27,7 +27,7 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
+	collisionCheck();
 }
 
 void PlayScene::clean()
@@ -75,6 +75,11 @@ void PlayScene::start()
 
 	
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
+}
+
+void PlayScene::collisionCheck()
+{
+	
 }
 
 void PlayScene::GUI_Function() const

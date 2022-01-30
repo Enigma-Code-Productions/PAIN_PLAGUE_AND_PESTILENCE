@@ -15,12 +15,13 @@ SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
 	setWidth(48);
 	setHeight(72);
 	setOwner(player);
+	setDamage(50);
 	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
 
 
-	setType(WEAPON);
+	setType(MELEE_WEAPON);
 
 	m_buildAnimations();
 }
@@ -90,7 +91,6 @@ void SoyKnife::update()
 	if (TheGame::Instance().getFrames() == m_AttackStart + ATTACK_TIME)
 	{
 		m_bIsAttacking = false;
-		std::cout << std::endl;
 	}
 	
 }
