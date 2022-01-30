@@ -101,9 +101,11 @@ void PlayScene::collisionCheck()
 		}
 		if (m_pPlayer->getWeapon()->hasCollisionDamage())
 		{
-
-			enemy->takeDamage(m_pPlayer->getDamage());
-			std::cout << enemy->getHealth() << std::endl;
+			if (CollisionManager::AABBCheck(enemy, m_pPlayer->getWeapon()))
+			{
+				enemy->takeDamage(m_pPlayer->getDamage());
+				std::cout << enemy->getHealth() << std::endl;
+			}
 		}
 	}
 }
