@@ -8,6 +8,7 @@ class AliveObject : public Sprite
 {
 private: //Properties
 	bool m_bIsAlive;
+	bool m_hasCollisionDamage;
 	int m_health;
 	int m_maxHealth;
 	int m_damage;
@@ -23,19 +24,21 @@ public: //Functions
 
 	//getters
 	bool isAlive();
+	bool hasCollisionDamage();
 	int getMaxHealth();
 	int getHealth();
 	int getDamage();
 
 	// setters
 	void setAlive(bool a);
+	void setCollisionDamage(bool c);
 	void setMaxHealth(int mh);
-	void setHealt(int h);
+	void setHealth(int h);
 	void setDamage(int d);
 
 	// Other functions
 	void takeDamage(int damage);
-	void getHeal(int heal);
+	void takeHeal(int heal);
 
 private: //Functions
 

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "TextureManager.h"
 #include "EventManager.h"
+#include "Game.h"
 #include "Util.h"
 
 Player::Player(): m_speed(5)
@@ -18,6 +19,10 @@ Player::Player(): m_speed(5)
 	setHeight(80);
 
 	//set players health
+	setDamage(10);
+	setMaxHealth(100);
+	setHealth(getMaxHealth());
+	setCollisionDamage(false);
 
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -156,6 +161,15 @@ bool Player::isFacingRight()
 		return false;
 	}
 }
+
+int Player::getDamage()
+{
+	if (m_pWeapon != nullptr)
+		return m_pWeapon->getDamage();
+
+	return AliveObject::getDamage();
+}
+
 
 
 void Player::m_buildAnimations()

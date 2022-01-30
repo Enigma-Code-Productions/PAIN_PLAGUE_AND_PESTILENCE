@@ -24,10 +24,14 @@ public: // Functions
 	void setAnimationState(PlayerAnimationState new_state);
 	void setWeapon(Weapon* w);
 
+	// getters
 	Weapon* getWeapon();
 	bool isFacingRight();
+	int getDamage();
+
 
 private: // Functions
+
 
 	void m_buildAnimations();
 	int getSpeed() const {return m_speed;}

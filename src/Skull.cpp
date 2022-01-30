@@ -5,6 +5,12 @@
 Skull::Skull()
 {
 	TextureManager::Instance().load("../Assets/textures/Skull.png","Skull");
+	
+	//set Health 
+	setMaxHealth(100);
+	setHealth(getMaxHealth());
+	setDamage(10);
+	setCollisionDamage(true);
 
 	const auto size = TextureManager::Instance().getTextureSize("Skull");
 	setWidth(size.x);

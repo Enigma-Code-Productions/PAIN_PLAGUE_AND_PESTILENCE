@@ -16,6 +16,7 @@ private: //Properties
 	std::string m_guiTitle;
 
 	//Objects
+	std::vector<AliveObject*> m_pEnemies;
 	Player* m_pPlayer;
 	Skull* m_pSkull;
 

@@ -16,6 +16,9 @@ SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
 	setHeight(72);
 	setOwner(player);
 	setDamage(50);
+	setRange(getWidth() / 2);
+	setCollisionDamage(false);
+
 	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
@@ -91,6 +94,7 @@ void SoyKnife::update()
 	if (TheGame::Instance().getFrames() == m_AttackStart + ATTACK_TIME)
 	{
 		m_bIsAttacking = false;
+		setCollisionDamage(false);
 	}
 	
 }
@@ -105,7 +109,7 @@ void SoyKnife::attack()
 	{
 		m_AttackStart = TheGame::Instance().getFrames();
 		m_bIsAttacking = true;
-
+		setCollisionDamage(true);
 
 		if (getOwner()->isFacingRight())
 		{

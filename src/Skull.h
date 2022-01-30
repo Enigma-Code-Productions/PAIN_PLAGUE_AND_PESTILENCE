@@ -2,9 +2,10 @@
 #ifndef __SKULL__
 #define __SKULL__
 
-#include "DisplayObject.h"
+#include "AliveObject.h"
 
-class Skull final : public DisplayObject {
+class Skull final : public AliveObject
+{
 public:
 	Skull();
 	~Skull();

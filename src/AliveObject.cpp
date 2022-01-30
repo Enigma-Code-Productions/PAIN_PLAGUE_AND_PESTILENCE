@@ -1,6 +1,6 @@
 #include "AliveObject.h"
 
-AliveObject::AliveObject()
+AliveObject::AliveObject():m_bIsAlive(true)
 {
 }
 
@@ -9,6 +9,11 @@ AliveObject::~AliveObject() = default;
 bool AliveObject::isAlive()
 {
 	return m_bIsAlive;
+}
+
+bool AliveObject::hasCollisionDamage()
+{
+	return m_hasCollisionDamage;
 }
 
 int AliveObject::getMaxHealth()
@@ -31,12 +36,17 @@ void AliveObject::setAlive(bool a)
 	m_bIsAlive = a;
 }
 
+void AliveObject::setCollisionDamage(bool c)
+{
+	m_hasCollisionDamage = c;
+}
+
 void AliveObject::setMaxHealth(int mh)
 {
 	m_maxHealth = mh;
 }
 
-void AliveObject::setHealt(int h)
+void AliveObject::setHealth(int h)
 {
 	m_health = h;
 }
@@ -55,7 +65,7 @@ void AliveObject::takeDamage(int damage)
 	}
 }
 
-void AliveObject::getHeal(int heal)
+void AliveObject::takeHeal(int heal)
 {
 	m_health += heal;
 	if (m_health > m_maxHealth)
