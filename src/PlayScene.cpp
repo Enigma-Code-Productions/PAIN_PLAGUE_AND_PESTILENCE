@@ -73,7 +73,7 @@ void PlayScene::start()
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 	addChild(m_pPlayer->getWeapon());
 
-	m_pSkull = new Skull();
+	m_pSkull = new Skull(m_pPlayer, 300);
 	addChild(m_pSkull);
 	m_pEnemies.push_back(m_pSkull);
 
