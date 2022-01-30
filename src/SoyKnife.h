@@ -4,23 +4,34 @@
 #include "SoyKnifeAnimationState.h"
 class SoyKnife final : public Weapon
 {
-public:
-	SoyKnife(Player* player);
-	SoyKnife();
-	~SoyKnife();
+private: // Properties
+	SoyKnifeAnimationState m_currentAnimationState;
+	
+	//attack 
+	bool m_bIsAttacking;
 
-	virtual void draw() override;
-	virtual void update() override;
-	virtual void clean() override;
+	const int ATTACK_TIME;
+	int m_AttackStart;
+	
+
+public: //Functions
+	SoyKnife(Player* player);
+	//SoyKnife();
+	~SoyKnife() override;
+
+	void draw() override;
+	void update() override;
+	void clean() override;
+
+	void attack() override;
 
 	void setAnimationState(SoyKnifeAnimationState new_state);
-private:
+private: //Functions
+
+	
+
 	void m_buildAnimations();
-
-	SoyKnifeAnimationState m_currentAnimationState;
-
 	void m_move();
-	void m_attack();
 
 
 };

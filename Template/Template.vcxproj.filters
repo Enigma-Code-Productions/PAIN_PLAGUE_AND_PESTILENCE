@@ -34,7 +34,7 @@
     <Filter Include="Textures">
       <UniqueIdentifier>{1375ecf6-5035-46e9-a633-04bffa82b258}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Tamplates">
+    <Filter Include="Templates">
       <UniqueIdentifier>{320d3ab8-b759-4ceb-b79b-c16af8b0b7f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -133,10 +133,13 @@
       <Filter>IMGUI</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TemplateObject.cpp">
-      <Filter>Tamplates</Filter>
+      <Filter>Templates</Filter>
     </ClCompile>
     <ClCompile Include="..\src\SoyKnife.cpp">
       <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\AliveObject.cpp">
+      <Filter>Templates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -273,10 +276,10 @@
       <Filter>IMGUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Weapon.h">
-      <Filter>Tamplates</Filter>
+      <Filter>Templates</Filter>
     </ClInclude>
     <ClInclude Include="..\src\TemplateObject.h">
-      <Filter>Tamplates</Filter>
+      <Filter>Templates</Filter>
     </ClInclude>
     <ClInclude Include="..\src\SoyKnife.h">
       <Filter>Game Objects</Filter>
@@ -284,13 +287,13 @@
     <ClInclude Include="..\src\SoyKnifeAnimationState.h">
       <Filter>Enums</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\AliveObject.h">
+      <Filter>Templates</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
       <Filter>DOCS</Filter>
-    </None>
-    <None Include="..\Assets\sprites\Soy-Knife-Animation.tps">
-      <Filter>Textures</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -301,6 +304,9 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="..\Assets\sprites\Soy-Knife-Animation.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\sprites\Player-animation.png">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>
