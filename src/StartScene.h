@@ -21,7 +21,6 @@ public:
 	
 private:
 	Label* m_pStartLabel{};
-	Label* m_pInstructionsLabel{};
 
 	Button* m_pStartButton;
 };

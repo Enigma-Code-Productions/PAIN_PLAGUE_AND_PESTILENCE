@@ -38,7 +38,7 @@ void PlayScene::clean()
 {
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
-	SoundManager::Instance().unload("../Assets/audio/Aftermath.mp3", SOUND_MUSIC);
+	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
 }
 
 void PlayScene::handleEvents()
