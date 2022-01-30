@@ -95,6 +95,7 @@ void SoyKnife::update()
 	{
 		m_bIsAttacking = false;
 		setCollisionDamage(false);
+		getRigidBody()->isColliding = false;
 	}
 	
 }
