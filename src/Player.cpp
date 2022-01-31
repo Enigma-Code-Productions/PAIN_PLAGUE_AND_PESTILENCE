@@ -52,11 +52,11 @@ void Player::draw()
 	{
 	case PLAYER_IDLE_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.12f, 0, 255, true);
+			x, y, 0.04f, 0, 255, true);
 		break;
 	case PLAYER_IDLE_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.12f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+			x, y, 0.04f, 0, 255, true, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_RUN_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
