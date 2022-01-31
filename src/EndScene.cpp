@@ -27,7 +27,7 @@ void EndScene::clean()
 	removeAllChildren();
 
 	SoundManager::Instance().stopMusic(0);
-	SoundManager::Instance().unload("../Assets/audio/Surreal-Game-Menu_Looping.mp3", SOUND_MUSIC);
+	SoundManager::Instance().unload("EndLevel-Music", SOUND_MUSIC);
 }
 
 void EndScene::handleEvents()

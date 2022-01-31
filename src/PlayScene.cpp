@@ -18,6 +18,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::draw()
 {
+	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
@@ -71,6 +72,11 @@ void PlayScene::start()
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
 
+
+	// Background
+	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
+
+
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
@@ -105,7 +111,6 @@ void PlayScene::collisionCheck()
 			if (enemy->hasCollisionDamage())
 			{
 				m_pPlayer->takeDamage(enemy->getDamage());
-				//std::cout << m_pPlayer->getHealth() << std::endl;
 			}
 			// Can be added stuff if player has collision damage
 		}
@@ -115,7 +120,6 @@ void PlayScene::collisionCheck()
 			{
 				enemy->takeDamage(m_pPlayer->getDamage());
 				m_scoreCounter++;
-				//std::cout << enemy->getHealth() << std::endl;
 			}
 		}
 	}
