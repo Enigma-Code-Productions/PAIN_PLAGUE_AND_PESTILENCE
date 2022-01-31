@@ -1,0 +1,6 @@
+skull-animation-0 0 0 48 75
+skull-animation-1 48 0 48 75
+skull-animation-2 96 0 48 75
+skull-animation-3 144 0 48 75
+skull-animation-4 192 0 48 75
+skull-animation-5 240 0 48 75

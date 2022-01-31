@@ -28,6 +28,7 @@ void PlayScene::update()
 	updateDisplayList();
 
 	collisionCheck();
+	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 	if (!m_pPlayer->isAlive())
 	{
 		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
@@ -75,12 +76,17 @@ void PlayScene::start()
 	addChild(m_pPlayer);
 
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
-	addChild(m_pPlayer->getWeapon());
 
 	m_pSkull = new Skull();
 	addChild(m_pSkull);
 	m_pEnemies.push_back(m_pSkull);
 
+	//Ui
+	m_scoreCounter = 0;
+	const SDL_Color black = { 0, 0, 0, 255 };
+	m_pScore = new Label( std::to_string(m_scoreCounter) + " Pts", "Toxia-OwOA", 60, black, glm::vec2(700.0f, 30.0f)); //800X600 window size
+	addChild(m_pScore);
+	m_pScore->setParent(this);
 
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
@@ -99,7 +105,7 @@ void PlayScene::collisionCheck()
 			if (enemy->hasCollisionDamage())
 			{
 				m_pPlayer->takeDamage(enemy->getDamage());
-				std::cout << m_pPlayer->getHealth() << std::endl;
+				//std::cout << m_pPlayer->getHealth() << std::endl;
 			}
 			// Can be added stuff if player has collision damage
 		}
@@ -108,7 +114,8 @@ void PlayScene::collisionCheck()
 			if (CollisionManager::AABBCheck(enemy, m_pPlayer->getWeapon()))
 			{
 				enemy->takeDamage(m_pPlayer->getDamage());
-				std::cout << enemy->getHealth() << std::endl;
+				m_scoreCounter++;
+				//std::cout << enemy->getHealth() << std::endl;
 			}
 		}
 	}

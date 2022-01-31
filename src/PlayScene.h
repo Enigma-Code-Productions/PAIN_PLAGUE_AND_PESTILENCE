@@ -5,7 +5,6 @@
 #include "Scene.h"
 #include "Player.h"
 #include "Skull.h"
-#include "Button.h"
 #include "Label.h"
 #include "SoyKnife.h"
 
@@ -19,6 +18,10 @@ private: //Properties
 	std::vector<AliveObject*> m_pEnemies;
 	Player* m_pPlayer;
 	Skull* m_pSkull;
+	Label* m_pScore;
+
+	//Score
+	int m_scoreCounter;
 
 public: // Functions
 	PlayScene();
