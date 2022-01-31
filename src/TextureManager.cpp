@@ -116,7 +116,7 @@ bool TextureManager::loadSpriteSheet(
 	return true;
 }
 
-void TextureManager::draw(const std::string & id, const int x, const int y, const double angle, const int alpha, const bool centered, const SDL_RendererFlip flip)
+void TextureManager::draw(const std::string & id, const int x, const int y, const double angle, const int alpha, const bool centered, const SDL_RendererFlip flip, float resize)
 {
 	SDL_Rect srcRect;
 	SDL_Rect destRect;
@@ -141,6 +141,45 @@ void TextureManager::draw(const std::string & id, const int x, const int y, cons
 		destRect.x = x;
 		destRect.y = y;
 	}
+
+
+	destRect.w *= resize;
+	destRect.h *= resize;
+
+	SDL_SetTextureAlphaMod(m_textureMap[id].get(), alpha);
+	SDL_RenderCopyEx(Renderer::Instance().getRenderer(), m_textureMap[id].get(), &srcRect, &destRect, angle, nullptr, flip);
+}
+
+void TextureManager::drawCut(const std::string& id, int x, int y,int cutLeft, int cutRight, int cutTop, int cutDown, double angle, int alpha, bool centered, SDL_RendererFlip flip, float resize)
+{
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+
+	srcRect.x = 0 + cutLeft;
+	srcRect.y = 0 + cutTop;
+
+	int textureWidth, textureHeight;
+
+	SDL_QueryTexture(m_textureMap[id].get(), nullptr, nullptr, &textureWidth, &textureHeight);
+
+	srcRect.w = destRect.w = textureWidth - cutRight;
+	srcRect.h = destRect.h = textureHeight - cutDown;
+
+	if (centered)
+	{
+		const int xOffset = textureWidth * 0.5;
+		const int yOffset = textureHeight * 0.5;
+		destRect.x = x - xOffset;
+		destRect.y = y - yOffset;
+	}
+	else
+	{
+		destRect.x = x;
+		destRect.y = y;
+	}
+
+	destRect.w *= resize;
+	destRect.h *= resize;
 
 	SDL_SetTextureAlphaMod(m_textureMap[id].get(), alpha);
 	SDL_RenderCopyEx(Renderer::Instance().getRenderer(), m_textureMap[id].get(), &srcRect, &destRect, angle, nullptr, flip);

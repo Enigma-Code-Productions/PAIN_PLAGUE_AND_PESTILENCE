@@ -5,11 +5,15 @@
 #include "PlayerAnimationState.h"
 #include "AliveObject.h"
 #include"Weapon.h"
+#include"HealthBar.h"
 class Player final : public AliveObject
 {
 private: //Properties
 	const int m_speed;
+
+	HealthBar* m_pHealthBar;
 	Weapon* m_pWeapon;
+
 	PlayerAnimationState m_currentAnimationState;
 public: // Functions
 	Player();
@@ -29,6 +33,7 @@ public: // Functions
 	bool isFacingRight();
 	int getDamage();
 
+	void takeDamage(int damage);
 
 private: // Functions
 

@@ -48,7 +48,6 @@ void StartScene::handleEvents()
 
 void StartScene::start()
 {
-	const SDL_Color blue = { 0, 0, 255, 255 };
 	const SDL_Color red = { 128, 0, 0, 255 };
 
 	SoundManager::Instance().load("../Assets/audio/Horror-Game-Intro.mp3", "StartLevel-Music", SOUND_MUSIC);

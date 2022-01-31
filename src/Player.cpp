@@ -32,6 +32,8 @@ Player::Player(): m_speed(5)
 
 	m_buildAnimations();
 	setAnimationState(PLAYER_IDLE_RIGHT);
+
+	m_pHealthBar = new HealthBar(getMaxHealth());
 }
 
 Player::~Player()
@@ -45,8 +47,6 @@ void Player::draw()
 
 
 	// draw the player according to animation state
-
-	Util::DrawRect(getTransform()->position - glm::vec2(getWidth() * 0.5f, getHeight()* 0.5f), getWidth(), getHeight());
 
 	switch(m_currentAnimationState)
 	{
@@ -70,7 +70,14 @@ void Player::draw()
 		break;
 	}
 	
-	
+	if (m_pWeapon != nullptr)
+	{
+		m_pWeapon->draw();
+	}
+	if (m_pHealthBar != nullptr)
+	{
+		m_pHealthBar->draw();
+	}
 }
 
 void Player::update()
@@ -127,11 +134,29 @@ void Player::update()
 		else
 			setAnimationState(PLAYER_IDLE_LEFT);
 	}
-	
+
+	if(m_pWeapon != nullptr)
+	{
+		m_pWeapon->update();
+	}
+
 }
 
 void Player::clean()
 {
+	if (m_pWeapon != nullptr)
+	{
+		m_pWeapon->clean();
+		delete m_pWeapon;
+		m_pWeapon = nullptr;
+	}
+	if (m_pHealthBar != nullptr)
+	{
+		m_pHealthBar->clean();
+		delete m_pHealthBar;
+		m_pHealthBar = nullptr;
+	}
+
 }
 
 void Player::setAnimationState(const PlayerAnimationState new_state)
@@ -168,6 +193,12 @@ int Player::getDamage()
 		return m_pWeapon->getDamage();
 
 	return AliveObject::getDamage();
+}
+
+void Player::takeDamage(int damage)
+{
+	AliveObject::takeDamage(damage);
+	m_pHealthBar->setHealth(getHealth());
 }
 
 
