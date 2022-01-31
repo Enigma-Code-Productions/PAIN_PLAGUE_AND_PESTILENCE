@@ -3,11 +3,12 @@
 #define __SKULL__
 
 #include "AliveObject.h"
+#include "Player.h"
 
 class Skull final : public AliveObject
 {
 public:
-	Skull();
+	Skull(Player* player, float detectionRadius);
 	~Skull();
 
 	// Inherited via GameObject
@@ -17,6 +18,9 @@ public:
 
 private:
 	void m_buildAnimations();
+	const int m_speed;
+	float detectionRadius;
+	Player* m_pPlayer;
 };
 
 
