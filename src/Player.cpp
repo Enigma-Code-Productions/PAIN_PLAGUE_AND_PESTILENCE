@@ -118,6 +118,9 @@ void Player::update()
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
 	{
 		getWeapon()->attack();
+
+		//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
+		//SoundManager::Instance().playSound("Knife", 0, 0);
 	}
 
 	if(running)

@@ -1,6 +1,6 @@
 #include "SoyKnife.h"
 #include "TextureManager.h"
-#include"EventManager.h"
+#include "EventManager.h"
 #include "Game.h"
 
 SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
@@ -11,6 +11,8 @@ SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
 		"SoyKnife");
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("SoyKnife"));
+
+	SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
 
 	setWidth(48);
 	setHeight(72);
@@ -81,7 +83,6 @@ void SoyKnife::update()
 	}
 	else
 	{
-		
 		if (getOwner()->isFacingRight())
 		{
 			setAnimationState(SOY_KNIFE_ATTACK_RIGHT);
@@ -108,6 +109,8 @@ void SoyKnife::attack()
 {
 	if (!m_bIsAttacking)
 	{
+		SoundManager::Instance().playSound("Knife", 0, 0);
+		SoundManager::Instance().setSoundVolume(6);
 		m_AttackStart = TheGame::Instance().getFrames();
 		m_bIsAttacking = true;
 		setCollisionDamage(true);
