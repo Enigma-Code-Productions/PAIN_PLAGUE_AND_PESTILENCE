@@ -9,6 +9,7 @@ class Skull final : public AliveObject
 {
 public:
 	Skull(Player* player, float detectionRadius);
+	Skull(Player* player, glm::vec2 location);
 	~Skull();
 
 	// Inherited via GameObject

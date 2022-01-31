@@ -32,6 +32,11 @@ Skull::Skull(Player* player, float detectionRadius) : m_speed(2)
 	m_buildAnimations();
 }
 
+Skull::Skull(Player* player, glm::vec2 location) : Skull(player, 250)
+{
+	getTransform()->position = location;
+}
+
 Skull::~Skull()
 = default;
 
@@ -52,9 +57,6 @@ void Skull::update()
 	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (detectionRadius * detectionRadius) && !getRigidBody()->isColliding)
 	{
 		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
-		
-		//getTransform()->position.x += ((m_pPlayer->getTransform()->position.x - getTransform()->position.x) / CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position)) * m_speed;
-		//getTransform()->position.y += ((m_pPlayer->getTransform()->position.y - getTransform()->position.y) / CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position)) * m_speed;
 	}
 }
 

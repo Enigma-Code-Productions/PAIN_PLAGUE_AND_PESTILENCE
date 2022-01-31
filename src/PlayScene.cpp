@@ -34,9 +34,15 @@ void PlayScene::update()
 	{
 		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
 	}
-	if (!m_pSkull->isAlive()) {
-		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
 
+	//spawn skull every 5 seconds.
+	const int enemySpawnInterval = 1 * 60;
+	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
 	}
 }
 
@@ -83,9 +89,8 @@ void PlayScene::start()
 
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
-	m_pSkull = new Skull(m_pPlayer, 250);
-	addChild(m_pSkull);
-	m_pEnemies.push_back(m_pSkull);
+
+	
 
 	//Ui
 	m_scoreCounter = 0;
