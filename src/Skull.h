@@ -16,7 +16,7 @@ public:
 	virtual void clean() override;
 
 private:
-
+	void m_buildAnimations();
 };
 
 

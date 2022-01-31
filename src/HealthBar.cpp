@@ -32,7 +32,7 @@ void HealthBar::draw()
 	const auto y = getTransform()->position.y;
 
 	TextureManager::Instance().draw("healthBarFrame", x, y, 0, 255, true, SDL_FLIP_NONE, 3);
-	std::cout << (1 - ((float)m_health / m_maxHealth)) << std::endl;
+
 	if (m_health > 0)
 	{
 		const auto toCut = getWidth() * (1 - ((float)m_health / m_maxHealth));
