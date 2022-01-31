@@ -4,7 +4,7 @@
 #include "CollisionManager.h"
 
 
-Skull::Skull(Player* player, float detectionRadius) : m_speed(50)
+Skull::Skull(Player* player, float detectionRadius) : m_speed(2)
 {
 	TextureManager::Instance().load("../Assets/textures/Skull.png","Skull");
 	
@@ -43,10 +43,12 @@ void Skull::draw()
 void Skull::update()
 {
 	//if the player is within "seeing" range of the skull.
-	if (CollisionManager::squaredDistance(this->getTransform()->position, m_pPlayer->getTransform()->position) < (detectionRadius * detectionRadius) && !CollisionManager::AABBCheck(this, m_pPlayer))
+	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (detectionRadius * detectionRadius) && !getRigidBody()->isColliding)
 	{
-		this->getTransform()->position.x += ((m_pPlayer->getTransform()->position.x - this->getTransform()->position.x) / CollisionManager::squaredDistance(this->getTransform()->position, m_pPlayer->getTransform()->position)) * m_speed;
-		this->getTransform()->position.y += ((m_pPlayer->getTransform()->position.y - this->getTransform()->position.y) / CollisionManager::squaredDistance(this->getTransform()->position, m_pPlayer->getTransform()->position)) * m_speed;
+		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
+		
+		//getTransform()->position.x += ((m_pPlayer->getTransform()->position.x - getTransform()->position.x) / CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position)) * m_speed;
+		//getTransform()->position.y += ((m_pPlayer->getTransform()->position.y - getTransform()->position.y) / CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position)) * m_speed;
 	}
 }
 
