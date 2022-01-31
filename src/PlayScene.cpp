@@ -27,14 +27,22 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	CollisionManager::circleAABBCheck(m_pSkull, m_pPlayer);
+	collisionCheck();
+	if (!m_pPlayer->isAlive())
+	{
+		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
+	}
+	if (!m_pSkull->isAlive()) {
+		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
+
+	}
 }
 
 void PlayScene::clean()
 {
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
-	SoundManager::Instance().unload("../Assets/audio/Aftermath.mp3", SOUND_MUSIC);
+	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
 }
 
 void PlayScene::handleEvents()
@@ -69,18 +77,41 @@ void PlayScene::start()
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 	addChild(m_pPlayer->getWeapon());
 
-	//m_pknife = new SoyKnife(m_pPlayer);
-	//addChild(m_pknife);
-
 	m_pSkull = new Skull();
 	addChild(m_pSkull);
+	m_pEnemies.push_back(m_pSkull);
 
 
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
 
+
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
+}
+
+void PlayScene::collisionCheck()
+{
+	for(auto enemy: m_pEnemies)
+	{
+		if (CollisionManager::AABBCheck(enemy, m_pPlayer))
+		{
+			if (enemy->hasCollisionDamage())
+			{
+				m_pPlayer->takeDamage(enemy->getDamage());
+				std::cout << m_pPlayer->getHealth() << std::endl;
+			}
+			// Can be added stuff if player has collision damage
+		}
+		if (m_pPlayer->getWeapon()->hasCollisionDamage())
+		{
+			if (CollisionManager::AABBCheck(enemy, m_pPlayer->getWeapon()))
+			{
+				enemy->takeDamage(m_pPlayer->getDamage());
+				std::cout << enemy->getHealth() << std::endl;
+			}
+		}
+	}
 }
 
 void PlayScene::GUI_Function() const

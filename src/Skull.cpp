@@ -5,6 +5,12 @@
 Skull::Skull()
 {
 	TextureManager::Instance().load("../Assets/textures/Skull.png","Skull");
+	
+	//set Health 
+	setMaxHealth(100);
+	setHealth(getMaxHealth());
+	setDamage(10);
+	setCollisionDamage(true);
 
 	const auto size = TextureManager::Instance().getTextureSize("Skull");
 	setWidth(size.x);
@@ -13,7 +19,7 @@ Skull::Skull()
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
 
-	setType(SKULL);
+	setType(ENEMY);
 }
 
 Skull::~Skull()

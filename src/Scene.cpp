@@ -107,3 +107,19 @@ std::vector<DisplayObject*> Scene::getDisplayList() const
 {
 	return m_displayList;
 }
+
+//std::vector<DisplayObject*> Scene::getObjecstOfType(GameObjectType tag)
+//{
+//	std::vector<DisplayObject*> r;
+//
+//	for (auto object : m_displayList)
+//	{
+//		if (object->getType() == tag)
+//		{
+//			r.push_back(object);
+//		}
+//	}
+//
+//	return r;
+//}
+
