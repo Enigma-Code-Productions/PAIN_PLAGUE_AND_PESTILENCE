@@ -32,6 +32,10 @@ void PlayScene::update()
 	{
 		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
 	}
+	if (!m_pSkull->isAlive()) {
+		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
+
+	}
 }
 
 void PlayScene::clean()

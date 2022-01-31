@@ -141,6 +141,9 @@
     <ClCompile Include="..\src\AliveObject.cpp">
       <Filter>Templates</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\WinScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -289,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="..\src\AliveObject.h">
       <Filter>Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
