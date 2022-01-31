@@ -126,6 +126,7 @@ void PlayScene::collisionCheck()
 			if (enemy->hasCollisionDamage())
 			{
 				m_pPlayer->takeDamage(enemy->getDamage());
+				//enemy->getRigidBody()->isColliding = true;
 			}
 			// Can be added stuff if player has collision damage
 		}
@@ -144,7 +145,7 @@ void PlayScene::collisionCheck()
 			m_scoreCounter++;
 			removeChild(m_pEnemies[i]);
 			m_pEnemies[i] = nullptr;
-			m_pEnemies.erase(m_pEnemies.begin() + i, m_pEnemies.end());
+			m_pEnemies.erase(m_pEnemies.begin() + i);
 			i--;
 		}
 	}

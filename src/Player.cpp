@@ -20,7 +20,7 @@ Player::Player(): m_speed(5)
 
 	//set players health
 	setDamage(10);
-	setMaxHealth(100);
+	setMaxHealth(1000);
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
