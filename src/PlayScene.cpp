@@ -30,13 +30,14 @@ void PlayScene::update()
 
 	collisionCheck();
 	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
+
 	if (!m_pPlayer->isAlive())
 	{
 		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
 	}
-	if (!m_pSkull->isAlive()) {
+	if (m_scoreCounter >= 10) 
+	{
 		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
-
 	}
 }
 
@@ -83,9 +84,8 @@ void PlayScene::start()
 
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
-	m_pSkull = new Skull(m_pPlayer, 250);
-	addChild(m_pSkull);
-	m_pEnemies.push_back(m_pSkull);
+	m_pEnemies.push_back(new Skull(m_pPlayer));
+	addChild(m_pEnemies[0]);
 
 	//Ui
 	m_scoreCounter = 0;
@@ -119,8 +119,18 @@ void PlayScene::collisionCheck()
 			if (CollisionManager::AABBCheck(enemy, m_pPlayer->getWeapon()))
 			{
 				enemy->takeDamage(m_pPlayer->getDamage());
-				m_scoreCounter++;
 			}
+		}
+	}
+	for (int i = 0; i < m_pEnemies.size(); i++)
+	{
+		if (!m_pEnemies[i]->isAlive())
+		{
+			m_scoreCounter++;
+			removeChild(m_pEnemies[i]);
+			m_pEnemies[i] = nullptr;
+			m_pEnemies.erase(m_pEnemies.begin() + i, m_pEnemies.end());
+			i--;
 		}
 	}
 }

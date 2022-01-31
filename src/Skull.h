@@ -8,7 +8,7 @@
 class Skull final : public AliveObject
 {
 public:
-	Skull(Player* player, float detectionRadius);
+	Skull(Player* player);
 	~Skull();
 
 	// Inherited via GameObject
@@ -19,7 +19,7 @@ public:
 private:
 	void m_buildAnimations();
 	const int m_speed;
-	float detectionRadius;
+	float m_detectionRadius;
 	Player* m_pPlayer;
 };
 
