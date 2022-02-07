@@ -144,6 +144,9 @@
     <ClCompile Include="..\src\HealthBar.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\WinScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="..\src\HealthBar.h">
       <Filter>UI Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

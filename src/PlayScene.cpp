@@ -29,6 +29,7 @@ void PlayScene::update()
 	updateDisplayList();
 
 	collisionCheck();
+	deleteDeadEnemies();
 	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 
 	if (!m_pPlayer->isAlive())
@@ -41,16 +42,7 @@ void PlayScene::update()
 		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
 		
 	}
-	//spawn skull every 5 seconds.
-	const int enemySpawnInterval = 1 * 60;
-	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
-	{
-		int x = rand() % 800;
-		int y = rand() % 600;
-		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
-		addChild(m_pEnemies.back());
-		
-	}
+	spawnEnemy();
 }
 
 
@@ -126,18 +118,45 @@ void PlayScene::collisionCheck()
 			if (enemy->hasCollisionDamage())
 			{
 				m_pPlayer->takeDamage(enemy->getDamage());
-				//enemy->getRigidBody()->isColliding = true;
 			}
 			// Can be added stuff if player has collision damage
 		}
-		if (m_pPlayer->getWeapon()->hasCollisionDamage())
+		if (m_pPlayer->getWeapon() != nullptr)
 		{
-			if (CollisionManager::AABBCheck(enemy, m_pPlayer->getWeapon()))
+			if (m_pPlayer->getWeapon()->getType() == MELEE_WEAPON)
 			{
-				enemy->takeDamage(m_pPlayer->getDamage());
+				if (m_pPlayer->getWeapon()->hasCollisionDamage())
+				{
+					if (CollisionManager::AABBCheck(enemy, m_pPlayer->getWeapon()))
+					{
+						
+						if (enemy->getLastHitFrame() < m_pPlayer->getWeapon()->getAttackStart())
+						{
+							enemy->takeDamage(m_pPlayer->getDamage());
+						}
+					}
+				}
 			}
 		}
 	}
+	
+}
+
+void PlayScene::spawnEnemy()
+{
+	//spawn skull every 5 seconds.
+	const int enemySpawnInterval = 5 * 60;
+	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
+	}
+}
+
+void PlayScene::deleteDeadEnemies()
+{
 	for (int i = 0; i < m_pEnemies.size(); i++)
 	{
 		if (!m_pEnemies[i]->isAlive())

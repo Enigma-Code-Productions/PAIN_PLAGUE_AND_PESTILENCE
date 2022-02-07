@@ -3,7 +3,7 @@
 #include "EventManager.h"
 #include "Game.h"
 
-SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
+SoyKnife::SoyKnife(Player* player)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/Soy-Knife-Animation.txt",
@@ -19,6 +19,9 @@ SoyKnife::SoyKnife(Player* player): m_bIsAttacking(false), ATTACK_TIME(31)
 	setOwner(player);
 	setDamage(50);
 	setRange(getWidth() / 2);
+	setAttackTime(32 - 1);
+	setIsAttacking(false);
+	setAttackStart(0);
 	setCollisionDamage(false);
 
 	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
@@ -68,7 +71,7 @@ void SoyKnife::draw()
 void SoyKnife::update()
 {
 	m_move();
-	if (!m_bIsAttacking)
+	if (!isAttacking())
 	{
 		
 		if (getOwner()->isFacingRight())
@@ -92,9 +95,9 @@ void SoyKnife::update()
 			setAnimationState(SOY_KNIFE_ATTACK_LEFT);
 		}
 	}
-	if (TheGame::Instance().getFrames() == m_AttackStart + ATTACK_TIME)
+	if (TheGame::Instance().getFrames() == getAttackStart() + getAttackTime())
 	{
-		m_bIsAttacking = false;
+		setIsAttacking(false);
 		setCollisionDamage(false);
 		getRigidBody()->isColliding = false;
 	}
@@ -107,12 +110,12 @@ void SoyKnife::clean()
 
 void SoyKnife::attack()
 {
-	if (!m_bIsAttacking)
+	if (!isAttacking())
 	{
 		SoundManager::Instance().playSound("Knife", 0, 0);
 		SoundManager::Instance().setSoundVolume(6);
-		m_AttackStart = TheGame::Instance().getFrames();
-		m_bIsAttacking = true;
+		setAttackStart(TheGame::Instance().getFrames());
+		setIsAttacking(true);
 		setCollisionDamage(true);
 
 		if (getOwner()->isFacingRight())
@@ -127,6 +130,7 @@ void SoyKnife::attack()
 	}
 	
 }
+
 
 void SoyKnife::setAnimationState(SoyKnifeAnimationState new_state)
 {

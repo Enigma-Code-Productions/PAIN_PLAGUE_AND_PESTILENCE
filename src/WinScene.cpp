@@ -51,7 +51,6 @@ void WinScene::handleEvents()
 
 void WinScene::start()
 {
-	const SDL_Color blue = { 0, 0, 255, 255 };
 	const SDL_Color red = { 128, 0, 0, 255 };
 
 	SoundManager::Instance().load("../Assets/audio/Surreal-Game-Menu_Looping.mp3", "EndLevel-Music", SOUND_MUSIC);
