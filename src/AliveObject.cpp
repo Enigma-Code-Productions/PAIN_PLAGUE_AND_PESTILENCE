@@ -1,6 +1,6 @@
 #include "AliveObject.h"
-
-AliveObject::AliveObject():m_bIsAlive(true)
+#include "Game.h"
+AliveObject::AliveObject():m_bIsAlive(true), m_last_hit(0)
 {
 }
 
@@ -31,6 +31,11 @@ int AliveObject::getDamage()
 	return m_damage;
 }
 
+int AliveObject::getLastHitFrame()
+{
+	return m_last_hit;
+}
+
 void AliveObject::setAlive(bool a)
 {
 	m_bIsAlive = a;
@@ -59,6 +64,7 @@ void AliveObject::setDamage(int d)
 void AliveObject::takeDamage(int damage)
 {
 	m_health -= damage;
+	m_last_hit = TheGame::Instance().getFrames();
 	if (m_health <= 0)
 	{
 		setDead();

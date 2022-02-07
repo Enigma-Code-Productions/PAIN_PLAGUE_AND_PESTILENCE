@@ -13,6 +13,7 @@ class Player final : public AliveObject
 private: //Properties
 	const int m_speed;
 
+
 	HealthBar* m_pHealthBar;
 	Weapon* m_pWeapon;
 

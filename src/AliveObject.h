@@ -12,6 +12,7 @@ private: //Properties
 	int m_health;
 	int m_maxHealth;
 	int m_damage;
+	int m_last_hit;
 
 public: //Functions
 	AliveObject();
@@ -28,6 +29,7 @@ public: //Functions
 	int getMaxHealth();
 	int getHealth();
 	int getDamage();
+	int getLastHitFrame();
 
 	// setters
 	void setAlive(bool a);

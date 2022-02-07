@@ -35,6 +35,8 @@ public: // Functions
 	virtual void start() override;
 
 	void collisionCheck();
+	void spawnEnemy();
+	void deleteDeadEnemies();
 
 private: //Functions
 	// IMGUI Function

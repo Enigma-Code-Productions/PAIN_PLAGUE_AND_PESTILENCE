@@ -6,13 +6,6 @@ class SoyKnife final : public Weapon
 {
 private: // Properties
 	SoyKnifeAnimationState m_currentAnimationState;
-	
-	//attack 
-	bool m_bIsAttacking;
-
-	const int ATTACK_TIME;
-	int m_AttackStart;
-	
 
 public: //Functions
 	SoyKnife(Player* player);
@@ -24,6 +17,7 @@ public: //Functions
 	void clean() override;
 
 	void attack() override;
+
 
 	void setAnimationState(SoyKnifeAnimationState new_state);
 private: //Functions
