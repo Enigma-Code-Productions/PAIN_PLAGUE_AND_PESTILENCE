@@ -3,6 +3,39 @@
 #include "EventManager.h"
 #include "Game.h"
 
+WinchesterShotgun::WinchesterShotgun(Player* player)
+{
+	TextureManager::Instance().loadSpriteSheet(
+		"../Assets/sprites/Winchester-Shotgun-Animation.txt",
+		"../Assets/sprites/Winchester-Shotgun-Animation.png",
+		"WinchesterShotgun");
+
+	setSpriteSheet(TextureManager::Instance().getSpriteSheet("WinchesterShotgun"));
+
+	//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
+
+	setWidth(144);
+	setHeight(75);
+	setOwner(player);
+	//setDamage(50);
+	//setRange(getWidth() / 2);
+	//setAttackTime(32 - 1);
+	//setIsAttacking(false);
+	//setAttackStart(0);
+	//setCollisionDamage(false);
+
+	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
+	getRigidBody()->velocity = glm::vec2(0, 0);
+	getRigidBody()->isColliding = false;
+
+
+	setType(RANGED_WEAPON);
+
+	m_buildAnimations();
+}
+
+WinchesterShotgun::~WinchesterShotgun() = default;
+
 void WinchesterShotgun::draw()
 {
 	const auto x = getTransform()->position.x;

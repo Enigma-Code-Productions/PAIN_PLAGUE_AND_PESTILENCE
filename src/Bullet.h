@@ -3,5 +3,4 @@
 
 class Bullet : public Weapon
 {
-
 };
