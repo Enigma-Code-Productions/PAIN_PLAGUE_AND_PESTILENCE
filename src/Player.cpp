@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Util.h"
 
-Player::Player(): m_speed(5), m_invTime(60)
+Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66)
 {
 	
 	TextureManager::Instance().loadSpriteSheet(
@@ -32,8 +32,9 @@ Player::Player(): m_speed(5), m_invTime(60)
 
 	m_buildAnimations();
 	setAnimationState(PLAYER_IDLE_RIGHT);
-
-	m_pHealthBar = new HealthBar(getMaxHealth());
+	m_bHealing = false;
+	m_pHealingPotion = nullptr;
+	m_pPlayerUI = new PlayerUI(this);
 }
 
 Player::~Player()
@@ -76,14 +77,19 @@ void Player::draw()
 		break;
 	}
 	
-	if (m_pWeapon != nullptr)
+	if (m_pWeapon != nullptr && !m_bHealing)
 	{
 		m_pWeapon->draw();
 	}
-	if (m_pHealthBar != nullptr)
+	if (m_pHealingPotion != nullptr)
 	{
-		m_pHealthBar->draw();
+		m_pHealingPotion->draw();
 	}
+	if (m_pPlayerUI != nullptr)
+	{
+		m_pPlayerUI->draw();
+	}
+	
 }
 
 void Player::update()
@@ -123,7 +129,14 @@ void Player::update()
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
 	{
-		getWeapon()->attack();
+		if (!m_bHealing)
+			getWeapon()->attack();
+	}
+
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
+	{
+		if (!getWeapon()->isAttacking())
+			Heal();
 	}
 
 	if(running)
@@ -142,7 +155,23 @@ void Player::update()
 	}
 #pragma endregion inputHandling
 
-	if(m_pWeapon != nullptr)
+	if (m_pHealingPotion != nullptr)
+	{
+		if (m_healingTimeLeft == 0)
+		{
+			takeHeal(50);
+			m_pPlayerUI->getHealthBar()->setHealth(getHealth());
+			m_bHealing = false;
+			delete m_pHealingPotion;
+			m_pHealingPotion = nullptr;
+		}
+		else
+		{
+			m_pHealingPotion->update();
+			m_healingTimeLeft--;
+		}
+	}
+	if(m_pWeapon != nullptr )
 	{
 		m_pWeapon->update();
 	}
@@ -160,13 +189,18 @@ void Player::clean()
 		delete m_pWeapon;
 		m_pWeapon = nullptr;
 	}
-	if (m_pHealthBar != nullptr)
+	if (m_pPlayerUI != nullptr)
 	{
-		m_pHealthBar->clean();
-		delete m_pHealthBar;
-		m_pHealthBar = nullptr;
+		m_pPlayerUI->clean();
+		delete m_pPlayerUI;
+		m_pPlayerUI = nullptr;
 	}
-
+	if (m_pHealingPotion != nullptr)
+	{
+		m_pHealingPotion->clean();
+		delete m_pHealingPotion;
+		m_pHealingPotion = nullptr;
+	}
 }
 
 void Player::setAnimationState(const PlayerAnimationState new_state)
@@ -230,10 +264,9 @@ void Player::takeDamage(int damage)
 	if (getInvTimeLeft() > 0)
 		return;
 
-	std::cout << getHealth() << std::endl;
 	AliveObject::takeDamage(damage);
 	m_invTimeLeft = getInvTime();
-	m_pHealthBar->setHealth(getHealth());
+	m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 }
 
 
@@ -260,6 +293,16 @@ void Player::m_buildAnimations()
 	runAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-run-5"));
 
 	setAnimation(runAnimation);
+}
+
+void Player::Heal()
+{
+	if (m_bHealing)
+		return;
+
+	m_pHealingPotion = new HealingPotion(this);
+	m_bHealing = true;
+	m_healingTimeLeft = HEALING_TIME;
 }
 
 

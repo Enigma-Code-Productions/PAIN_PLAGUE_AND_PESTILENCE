@@ -1,0 +1,10 @@
+healing-animation-0 0 0 60 60
+healing-animation-1 60 0 60 60
+healing-animation-2 120 0 60 60
+healing-animation-3 180 0 60 60
+healing-animation-4 240 0 60 60
+healing-animation-5 300 0 60 60
+healing-animation-6 360 0 60 60
+healing-animation-7 420 0 60 60
+healing-animation-8 480 0 60 60
+healing-animation-9 540 0 60 60

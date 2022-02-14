@@ -22,11 +22,7 @@ public: //Functions
 	void setAnimationState(SoyKnifeAnimationState new_state);
 private: //Functions
 
-	
-
 	void m_buildAnimations();
 	void m_move();
-
-
 };
 

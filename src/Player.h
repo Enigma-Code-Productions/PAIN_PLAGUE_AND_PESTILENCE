@@ -4,9 +4,9 @@
 
 #include "PlayerAnimationState.h"
 #include "AliveObject.h"
-
-#include"Weapon.h"
-#include"HealthBar.h"
+#include "Weapon.h"
+#include "PlayerUI.h"
+#include "HealingPotion.h"
 
 class Player final : public AliveObject
 {
@@ -15,9 +15,13 @@ private: //Properties
 	int m_invTime; // inv = invulnerability
 	int m_invTimeLeft;
 
-	HealthBar* m_pHealthBar;
-	Weapon* m_pWeapon;
+	int m_healingTimeLeft;
+	const int HEALING_TIME;
+	bool m_bHealing;
 
+	PlayerUI* m_pPlayerUI;
+	Weapon* m_pWeapon;
+	HealingPotion* m_pHealingPotion;
 	PlayerAnimationState m_currentAnimationState;
 public: // Functions
 	Player();
@@ -48,6 +52,8 @@ private: // Functions
 
 	void m_buildAnimations();
 	int getSpeed() const {return m_speed;}
+
+	void Heal();
 
 };
 
