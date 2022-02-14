@@ -16,7 +16,7 @@ private: //Properties
 
 public: //Functions
 	AliveObject();
-	virtual ~AliveObject();
+	virtual ~AliveObject() = 0;
 
 	// Life Cycle Functions
 	virtual void draw() = 0;
@@ -28,8 +28,8 @@ public: //Functions
 	bool hasCollisionDamage();
 	int getMaxHealth();
 	int getHealth();
-	int getDamage();
 	int getLastHitFrame();
+	virtual int getDamage();
 
 	// setters
 	void setAlive(bool a);
@@ -39,8 +39,8 @@ public: //Functions
 	void setDamage(int d);
 
 	// Other functions
-	void takeDamage(int damage);
-	void takeHeal(int heal);
+	virtual void takeDamage(int damage);
+	virtual void takeHeal(int heal);
 
 private: //Functions
 

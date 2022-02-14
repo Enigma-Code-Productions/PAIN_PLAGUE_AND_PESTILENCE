@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Util.h"
 
-Player::Player(): m_speed(5)
+Player::Player(): m_speed(5), m_invTime(60)
 {
 	
 	TextureManager::Instance().loadSpriteSheet(
@@ -20,7 +20,7 @@ Player::Player(): m_speed(5)
 
 	//set players health
 	setDamage(10);
-	setMaxHealth(1000);
+	setMaxHealth(100);
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
@@ -48,23 +48,29 @@ void Player::draw()
 
 	// draw the player according to animation state
 
+	int alpha = 255;
+	if (m_invTimeLeft > 0)
+	{
+		alpha = 128;
+	}
+
 	switch(m_currentAnimationState)
 	{
 	case PLAYER_IDLE_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, 255, true);
+			x, y, 0.04f, 0, alpha, true);
 		break;
 	case PLAYER_IDLE_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+			x, y, 0.04f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_RUN_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, 255, true);
+			x, y, 0.50f, 0, alpha, true);
 		break;
 	case PLAYER_RUN_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;
@@ -87,7 +93,7 @@ void Player::update()
 	bool running = false;
 	bool facingRight = isFacingRight();
 
-
+#pragma region inputHandling
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 	{
 		this->getTransform()->position.y -= m_speed;
@@ -118,9 +124,6 @@ void Player::update()
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
 	{
 		getWeapon()->attack();
-
-		//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
-		//SoundManager::Instance().playSound("Knife", 0, 0);
 	}
 
 	if(running)
@@ -137,12 +140,16 @@ void Player::update()
 		else
 			setAnimationState(PLAYER_IDLE_LEFT);
 	}
+#pragma endregion inputHandling
 
 	if(m_pWeapon != nullptr)
 	{
 		m_pWeapon->update();
 	}
-
+	if (m_invTimeLeft > 0)
+	{
+		m_invTimeLeft--;
+	}
 }
 
 void Player::clean()
@@ -170,6 +177,26 @@ void Player::setAnimationState(const PlayerAnimationState new_state)
 void Player::setWeapon(Weapon* w)
 {
 	m_pWeapon = w;
+}
+
+void Player::setInvTime(int t)
+{
+	m_invTime = t;
+}
+
+void Player::setInvTimeLeft(int t)
+{
+	m_invTimeLeft = t;
+}
+
+int Player::getInvTime()
+{
+	return m_invTime;
+}
+
+int Player::getInvTimeLeft()
+{
+	return m_invTimeLeft;
 }
 
 
@@ -200,7 +227,12 @@ int Player::getDamage()
 
 void Player::takeDamage(int damage)
 {
+	if (getInvTimeLeft() > 0)
+		return;
+
+	std::cout << getHealth() << std::endl;
 	AliveObject::takeDamage(damage);
+	m_invTimeLeft = getInvTime();
 	m_pHealthBar->setHealth(getHealth());
 }
 
