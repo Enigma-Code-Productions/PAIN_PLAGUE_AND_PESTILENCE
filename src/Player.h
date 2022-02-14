@@ -15,8 +15,9 @@ private: //Properties
 	int m_invTime; // inv = invulnerability
 	int m_invTimeLeft;
 
-	int m_healingTimeLeft;
 	const int HEALING_TIME;
+	int m_healingTimeLeft;
+	int m_healsLeft;
 	bool m_bHealing;
 
 	PlayerUI* m_pPlayerUI;
@@ -37,6 +38,7 @@ public: // Functions
 	void setWeapon(Weapon* w);
 	void setInvTime(int t);
 	void setInvTimeLeft(int t);
+	void setHealsLeft(int c);
 
 	// getters
 	Weapon* getWeapon();
@@ -44,6 +46,7 @@ public: // Functions
 	int getDamage();
 	int getInvTime();
 	int getInvTimeLeft();
+	int getHealsLeft();
 
 	// other functions 
 	void takeDamage(int damage);

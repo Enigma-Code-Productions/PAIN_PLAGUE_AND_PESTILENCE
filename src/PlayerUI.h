@@ -4,15 +4,18 @@
 
 #include "DisplayObject.h"
 #include "HealthBar.h"
-//#include "Player.h"
+#include "Label.h"
 
 class Player;
 
 class PlayerUI final: DisplayObject
 {
 private:
-	HealthBar* m_pHelathBar;
 	Player* m_pPlayer;
+
+
+	HealthBar* m_pHelathBar;
+	Label* m_pHealsLeftLabel;
 
 public:
 	PlayerUI(Player* player);
@@ -24,6 +27,10 @@ public:
 
 	//getters
 	HealthBar* getHealthBar();
+
+	//setters
+	void setHeals();
+
 private:
 
 };

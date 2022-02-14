@@ -4,7 +4,9 @@
 #include "Game.h"
 #include "Util.h"
 
-Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66)
+Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft(0),
+	m_healsLeft(3), m_bHealing(false), m_pHealingPotion(nullptr)
+
 {
 	
 	TextureManager::Instance().loadSpriteSheet(
@@ -24,6 +26,8 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66)
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
+	m_pPlayerUI = new PlayerUI(this);
+
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
@@ -32,9 +36,7 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66)
 
 	m_buildAnimations();
 	setAnimationState(PLAYER_IDLE_RIGHT);
-	m_bHealing = false;
-	m_pHealingPotion = nullptr;
-	m_pPlayerUI = new PlayerUI(this);
+	
 }
 
 Player::~Player()
@@ -160,7 +162,10 @@ void Player::update()
 		if (m_healingTimeLeft == 0)
 		{
 			takeHeal(50);
+			m_healsLeft--;
+			std::cout << m_healsLeft << std::endl;
 			m_pPlayerUI->getHealthBar()->setHealth(getHealth());
+			m_pPlayerUI->setHeals();
 			m_bHealing = false;
 			delete m_pHealingPotion;
 			m_pHealingPotion = nullptr;
@@ -221,6 +226,16 @@ void Player::setInvTime(int t)
 void Player::setInvTimeLeft(int t)
 {
 	m_invTimeLeft = t;
+}
+
+void Player::setHealsLeft(int c)
+{
+	m_healsLeft = c;
+}
+
+int Player::getHealsLeft()
+{
+	return m_healsLeft;
 }
 
 int Player::getInvTime()
@@ -298,6 +313,8 @@ void Player::m_buildAnimations()
 void Player::Heal()
 {
 	if (m_bHealing)
+		return;
+	if (m_healsLeft == 0)
 		return;
 
 	m_pHealingPotion = new HealingPotion(this);
