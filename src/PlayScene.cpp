@@ -28,6 +28,18 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
+	// Cleanup bullets that go off screen.
+	for (unsigned i = 0; i < m_pBullets.size(); i++)
+	{
+		if (m_pBullets[i]->getTransform()->position.x > 800 || m_pBullets[i]->getTransform()->position.x < 0 || m_pBullets[i]->getTransform()->position.y > 600 || m_pBullets[i]->getTransform()->position.y < 0)
+		{
+			delete m_pBullets[i];
+			m_pBullets[i] = nullptr;
+			m_pBullets.erase(m_pBullets.begin() + i);
+			m_pBullets.shrink_to_fit();
+		}
+	}
+
 	collisionCheck();
 	deleteDeadEnemies();
 	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");

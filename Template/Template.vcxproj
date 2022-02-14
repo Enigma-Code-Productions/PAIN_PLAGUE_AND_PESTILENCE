@@ -192,6 +192,7 @@
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
     <ClCompile Include="..\src\WinScene.cpp" />
+    <ClCompile Include="RangedWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\IMGUI\imconfig.h" />
@@ -245,6 +246,7 @@
     <ClInclude Include="..\src\Util.h" />
     <ClInclude Include="..\src\Weapon.h" />
     <ClInclude Include="..\src\WinScene.h" />
+    <ClInclude Include="RangedWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

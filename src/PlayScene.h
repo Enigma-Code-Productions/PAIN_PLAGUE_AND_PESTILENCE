@@ -7,6 +7,7 @@
 #include "Skull.h"
 #include "Label.h"
 #include "SoyKnife.h"
+#include "Bullet.h"
 
 class PlayScene : public Scene
 {
@@ -19,6 +20,8 @@ private: //Properties
 	Player* m_pPlayer;
 	Skull* m_pSkull;
 	Label* m_pScore;
+	
+	std::vector<Bullet*> m_pBullets;
 
 	//Score
 	int m_scoreCounter;

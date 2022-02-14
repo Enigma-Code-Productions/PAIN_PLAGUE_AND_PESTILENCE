@@ -144,8 +144,9 @@
     <ClCompile Include="..\src\HealthBar.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\WinScene.cpp">
-      <Filter>Scenes</Filter>
+    <ClCompile Include="..\src\WinScene.cpp" />
+    <ClCompile Include="RangedWeapon.cpp">
+      <Filter>Templates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -299,8 +300,9 @@
     <ClInclude Include="..\src\HealthBar.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\WinScene.h">
-      <Filter>Scenes</Filter>
+    <ClInclude Include="..\src\WinScene.h" />
+    <ClInclude Include="RangedWeapon.h">
+      <Filter>Templates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
