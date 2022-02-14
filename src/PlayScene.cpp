@@ -89,11 +89,6 @@ void PlayScene::start()
 
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
-
-	//m_pEnemies.push_back(new Skull(m_pPlayer));
-	//addChild(m_pEnemies[0]);
-
-
 	//Ui
 	m_scoreCounter = 0;
 	const SDL_Color black = { 0, 0, 0, 255 };

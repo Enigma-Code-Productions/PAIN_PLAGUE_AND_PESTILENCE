@@ -4,7 +4,9 @@
 #include "Game.h"
 #include "Util.h"
 
-Player::Player(): m_speed(5)
+Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft(0),
+	m_healsLeft(3), m_bHealing(false), m_pHealingPotion(nullptr)
+
 {
 	
 	TextureManager::Instance().loadSpriteSheet(
@@ -20,9 +22,11 @@ Player::Player(): m_speed(5)
 
 	//set players health
 	setDamage(10);
-	setMaxHealth(1000);
+	setMaxHealth(100);
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
+
+	m_pPlayerUI = new PlayerUI(this);
 
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -32,8 +36,7 @@ Player::Player(): m_speed(5)
 
 	m_buildAnimations();
 	setAnimationState(PLAYER_IDLE_RIGHT);
-
-	m_pHealthBar = new HealthBar(getMaxHealth());
+	
 }
 
 Player::~Player()
@@ -48,36 +51,47 @@ void Player::draw()
 
 	// draw the player according to animation state
 
+	int alpha = 255;
+	if (m_invTimeLeft > 0)
+	{
+		alpha = 128;
+	}
+
 	switch(m_currentAnimationState)
 	{
 	case PLAYER_IDLE_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, 255, true);
+			x, y, 0.04f, 0, alpha, true);
 		break;
 	case PLAYER_IDLE_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+			x, y, 0.04f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_RUN_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, 255, true);
+			x, y, 0.50f, 0, alpha, true);
 		break;
 	case PLAYER_RUN_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;
 	}
 	
-	if (m_pWeapon != nullptr)
+	if (m_pWeapon != nullptr && !m_bHealing)
 	{
 		m_pWeapon->draw();
 	}
-	if (m_pHealthBar != nullptr)
+	if (m_pHealingPotion != nullptr)
 	{
-		m_pHealthBar->draw();
+		m_pHealingPotion->draw();
 	}
+	if (m_pPlayerUI != nullptr)
+	{
+		m_pPlayerUI->draw();
+	}
+	
 }
 
 void Player::update()
@@ -87,7 +101,7 @@ void Player::update()
 	bool running = false;
 	bool facingRight = isFacingRight();
 
-
+#pragma region inputHandling
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 	{
 		this->getTransform()->position.y -= m_speed;
@@ -117,10 +131,14 @@ void Player::update()
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
 	{
-		getWeapon()->attack();
+		if (!m_bHealing)
+			getWeapon()->attack();
+	}
 
-		//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
-		//SoundManager::Instance().playSound("Knife", 0, 0);
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
+	{
+		if (!getWeapon()->isAttacking())
+			Heal();
 	}
 
 	if(running)
@@ -137,12 +155,35 @@ void Player::update()
 		else
 			setAnimationState(PLAYER_IDLE_LEFT);
 	}
+#pragma endregion inputHandling
 
-	if(m_pWeapon != nullptr)
+	if (m_pHealingPotion != nullptr)
+	{
+		if (m_healingTimeLeft == 0)
+		{
+			takeHeal(50);
+			m_healsLeft--;
+			std::cout << m_healsLeft << std::endl;
+			m_pPlayerUI->getHealthBar()->setHealth(getHealth());
+			m_pPlayerUI->setHeals();
+			m_bHealing = false;
+			delete m_pHealingPotion;
+			m_pHealingPotion = nullptr;
+		}
+		else
+		{
+			m_pHealingPotion->update();
+			m_healingTimeLeft--;
+		}
+	}
+	if(m_pWeapon != nullptr )
 	{
 		m_pWeapon->update();
 	}
-
+	if (m_invTimeLeft > 0)
+	{
+		m_invTimeLeft--;
+	}
 }
 
 void Player::clean()
@@ -153,13 +194,18 @@ void Player::clean()
 		delete m_pWeapon;
 		m_pWeapon = nullptr;
 	}
-	if (m_pHealthBar != nullptr)
+	if (m_pPlayerUI != nullptr)
 	{
-		m_pHealthBar->clean();
-		delete m_pHealthBar;
-		m_pHealthBar = nullptr;
+		m_pPlayerUI->clean();
+		delete m_pPlayerUI;
+		m_pPlayerUI = nullptr;
 	}
-
+	if (m_pHealingPotion != nullptr)
+	{
+		m_pHealingPotion->clean();
+		delete m_pHealingPotion;
+		m_pHealingPotion = nullptr;
+	}
 }
 
 void Player::setAnimationState(const PlayerAnimationState new_state)
@@ -170,6 +216,36 @@ void Player::setAnimationState(const PlayerAnimationState new_state)
 void Player::setWeapon(Weapon* w)
 {
 	m_pWeapon = w;
+}
+
+void Player::setInvTime(int t)
+{
+	m_invTime = t;
+}
+
+void Player::setInvTimeLeft(int t)
+{
+	m_invTimeLeft = t;
+}
+
+void Player::setHealsLeft(int c)
+{
+	m_healsLeft = c;
+}
+
+int Player::getHealsLeft()
+{
+	return m_healsLeft;
+}
+
+int Player::getInvTime()
+{
+	return m_invTime;
+}
+
+int Player::getInvTimeLeft()
+{
+	return m_invTimeLeft;
 }
 
 
@@ -200,8 +276,12 @@ int Player::getDamage()
 
 void Player::takeDamage(int damage)
 {
+	if (getInvTimeLeft() > 0)
+		return;
+
 	AliveObject::takeDamage(damage);
-	m_pHealthBar->setHealth(getHealth());
+	m_invTimeLeft = getInvTime();
+	m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 }
 
 
@@ -228,6 +308,18 @@ void Player::m_buildAnimations()
 	runAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-run-5"));
 
 	setAnimation(runAnimation);
+}
+
+void Player::Heal()
+{
+	if (m_bHealing)
+		return;
+	if (m_healsLeft == 0)
+		return;
+
+	m_pHealingPotion = new HealingPotion(this);
+	m_bHealing = true;
+	m_healingTimeLeft = HEALING_TIME;
 }
 
 
