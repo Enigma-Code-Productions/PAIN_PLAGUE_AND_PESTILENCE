@@ -15,5 +15,6 @@ private:
 	float m_bulletSpeed;
 	int m_bulletCount;
 	int m_accuracy;
+	float pointingAngle;
 };
 
