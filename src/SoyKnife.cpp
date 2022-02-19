@@ -114,6 +114,7 @@ void SoyKnife::attack()
 	{
 		SoundManager::Instance().playSound("Knife", 0, 0);
 		SoundManager::Instance().setSoundVolume(6);
+
 		setAttackStart(TheGame::Instance().getFrames());
 		setIsAttacking(true);
 		setCollisionDamage(true);

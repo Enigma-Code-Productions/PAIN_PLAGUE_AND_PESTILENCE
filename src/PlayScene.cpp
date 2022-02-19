@@ -100,6 +100,8 @@ void PlayScene::start()
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
 
+	SoundManager::Instance().load("../Assets/audio/SkullDeath.wav", "Skull-Death", SOUND_SFX);
+
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
 }
@@ -161,6 +163,9 @@ void PlayScene::deleteDeadEnemies()
 			m_pEnemies[i] = nullptr;
 			m_pEnemies.erase(m_pEnemies.begin() + i);
 			i--;
+
+			SoundManager::Instance().playSound("Skull-Death", 0, -1);
+			SoundManager::Instance().setSoundVolume(6);
 		}
 	}
 }
