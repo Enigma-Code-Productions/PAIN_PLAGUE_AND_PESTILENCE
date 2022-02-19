@@ -34,21 +34,7 @@ void PlayScene::update()
 
 	if (!m_pPlayer->isAlive()) //Checks if player is not alive
 	{
-		m_pPlayer->setWeapon(nullptr);
-		m_pPlayer->setCanMove(false);
-		if(m_pPlayer->isFacingRight())
-		{
-			m_pPlayer->setAnimationState(PLAYER_DEATH_RIGHT);
-		}
-		else
-		{
-			m_pPlayer->setAnimationState(PLAYER_DEATH_LEFT);
-		}
-
-		if(m_pPlayer->getAnimation("death").current_frame == 9) //When death animation is done, end game
-		{
-			TheGame::Instance().changeSceneState(END_SCENE); TheGame::Instance().changeSceneState(END_SCENE);
-		}
+		m_pPlayer->Death();
 	}
 
 	if (m_scoreCounter >= 10)

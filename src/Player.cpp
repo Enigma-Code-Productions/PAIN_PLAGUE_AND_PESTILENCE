@@ -307,6 +307,24 @@ void Player::takeDamage(int damage)
 	m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 }
 
+void Player::Death()
+{
+	setWeapon(nullptr);
+	setCanMove(false);
+	if (isFacingRight())
+	{
+		setAnimationState(PLAYER_DEATH_RIGHT);
+	}
+	else
+	{
+		setAnimationState(PLAYER_DEATH_LEFT);
+	}
+
+	if (getAnimation("death").current_frame == 9) //When death animation is done, end game
+	{
+		TheGame::Instance().changeSceneState(END_SCENE); TheGame::Instance().changeSceneState(END_SCENE);
+	}
+}
 
 
 void Player::m_buildAnimations()

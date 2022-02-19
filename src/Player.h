@@ -51,6 +51,7 @@ public: // Functions
 	bool getCanMove();
 	// other functions 
 	void takeDamage(int damage);
+	void Death();
 
 private: // Functions
 
