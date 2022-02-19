@@ -16,6 +16,8 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 
+	SoundManager::Instance().load("../Assets/audio/Heal.wav", "Heal", SOUND_SFX);
+
 	// set players collider
 	setWidth(56);
 	setHeight(80);
@@ -139,6 +141,8 @@ void Player::update()
 	{
 		if (!getWeapon()->isAttacking())
 			Heal();
+			
+
 	}
 
 	if(running)
@@ -316,6 +320,10 @@ void Player::Heal()
 		return;
 	if (m_healsLeft == 0)
 		return;
+
+	// sound effect for healing
+	SoundManager::Instance().playSound("Heal", 0, 0);
+	SoundManager::Instance().setSoundVolume(6);
 
 	m_pHealingPotion = new HealingPotion(this);
 	m_bHealing = true;
