@@ -32,9 +32,23 @@ void PlayScene::update()
 	deleteDeadEnemies();
 	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 
-	if (!m_pPlayer->isAlive())
+	if (!m_pPlayer->isAlive()) //Checks if player is not alive
 	{
-		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
+		m_pPlayer->setWeapon(nullptr);
+		m_pPlayer->setCanMove(false);
+		if(m_pPlayer->isFacingRight())
+		{
+			m_pPlayer->setAnimationState(PLAYER_DEATH_RIGHT);
+		}
+		else
+		{
+			m_pPlayer->setAnimationState(PLAYER_DEATH_LEFT);
+		}
+
+		if(m_pPlayer->getAnimation("death").current_frame == 9) //When death animation is done, end game
+		{
+			TheGame::Instance().changeSceneState(END_SCENE); TheGame::Instance().changeSceneState(END_SCENE);
+		}
 	}
 
 	if (m_scoreCounter >= 10)
@@ -86,6 +100,7 @@ void PlayScene::start()
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
+	m_pPlayer->setCanMove(true);
 
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 

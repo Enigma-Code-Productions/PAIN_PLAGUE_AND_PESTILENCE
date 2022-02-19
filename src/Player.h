@@ -19,6 +19,7 @@ private: //Properties
 	int m_healingTimeLeft;
 	int m_healsLeft;
 	bool m_bHealing;
+	bool m_bCanMove;
 
 	PlayerUI* m_pPlayerUI;
 	Weapon* m_pWeapon;
@@ -39,7 +40,7 @@ public: // Functions
 	void setInvTime(int t);
 	void setInvTimeLeft(int t);
 	void setHealsLeft(int c);
-
+	void setCanMove(bool m);
 	// getters
 	Weapon* getWeapon();
 	bool isFacingRight();
@@ -47,7 +48,7 @@ public: // Functions
 	int getInvTime();
 	int getInvTimeLeft();
 	int getHealsLeft();
-
+	bool getCanMove();
 	// other functions 
 	void takeDamage(int damage);
 
