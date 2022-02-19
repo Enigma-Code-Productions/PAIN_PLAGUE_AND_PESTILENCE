@@ -96,11 +96,14 @@ void PlayScene::start()
 	addChild(m_pScore);
 	m_pScore->setParent(this);
 
+	// Music
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
 
+	// Enemy death sound
 	SoundManager::Instance().load("../Assets/audio/SkullDeath.wav", "Skull-Death", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/ZombieDeath.mp3", "Zombie-Death", SOUND_SFX);
 
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
