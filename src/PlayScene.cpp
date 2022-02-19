@@ -147,7 +147,13 @@ void PlayScene::spawnEnemy()
 		int y = rand() % 600;
 		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
 		addChild(m_pEnemies.back());
+
+		x = rand() % 800;
+		y = rand() % 600;
+		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
 	}
+
 }
 
 void PlayScene::deleteDeadEnemies()
