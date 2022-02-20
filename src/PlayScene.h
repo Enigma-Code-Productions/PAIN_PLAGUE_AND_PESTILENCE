@@ -38,6 +38,8 @@ public: // Functions
 	void spawnEnemy();
 	void deleteDeadEnemies();
 
+	void CleanEnemies();
+
 private: //Functions
 	// IMGUI Function
 	void GUI_Function() const;

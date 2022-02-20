@@ -196,6 +196,11 @@ void Player::update()
 	{
 		m_invTimeLeft--;
 	}
+
+	if (!isAlive()) //Checks if player is not alive
+	{
+		Death();
+	}
 }
 
 void Player::clean()
@@ -309,7 +314,8 @@ void Player::takeDamage(int damage)
 
 void Player::Death()
 {
-	setWeapon(nullptr);
+	delete m_pWeapon;
+	m_pWeapon = nullptr;
 	setCanMove(false);
 	if (isFacingRight())
 	{

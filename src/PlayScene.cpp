@@ -30,24 +30,24 @@ void PlayScene::update()
 
 	collisionCheck();
 	deleteDeadEnemies();
-	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
-
-	if (!m_pPlayer->isAlive()) //Checks if player is not alive
+	if (m_pScore!= nullptr)
 	{
-		m_pPlayer->Death();
-	}
+		m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 
-	if (m_scoreCounter >= 10)
-	{
-		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
-		
+		if (m_scoreCounter >= 10)
+		{
+			TheGame::Instance().changeSceneState(WIN_SCENE);
+
+		}
+		spawnEnemy();
 	}
-	spawnEnemy();
+	
 }
 
 
 void PlayScene::clean()
 {
+	CleanEnemies();
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
 	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
@@ -166,6 +166,17 @@ void PlayScene::deleteDeadEnemies()
 	}
 }
 
+void PlayScene::CleanEnemies()
+{
+	for (auto& count : m_pEnemies)
+	{
+		count = nullptr;
+	}
+
+	m_pEnemies.clear();
+	m_pScore = nullptr;
+}
+
 void PlayScene::GUI_Function() const
 {
 	// Always open with a NewFrame
@@ -174,19 +185,15 @@ void PlayScene::GUI_Function() const
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 	
-	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove);
+	ImGui::Begin("Debug", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove);
 
-	if(ImGui::Button("My Button"))
+	if(ImGui::Button("Kill Player"))
 	{
-		std::cout << "My Button Pressed" << std::endl;
+		std::cout << "Player Killed" << std::endl;
+		m_pPlayer->takeDamage(1000);
 	}
 
 	ImGui::Separator();
-
-	static float float3[3] = { 0.0f, 1.0f, 1.5f };
-	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
-	{
-	}
 	
 	ImGui::End();
 }
