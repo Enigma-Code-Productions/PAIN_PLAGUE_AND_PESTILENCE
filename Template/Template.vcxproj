@@ -170,6 +170,8 @@
     <ClCompile Include="..\src\HealthBar.cpp" />
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
     <ClCompile Include="..\src\PlayerUI.cpp" />
+    <ClCompile Include="..\src\Potion.cpp" />
+    <ClCompile Include="..\src\PotionThrower.cpp" />
     <ClCompile Include="..\src\SoyKnife.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\TemplateObject.cpp" />
@@ -213,6 +215,8 @@
     <ClInclude Include="..\src\HealingPotion.h" />
     <ClInclude Include="..\src\HealthBar.h" />
     <ClInclude Include="..\src\PlayerUI.h" />
+    <ClInclude Include="..\src\Potion.h" />
+    <ClInclude Include="..\src\PotionThrower.h" />
     <ClInclude Include="..\src\SoyKnifeAnimationState.h" />
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />

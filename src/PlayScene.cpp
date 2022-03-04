@@ -39,7 +39,7 @@ void PlayScene::update()
 			TheGame::Instance().changeSceneState(WIN_SCENE);
 
 		}
-		spawnEnemy();
+		//spawnEnemy();
 	}
 	
 }
@@ -47,7 +47,7 @@ void PlayScene::update()
 
 void PlayScene::clean()
 {
-	CleanEnemies();
+	CleanObjects();
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
 	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
@@ -140,8 +140,8 @@ void PlayScene::collisionCheck()
 
 void PlayScene::spawnEnemy()
 {
-	//spawn skull every 5 seconds.
-	const int enemySpawnInterval = 5 * 60;
+	//spawn skull every 1 seconds.
+	const int enemySpawnInterval = 1 * 60;
 	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
 	{
 		int x = rand() % 800;
@@ -166,7 +166,7 @@ void PlayScene::deleteDeadEnemies()
 	}
 }
 
-void PlayScene::CleanEnemies()
+void PlayScene::CleanObjects()
 {
 	for (auto& count : m_pEnemies)
 	{

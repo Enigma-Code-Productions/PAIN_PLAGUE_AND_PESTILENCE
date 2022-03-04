@@ -38,7 +38,7 @@ public: // Functions
 	void spawnEnemy();
 	void deleteDeadEnemies();
 
-	void CleanEnemies();
+	void CleanObjects();
 
 private: //Functions
 	// IMGUI Function
