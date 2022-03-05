@@ -4,16 +4,14 @@
 
 #include "Potion.h"
 #include "Sprite.h"
-
+#include <vector>
 class Player;
 
 class PotionThrower final : public Sprite
 {
 private: // Properties
-	Potion* m_pPotion;
+	std::vector<Potion*> m_pPotions;
 	Player* m_pPlayer;
-
-	float m_power;
 	
 
 public: // Functions

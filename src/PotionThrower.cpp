@@ -16,39 +16,35 @@ PotionThrower::~PotionThrower() = default;
 
 void PotionThrower::draw()
 {
-	if (m_pPotion != nullptr)
+	for (auto potion : m_pPotions)
 	{
-		m_pPotion->draw();
+		potion->draw();
 	}
 }
 
 void PotionThrower::update()
 {
 	getTransform()->position = m_pPlayer->getTransform()->position;
-
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_G))
-	{
-		if (m_power < 1.0f)
-			m_power += 0.01;
-	}
-	else if (EventManager::Instance().keyReleased(SDL_SCANCODE_G))
+	if (EventManager::Instance().keyReleased(SDL_SCANCODE_G))
 	{
 		throwPotion();
-		m_power = 0;
 	}
-	if (m_pPotion != nullptr)
+	for (auto potion : m_pPotions)
 	{
-		m_pPotion->update();
+		potion->update();
 	}
-	std::cout << m_power << std::endl;
 }
 
 void PotionThrower::clean()
 {
-	if (m_pPotion != nullptr)
+	if (!m_pPotions.empty())
 	{
-		delete m_pPotion;
-		m_pPotion = nullptr;
+		for (int i = 0; i < m_pPotions.size(); i++)
+		{
+			delete m_pPotions[i];
+			m_pPotions[i] = nullptr;
+		}
+		m_pPotions.clear();
 	}
 	
 }
@@ -57,7 +53,7 @@ void PotionThrower::throwPotion()
 {
 	auto target = EventManager::Instance().getMousePosition();
 
-	m_pPotion = new Potion(getTransform()->position, target, m_power);
+	m_pPotions.push_back(new Potion(getTransform()->position, target));
 	
 }
 
