@@ -6,19 +6,20 @@
 
 class Potion : public Sprite
 {
-private:
+protected:
 	glm::vec2 m_target;
 	float m_height;
 	float m_accelerationHeight;
 	float m_velocityHeight;
+	float m_rotation;
 public:
 	Potion(glm::vec2 pos,glm::vec2 target);
-	virtual ~Potion();
-	void clean() override;
-	void draw() override;
-	void update() override;
+	virtual ~Potion() = 0;
+	virtual void clean() override;
+	virtual void draw() override;
+	virtual void update() override;
 
 private:
-	virtual void m_buildAnimations();
+	virtual void m_buildAnimations() = 0;
 };
 #endif 
