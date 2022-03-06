@@ -13,9 +13,9 @@ class PlayerUI final: DisplayObject
 private:
 	Player* m_pPlayer;
 
-
 	HealthBar* m_pHelathBar;
 	Label* m_pHealsLeftLabel;
+	Label* m_pPotionsAmount;
 
 public:
 	PlayerUI(Player* player);

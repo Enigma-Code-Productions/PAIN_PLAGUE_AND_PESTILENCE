@@ -45,6 +45,7 @@ public: // Functions
 	void setCanMove(bool m);
 	// getters
 	Weapon* getWeapon();
+	PotionThrower* getThrower();
 	bool isFacingRight();
 	int getDamage();
 	int getInvTime();

@@ -7,12 +7,23 @@
 #include <vector>
 class Player;
 
+enum Potions
+{
+	POISON_POTION,
+	FIRE_POTION,
+	EXPLOSIVE_POTION,
+	NUM_OF_POTIONS
+};
+
 class PotionThrower final : public Sprite
 {
 private: // Properties
 	std::vector<Potion*> m_pPotions;
 	Player* m_pPlayer;
-	
+
+	Potions m_chosenPotion;
+	int m_amountOfPotions[NUM_OF_POTIONS];
+	int m_MaxPotions;
 
 public: // Functions
 	PotionThrower(Player* player);
@@ -25,7 +36,11 @@ public: // Functions
 
 	void throwPotion();
 
+	int GetAmountPotions(Potions p);
+	Potions GetChosenPotion();
+
 private: // Functions
+	void m_loadPotions();
 	void m_buildAnimations();
 };
 

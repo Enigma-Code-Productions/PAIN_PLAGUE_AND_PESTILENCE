@@ -26,9 +26,9 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
-	m_pPlayerUI = new PlayerUI(this);
 	m_thrower = new PotionThrower(this);
-
+	m_pPlayerUI = new PlayerUI(this);
+	
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
@@ -199,6 +199,10 @@ void Player::update()
 	{
 		m_thrower->update();
 	}
+	if (m_pPlayerUI != nullptr)
+	{
+		m_pPlayerUI->update();
+	}
 	if (m_invTimeLeft > 0)
 	{
 		m_invTimeLeft--;
@@ -293,6 +297,11 @@ bool Player::getCanMove()
 Weapon* Player::getWeapon()
 {
 	return m_pWeapon;
+}
+
+PotionThrower* Player::getThrower()
+{
+	return m_thrower;
 }
 
 bool Player::isFacingRight()
