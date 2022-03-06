@@ -166,6 +166,8 @@
     <ClCompile Include="..\src\AliveObject.cpp" />
     <ClCompile Include="..\src\Button.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
+    <ClCompile Include="..\src\ExplosionPotion.cpp" />
+    <ClCompile Include="..\src\FirePotion.cpp" />
     <ClCompile Include="..\src\HealingPotion.cpp" />
     <ClCompile Include="..\src\HealthBar.cpp" />
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
@@ -213,6 +215,8 @@
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
+    <ClInclude Include="..\src\ExplosionPotion.h" />
+    <ClInclude Include="..\src\FirePotion.h" />
     <ClInclude Include="..\src\HealingPotion.h" />
     <ClInclude Include="..\src\HealthBar.h" />
     <ClInclude Include="..\src\PlayerUI.h" />

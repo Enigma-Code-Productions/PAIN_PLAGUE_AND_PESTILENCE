@@ -38,7 +38,3 @@ void Potion::update()
 		m_rotation = 0.0f;
 	}
 }
-
-void Potion::m_buildAnimations()
-{
-}

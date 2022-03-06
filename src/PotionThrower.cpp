@@ -4,6 +4,8 @@
 #include "Game.h"
 #include "Player.h"
 #include "PoisonPotion.h"
+#include "ExplosionPotion.h"
+#include "FirePotion.h"
 
 PotionThrower::PotionThrower(Player* player) : m_MaxPotions(3), m_pPlayer(player), m_chosenPotion(POISON_POTION)
 {
@@ -81,11 +83,11 @@ void PotionThrower::throwPotion()
 		m_amountOfPotions[POISON_POTION]--;
 		break;
 	case FIRE_POTION:
-		//m_pPotions.push_back(new PosionPotion(getTransform()->position, target));
+		m_pPotions.push_back(new FirePotion(getTransform()->position, target));
 		m_amountOfPotions[FIRE_POTION]--;
 		break;
 	case EXPLOSIVE_POTION:
-		//m_pPotions.push_back(new PosionPotion(getTransform()->position, target));
+		m_pPotions.push_back(new ExplosionPotion(getTransform()->position, target));
 		m_amountOfPotions[EXPLOSIVE_POTION]--;
 		break;
 	}
