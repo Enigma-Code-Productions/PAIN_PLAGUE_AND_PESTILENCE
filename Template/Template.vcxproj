@@ -164,10 +164,12 @@
     <ClCompile Include="..\include\IMGUI_SDL\imgui_sdl.cpp" />
     <ClCompile Include="..\src\Agent.cpp" />
     <ClCompile Include="..\src\AliveObject.cpp" />
+    <ClCompile Include="..\src\Bullet.cpp" />
     <ClCompile Include="..\src\Button.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\HealthBar.cpp" />
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
+    <ClCompile Include="..\src\RangedWeapon.cpp" />
     <ClCompile Include="..\src\SoyKnife.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\TemplateObject.cpp" />
@@ -191,8 +193,8 @@
     <ClCompile Include="..\src\Skull.cpp" />
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
+    <ClCompile Include="..\src\WinchesterShotgun.cpp" />
     <ClCompile Include="..\src\WinScene.cpp" />
-    <ClCompile Include="RangedWeapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\IMGUI\imconfig.h" />
@@ -205,11 +207,13 @@
     <ClInclude Include="..\src\Agent.h" />
     <ClInclude Include="..\src\AliveObject.h" />
     <ClInclude Include="..\src\Animation.h" />
+    <ClInclude Include="..\src\Bullet.h" />
     <ClInclude Include="..\src\Button.h" />
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
     <ClInclude Include="..\src\HealthBar.h" />
+    <ClInclude Include="..\src\RangedWeapon.h" />
     <ClInclude Include="..\src\SoyKnifeAnimationState.h" />
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />
@@ -245,8 +249,9 @@
     <ClInclude Include="..\src\Transform.h" />
     <ClInclude Include="..\src\Util.h" />
     <ClInclude Include="..\src\Weapon.h" />
+    <ClInclude Include="..\src\WinchesterShotgun.h" />
+    <ClInclude Include="..\src\WinchesterShotgunAnimationState.h" />
     <ClInclude Include="..\src\WinScene.h" />
-    <ClInclude Include="RangedWeapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

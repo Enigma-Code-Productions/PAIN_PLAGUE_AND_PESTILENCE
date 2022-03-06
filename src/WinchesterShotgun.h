@@ -6,6 +6,7 @@ class WinchesterShotgun : public RangedWeapon
 {
 private: // Properties
 	WinchesterShotgunAnimationState m_currentAnimationState;
+	float m_direction;
 
 public: //Functions
 	WinchesterShotgun(Player* player);

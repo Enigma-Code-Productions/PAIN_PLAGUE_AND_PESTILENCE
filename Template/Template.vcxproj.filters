@@ -145,8 +145,14 @@
       <Filter>UI Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\WinScene.cpp" />
-    <ClCompile Include="RangedWeapon.cpp">
+    <ClCompile Include="..\src\RangedWeapon.cpp">
       <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WinchesterShotgun.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -301,8 +307,17 @@
       <Filter>UI Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\WinScene.h" />
-    <ClInclude Include="RangedWeapon.h">
+    <ClInclude Include="..\src\RangedWeapon.h">
       <Filter>Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterShotgun.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterShotgunAnimationState.h">
+      <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

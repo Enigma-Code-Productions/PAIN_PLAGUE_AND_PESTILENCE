@@ -8,6 +8,7 @@
 #include "Label.h"
 #include "SoyKnife.h"
 #include "Bullet.h"
+#include "WinchesterShotgun.h"
 
 class PlayScene : public Scene
 {

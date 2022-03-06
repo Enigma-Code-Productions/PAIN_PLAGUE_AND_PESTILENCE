@@ -28,7 +28,7 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-	// Cleanup bullets that go off screen.
+	// Clean up bullets that go off screen.
 	for (unsigned i = 0; i < m_pBullets.size(); i++)
 	{
 		if (m_pBullets[i]->getTransform()->position.x > 800 || m_pBullets[i]->getTransform()->position.x < 0 || m_pBullets[i]->getTransform()->position.y > 600 || m_pBullets[i]->getTransform()->position.y < 0)
@@ -39,6 +39,8 @@ void PlayScene::update()
 			m_pBullets.shrink_to_fit();
 		}
 	}
+
+	//std::cout << m_pPlayer->getWeapon()->Ra << std::endl;
 
 	collisionCheck();
 	deleteDeadEnemies();
@@ -99,7 +101,9 @@ void PlayScene::start()
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
 
-	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
+	//m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
+
+	m_pPlayer->setWeapon(new WinchesterShotgun(m_pPlayer));
 
 
 	//m_pEnemies.push_back(new Skull(m_pPlayer));
@@ -145,6 +149,25 @@ void PlayScene::collisionCheck()
 						if (enemy->getLastHitFrame() < m_pPlayer->getWeapon()->getAttackStart())
 						{
 							enemy->takeDamage(m_pPlayer->getDamage());
+						}
+					}
+				}
+			}
+			else if (m_pPlayer->getWeapon()->getType() == RANGED_WEAPON)
+			{
+				for (unsigned i = 0; i < m_pEnemies.size(); i++)
+				{
+					for (unsigned j = 0; j < m_pBullets.size(); j++)
+					{
+						if (CollisionManager::AABBCheck(m_pBullets[j], m_pEnemies[i]))
+						{
+							m_pEnemies[i]->takeDamage(m_pPlayer->getWeapon()->getDamage());
+
+							//delete bullet
+							delete m_pBullets[j];
+							m_pBullets[j] = nullptr;
+							m_pBullets.erase(m_pBullets.begin() + j);
+							m_pBullets.shrink_to_fit();
 						}
 					}
 				}

@@ -5,9 +5,14 @@ void RangedWeapon::attack()
 	for (int i = 0; i < m_bulletCount; i++)
 	{
 		//to do
-		float spread = (rand() % 2 - 1) * m_accuracy;
-
+		float initialBulletDirection = m_direction + (rand() % 2 - 1) * m_accuracy;
+		
 	}
+}
+
+void RangedWeapon::update()
+{
+	setDirection();
 }
 
 void RangedWeapon::setBulletSpeed(float speed)
@@ -25,9 +30,9 @@ void RangedWeapon::setAccuracy(int totalAngle)
 	m_accuracy = totalAngle;
 }
 
-void RangedWeapon::setDirection(float angle)
+void RangedWeapon::setDirection()
 {
-	m_direction = angle;
+	m_direction = Util::signedAngle(getTransform()->position, EventManager::Instance().getMousePosition());
 }
 
 float RangedWeapon::getBulletSpeed()

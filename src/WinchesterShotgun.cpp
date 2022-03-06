@@ -17,7 +17,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	setWidth(144);
 	setHeight(75);
 	setOwner(player);
-	//setDamage(50);
+	setDamage(50);
 	//setRange(getWidth() / 2);
 	//setAttackTime(32 - 1);
 	//setIsAttacking(false);
@@ -41,23 +41,21 @@ void WinchesterShotgun::draw()
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
 
+	//std::cout << m_direction << std::endl;
+
 	switch (m_currentAnimationState)
 	{
 	case WINCHESTER_SHOTGUN_IDLE_RIGHT:
-		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"),
-			x, y, 0.12f, 0, 255, true);
+		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction, 255, true);
 		break;
 	case WINCHESTER_SHOTGUN_IDLE_LEFT:
-		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"),
-			x, y, 0.12f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_HORIZONTAL);
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_RIGHT:
-		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"),
-			x, y, 1.0f, 0, 255, true);
+		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true);
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_LEFT:
-		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"),
-			x, y, 1.0f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;
@@ -66,6 +64,7 @@ void WinchesterShotgun::draw()
 
 void WinchesterShotgun::update()
 {
+	setDirection();
 	m_move();
 	if (!isAttacking())
 	{
@@ -110,9 +109,6 @@ void WinchesterShotgun::attack()
 	{
 		//SoundManager::Instance().playSound("Knife", 0, 0);
 		//SoundManager::Instance().setSoundVolume(6);
-		//setAttackStart(TheGame::Instance().getFrames());
-		//setIsAttacking(true);
-		//setCollisionDamage(true);
 
 		if (getOwner()->isFacingRight())
 		{
