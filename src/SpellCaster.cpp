@@ -23,7 +23,7 @@ SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 	setCollisionDamage(true);
 
 
-	setWidth(96);
+	setWidth(65);
 	setHeight(96);
 	getTransform()->position = glm::vec2(400.0f, 200.0f);
 	getRigidBody()->velocity = glm::vec2(0, 0);
