@@ -29,14 +29,14 @@ void PlayScene::update()
 	updateDisplayList();
 
 	// Clean up bullets that go off screen.
-	for (unsigned i = 0; i < m_pBullets.size(); i++)
+	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
 	{
-		if (m_pBullets[i]->getTransform()->position.x > 800 || m_pBullets[i]->getTransform()->position.x < 0 || m_pBullets[i]->getTransform()->position.y > 600 || m_pBullets[i]->getTransform()->position.y < 0)
+		if (m_pShotgun->getBullets()[i]->getTransform()->position.x > 800 || m_pShotgun->getBullets()[i]->getTransform()->position.x < 0 || m_pShotgun->getBullets()[i]->getTransform()->position.y > 600 || m_pShotgun->getBullets()[i]->getTransform()->position.y < 0)
 		{
-			delete m_pBullets[i];
-			m_pBullets[i] = nullptr;
-			m_pBullets.erase(m_pBullets.begin() + i);
-			m_pBullets.shrink_to_fit();
+			delete m_pShotgun->getBullets()[i];
+			m_pShotgun->getBullets()[i] = nullptr;
+			m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + i);
+			m_pShotgun->getBullets().shrink_to_fit();
 		}
 	}
 
@@ -103,7 +103,9 @@ void PlayScene::start()
 
 	//m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
-	m_pPlayer->setWeapon(new WinchesterShotgun(m_pPlayer));
+	m_pShotgun = new WinchesterShotgun(m_pPlayer);
+	m_pPlayer->setWeapon(m_pShotgun);
+	//m_pBullets
 
 
 	//m_pEnemies.push_back(new Skull(m_pPlayer));
@@ -157,17 +159,17 @@ void PlayScene::collisionCheck()
 			{
 				for (unsigned i = 0; i < m_pEnemies.size(); i++)
 				{
-					for (unsigned j = 0; j < m_pBullets.size(); j++)
+					for (unsigned j = 0; j < m_pShotgun->getBullets().size(); j++)
 					{
-						if (CollisionManager::AABBCheck(m_pBullets[j], m_pEnemies[i]))
+						if (CollisionManager::AABBCheck(m_pShotgun->getBullets()[j], m_pEnemies[i]))
 						{
-							m_pEnemies[i]->takeDamage(m_pPlayer->getWeapon()->getDamage());
+							m_pEnemies[i]->takeDamage(m_pShotgun->getDamage());
 
 							//delete bullet
-							delete m_pBullets[j];
-							m_pBullets[j] = nullptr;
-							m_pBullets.erase(m_pBullets.begin() + j);
-							m_pBullets.shrink_to_fit();
+							delete m_pShotgun->getBullets()[j];
+							m_pShotgun->getBullets()[j] = nullptr;
+							m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + j);
+							m_pShotgun->getBullets().shrink_to_fit();
 						}
 					}
 				}

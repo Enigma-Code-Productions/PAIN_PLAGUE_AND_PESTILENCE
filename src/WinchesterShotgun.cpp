@@ -17,12 +17,10 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	setWidth(144);
 	setHeight(75);
 	setOwner(player);
-	setDamage(50);
-	//setRange(getWidth() / 2);
-	//setAttackTime(32 - 1);
-	//setIsAttacking(false);
-	//setAttackStart(0);
-	//setCollisionDamage(false);
+	setDamage(10);
+	setBulletCount(5);
+	setBulletSpeed(7);
+	//setRange();
 
 	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
 	getRigidBody()->velocity = glm::vec2(0, 0);

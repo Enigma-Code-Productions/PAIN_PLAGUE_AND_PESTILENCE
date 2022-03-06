@@ -21,8 +21,10 @@ private: //Properties
 	Player* m_pPlayer;
 	Skull* m_pSkull;
 	Label* m_pScore;
+
+	WinchesterShotgun* m_pShotgun;
 	
-	std::vector<Bullet*> m_pBullets;
+	//std::vector<Bullet*> m_pBullets;
 
 	//Score
 	int m_scoreCounter;
