@@ -58,7 +58,7 @@ void Zombie::draw()
 
 void Zombie::update()
 {
-	//if the player is within "seeing" range of the skull.
+	//if the player is within "seeing" range of the Zombie.
 	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius) && !getRigidBody()->isColliding)
 	{
 		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);

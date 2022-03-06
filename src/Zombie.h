@@ -27,5 +27,5 @@ private:
 };
 
 
-#endif /* defined (__Skull__) */
+#endif /* defined (__Zombie__) */
 
