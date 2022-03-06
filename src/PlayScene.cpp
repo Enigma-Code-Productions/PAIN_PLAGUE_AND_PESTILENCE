@@ -37,7 +37,7 @@ void PlayScene::update()
 		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
 	}
 
-	if (m_scoreCounter >= 10)
+	if (m_scoreCounter >= 20)
 	{
 		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
 		
@@ -180,14 +180,39 @@ void PlayScene::deleteDeadEnemies()
 	{
 		if (!m_pEnemies[i]->isAlive())
 		{
-			m_scoreCounter++;
-			removeChild(m_pEnemies[i]);
-			m_pEnemies[i] = nullptr;
-			m_pEnemies.erase(m_pEnemies.begin() + i);
-			i--;
+			if (dynamic_cast<Skull*>(m_pEnemies[i]))//check if enemy is a skull
+			{
+				m_scoreCounter++;
+				removeChild(m_pEnemies[i]);
+				m_pEnemies[i] = nullptr;
+				m_pEnemies.erase(m_pEnemies.begin() + i);
+				i--;
 
-			SoundManager::Instance().playSound("Skull-Death", 0, -1);
-			SoundManager::Instance().setSoundVolume(6);
+				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().setSoundVolume(6);
+			}
+			else if (dynamic_cast<Zombie*>(m_pEnemies[i]))//check if enemy is a zombie
+			{
+				m_scoreCounter = m_scoreCounter + 2;
+				removeChild(m_pEnemies[i]);
+				m_pEnemies[i] = nullptr;
+				m_pEnemies.erase(m_pEnemies.begin() + i);
+				i--;
+				//play zombie death sound
+				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().setSoundVolume(6);
+			}
+			else if (dynamic_cast<SpellCaster*>(m_pEnemies[i]))//check if enemy is a Spell caster
+			{
+				m_scoreCounter = m_scoreCounter + 3;
+				removeChild(m_pEnemies[i]);
+				m_pEnemies[i] = nullptr;
+				m_pEnemies.erase(m_pEnemies.begin() + i);
+				i--;
+				//play Spellcaster death sound
+				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().setSoundVolume(6);
+			}
 		}
 	}
 }
