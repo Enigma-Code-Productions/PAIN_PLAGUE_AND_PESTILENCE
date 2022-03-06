@@ -1,4 +1,4 @@
-#include "Zombie.h"
+#include "SpellCaster.h"
 #include "TextureManager.h"
 #include "Util.h"
 #include "CollisionManager.h"
@@ -10,21 +10,21 @@
 #include "CollisionManager.h"
 
 
-Zombie::Zombie(Player* player) : m_speed(2), m_detectionRadius(250)
+SpellCaster::SpellCaster(Player* player) : m_speed(2), m_detectionRadius(250)
 {
 	TextureManager::Instance().loadSpriteSheet(
-		"../Assets/sprites/Zombie-1.txt",
-		"../Assets/sprites/Zombie-1.png",
-		"Zombie");
+		"../Assets/sprites/SpellCaster-1.txt",
+		"../Assets/spritesSpellCaster-1.png",
+		"SpellCaster");
 
-	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Zombie"));
+	setSpriteSheet(TextureManager::Instance().getSpriteSheet("SpellCaster"));
 	//set Health 
-	setMaxHealth(100);
+	setMaxHealth(150);
 	setHealth(getMaxHealth());
 	setDamage(15);
 	setCollisionDamage(true);
 
-	
+
 	setWidth(48);
 	setHeight(75);
 	getTransform()->position = glm::vec2(400.0f, 200.0f);
@@ -82,5 +82,3 @@ void Zombie::m_buildAnimations()
 	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-5"));
 	setAnimation(animation);
 }
-
-

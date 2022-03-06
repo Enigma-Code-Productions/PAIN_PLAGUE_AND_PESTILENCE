@@ -145,16 +145,19 @@ void PlayScene::collisionCheck()
 void PlayScene::spawnEnemy()
 {
 	//spawn skull every 5 seconds.
-	const int enemySpawnInterval = 5 * 60;
-	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
+	const int SkullSpawnInterval = 5 * 60;
+	if (TheGame::Instance().getFrames() % SkullSpawnInterval == 0)
 	{
 		int x = rand() % 800;
 		int y = rand() % 600;
 		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
 		addChild(m_pEnemies.back());
-
-		x = rand() % 800;
-		y = rand() % 600;
+	}
+	const int ZombieSpawnInterval = 10 * 60;
+	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
 		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
 		addChild(m_pEnemies.back());
 	}
