@@ -153,12 +153,22 @@ void PlayScene::spawnEnemy()
 		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
 		addChild(m_pEnemies.back());
 	}
+	//10 seconds
 	const int ZombieSpawnInterval = 10 * 60;
 	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
 	{
 		int x = rand() % 800;
 		int y = rand() % 600;
 		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
+	}
+	//15 seconds
+	const int SpellCasterSpawnInterval = 15 * 60;
+	if (TheGame::Instance().getFrames() % SpellCasterSpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
 		addChild(m_pEnemies.back());
 	}
 

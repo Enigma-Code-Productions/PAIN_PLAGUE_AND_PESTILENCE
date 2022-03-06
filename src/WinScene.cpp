@@ -58,7 +58,7 @@ void WinScene::start()
 	SoundManager::Instance().setMusicVolume(2);
 
 
-	m_label = new Label("Congrats You Made It Now Find The Cure", "YouMurderer", 60, red, glm::vec2(400.0f, 300.0f));
+	m_label = new Label("Congrats You Made It, Now Find The Cure", "YouMurderer", 60, red, glm::vec2(400.0f, 300.0f));
 	m_label->setParent(this);
 	addChild(m_label);
 

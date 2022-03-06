@@ -3,18 +3,16 @@
 #include "Util.h"
 #include "CollisionManager.h"
 
-
-#include "Zombie.h"
 #include "TextureManager.h"
 #include "Util.h"
 #include "CollisionManager.h"
 
 
-SpellCaster::SpellCaster(Player* player) : m_speed(2), m_detectionRadius(250)
+SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/SpellCaster-1.txt",
-		"../Assets/spritesSpellCaster-1.png",
+		"../Assets/sprites/SpellCaster-1.png",
 		"SpellCaster");
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("SpellCaster"));
@@ -25,8 +23,8 @@ SpellCaster::SpellCaster(Player* player) : m_speed(2), m_detectionRadius(250)
 	setCollisionDamage(true);
 
 
-	setWidth(48);
-	setHeight(75);
+	setWidth(96);
+	setHeight(96);
 	getTransform()->position = glm::vec2(400.0f, 200.0f);
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
@@ -37,26 +35,26 @@ SpellCaster::SpellCaster(Player* player) : m_speed(2), m_detectionRadius(250)
 	m_buildAnimations();
 }
 
-Zombie::Zombie(Player* player, glm::vec2 location) : Zombie(player)
+SpellCaster::SpellCaster(Player* player, glm::vec2 location) : SpellCaster(player)
 {
 	getTransform()->position = location;
 }
 
-Zombie::~Zombie()
+SpellCaster::~SpellCaster()
 = default;
 
-void Zombie::draw()
+void SpellCaster::draw()
 {
 	// alias for x and y
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
 
 	// draw the Skull
-	TextureManager::Instance().playAnimation("Zombie", getAnimation("Zombie-idle"),
+	TextureManager::Instance().playAnimation("SpellCaster", getAnimation("SpellCaster-idle"),
 		x, y, 0.4f, 0, 255, true, SDL_FLIP_HORIZONTAL);
 }
 
-void Zombie::update()
+void SpellCaster::update()
 {
 	//if the player is within "seeing" range of the Zombie.
 	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius) && !getRigidBody()->isColliding)
@@ -65,20 +63,23 @@ void Zombie::update()
 	}
 }
 
-void Zombie::clean()
+void SpellCaster::clean()
 {
 }
 
-void Zombie::m_buildAnimations()
+void SpellCaster::m_buildAnimations()
 {
 	Animation animation = Animation();
 
-	animation.name = "Zombie-idle";
-	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-0"));
-	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-1"));
-	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-2"));
-	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-3"));
-	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-4"));
-	animation.frames.push_back(getSpriteSheet()->getFrame("Zombie-animation-5"));
+	animation.name = "SpellCaster-idle";
+	//first 4 are idle
+	animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-0"));
+	animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-1"));
+	animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-2"));
+	animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-3"));
+	//animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-4"));
+	//animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-5"));
+	//animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-6"));
+	//animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-7"));
 	setAnimation(animation);
 }

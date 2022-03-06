@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Skull.h"
 #include "Zombie.h"
+#include "SpellCaster.h"
 #include "Label.h"
 #include "SoyKnife.h"
 

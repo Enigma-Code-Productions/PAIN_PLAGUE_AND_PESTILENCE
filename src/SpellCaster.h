@@ -4,6 +4,7 @@
 
 #include "AliveObject.h"
 #include "Player.h"
+
 class SpellCaster final : public AliveObject
 {
 public:
