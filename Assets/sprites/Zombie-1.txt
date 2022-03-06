@@ -1,0 +1,6 @@
+Zombie-animation-0 0 0 48 75
+Zombie-animation-1 48 0 48 75
+Zombie-animation-2 96 0 48 75
+Zombie-animation-3 144 0 48 75
+Zombie-animation-4 192 0 48 75
+Zombie-animation-5 240 0 48 75

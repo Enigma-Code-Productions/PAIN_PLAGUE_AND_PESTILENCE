@@ -5,6 +5,8 @@
 #include "Scene.h"
 #include "Player.h"
 #include "Skull.h"
+#include "Zombie.h"
+#include "SpellCaster.h"
 #include "Label.h"
 #include "SoyKnife.h"
 
@@ -18,6 +20,7 @@ private: //Properties
 	std::vector<AliveObject*> m_pEnemies;
 	Player* m_pPlayer;
 	Skull* m_pSkull;
+	Zombie* m_pZombie;
 	Label* m_pScore;
 
 	//Score

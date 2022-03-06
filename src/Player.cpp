@@ -10,11 +10,13 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 {
 	
 	TextureManager::Instance().loadSpriteSheet(
-		"../Assets/sprites/Player-spritesheet.txt",
-		"../Assets/sprites/Player-spritesheet.png",
+		"../Assets/sprites/Player-animation.txt",
+		"../Assets/sprites/Player-animation.png",
 		"Player");
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
+
+	SoundManager::Instance().load("../Assets/audio/Heal.wav", "Heal", SOUND_SFX);
 
 	// set players collider
 	setWidth(56);
@@ -52,7 +54,7 @@ void Player::draw()
 	// draw the player according to animation state
 
 	int alpha = 255;
-	if (m_invTimeLeft > 0 && isAlive())
+	if (m_invTimeLeft > 0)
 	{
 		alpha = 128;
 	}
@@ -73,14 +75,6 @@ void Player::draw()
 		break;
 	case PLAYER_RUN_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
-		break;
-	case PLAYER_DEATH_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
-			x, y, 0.05f, 0, alpha, true);
-		break;
-	case PLAYER_DEATH_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
 			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
@@ -110,47 +104,45 @@ void Player::update()
 	bool facingRight = isFacingRight();
 
 #pragma region inputHandling
-
-	if(m_bCanMove)
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 	{
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
-		{
-			this->getTransform()->position.y -= m_speed;
-			running = true;
+		this->getTransform()->position.y -= m_speed;
+		running = true;
+		
+	}
+	
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
+	{
+		this->getTransform()->position.y += m_speed;
+		running = true;
+	}
 
-		}
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
+	{
+		this->getTransform()->position.x -= m_speed;
+		facingRight = false;
+		running = true;
+	}
+	
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
+	{
+		this->getTransform()->position.x += m_speed;
+		facingRight = true;
+		running = true;
+	}
 
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
-		{
-			this->getTransform()->position.y += m_speed;
-			running = true;
-		}
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
+	{
+		if (!m_bHealing)
+			getWeapon()->attack();
+	}
 
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
-		{
-			this->getTransform()->position.x -= m_speed;
-			facingRight = false;
-			running = true;
-		}
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
+	{
+		if (!getWeapon()->isAttacking())
+			Heal();
+			
 
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
-		{
-			this->getTransform()->position.x += m_speed;
-			facingRight = true;
-			running = true;
-		}
-
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
-		{
-			if (!m_bHealing)
-				getWeapon()->attack();
-		}
-
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
-		{
-			if (!getWeapon()->isAttacking())
-				Heal();
-		}
 	}
 
 	if(running)
@@ -195,11 +187,6 @@ void Player::update()
 	if (m_invTimeLeft > 0)
 	{
 		m_invTimeLeft--;
-	}
-
-	if (!isAlive()) //Checks if player is not alive
-	{
-		Death();
 	}
 }
 
@@ -250,12 +237,6 @@ void Player::setHealsLeft(int c)
 	m_healsLeft = c;
 }
 
-void Player::setCanMove(bool m)
-{
-	m_bCanMove = m;
-}
-
-
 int Player::getHealsLeft()
 {
 	return m_healsLeft;
@@ -269,11 +250,6 @@ int Player::getInvTime()
 int Player::getInvTimeLeft()
 {
 	return m_invTimeLeft;
-}
-
-bool Player::getCanMove()
-{
-	return m_bCanMove;
 }
 
 
@@ -312,25 +288,6 @@ void Player::takeDamage(int damage)
 	m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 }
 
-void Player::Death()
-{
-	delete m_pWeapon;
-	m_pWeapon = nullptr;
-	setCanMove(false);
-	if (isFacingRight())
-	{
-		setAnimationState(PLAYER_DEATH_RIGHT);
-	}
-	else
-	{
-		setAnimationState(PLAYER_DEATH_LEFT);
-	}
-
-	if (getAnimation("death").current_frame == 9) //When death animation is done, end game
-	{
-		TheGame::Instance().changeSceneState(END_SCENE); TheGame::Instance().changeSceneState(END_SCENE);
-	}
-}
 
 
 void Player::m_buildAnimations()
@@ -355,24 +312,6 @@ void Player::m_buildAnimations()
 	runAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-run-5"));
 
 	setAnimation(runAnimation);
-
-
-	Animation deathAnimation = Animation();
-
-	deathAnimation.name = "death";
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-0"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-1"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-2"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-3"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-4"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-5"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-6"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-7"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-8"));
-	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-9"));
-
-	setAnimation(deathAnimation);
-
 }
 
 void Player::Heal()
@@ -381,6 +320,10 @@ void Player::Heal()
 		return;
 	if (m_healsLeft == 0)
 		return;
+
+	// sound effect for healing
+	SoundManager::Instance().playSound("Heal", 0, 0);
+	SoundManager::Instance().setSoundVolume(6);
 
 	m_pHealingPotion = new HealingPotion(this);
 	m_bHealing = true;

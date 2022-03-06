@@ -171,6 +171,7 @@
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
     <ClCompile Include="..\src\PlayerUI.cpp" />
     <ClCompile Include="..\src\SoyKnife.cpp" />
+    <ClCompile Include="..\src\SpellCaster.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\TemplateObject.cpp" />
     <ClCompile Include="..\src\UIControl.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
     <ClCompile Include="..\src\WinScene.cpp" />
+    <ClCompile Include="..\src\Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\IMGUI\imconfig.h" />
@@ -217,6 +219,7 @@
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />
     <ClInclude Include="..\src\SoyKnife.h" />
+    <ClInclude Include="..\src\SpellCaster.h" />
     <ClInclude Include="..\src\Sprite.h" />
     <ClInclude Include="..\src\TemplateObject.h" />
     <ClInclude Include="..\src\UIControl.h" />
@@ -249,6 +252,7 @@
     <ClInclude Include="..\src\Util.h" />
     <ClInclude Include="..\src\Weapon.h" />
     <ClInclude Include="..\src\WinScene.h" />
+    <ClInclude Include="..\src\Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

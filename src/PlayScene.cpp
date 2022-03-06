@@ -30,24 +30,24 @@ void PlayScene::update()
 
 	collisionCheck();
 	deleteDeadEnemies();
-	if (m_pScore!= nullptr)
+	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
+
+	if (!m_pPlayer->isAlive())
 	{
-		m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
-
-		if (m_scoreCounter >= 10)
-		{
-			TheGame::Instance().changeSceneState(WIN_SCENE);
-
-		}
-		spawnEnemy();
+		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
 	}
-	
+
+	if (m_scoreCounter >= 20)
+	{
+		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
+		
+	}
+	spawnEnemy();
 }
 
 
 void PlayScene::clean()
 {
-	CleanEnemies();
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
 	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
@@ -86,7 +86,6 @@ void PlayScene::start()
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
-	m_pPlayer->setCanMove(true);
 
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
@@ -97,9 +96,14 @@ void PlayScene::start()
 	addChild(m_pScore);
 	m_pScore->setParent(this);
 
+	// Music
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
+
+	// Enemy death sound
+	SoundManager::Instance().load("../Assets/audio/SkullDeath.wav", "Skull-Death", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/ZombieDeath.mp3", "Zombie-Death", SOUND_SFX);
 
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
@@ -141,14 +145,33 @@ void PlayScene::collisionCheck()
 void PlayScene::spawnEnemy()
 {
 	//spawn skull every 5 seconds.
-	const int enemySpawnInterval = 5 * 60;
-	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
+	const int SkullSpawnInterval = 5 * 60;
+	if (TheGame::Instance().getFrames() % SkullSpawnInterval == 0)
 	{
 		int x = rand() % 800;
 		int y = rand() % 600;
 		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
 		addChild(m_pEnemies.back());
 	}
+	//10 seconds
+	const int ZombieSpawnInterval = 10 * 60;
+	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
+	}
+	//15 seconds
+	const int SpellCasterSpawnInterval = 15 * 60;
+	if (TheGame::Instance().getFrames() % SpellCasterSpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
+	}
+
 }
 
 void PlayScene::deleteDeadEnemies()
@@ -157,24 +180,41 @@ void PlayScene::deleteDeadEnemies()
 	{
 		if (!m_pEnemies[i]->isAlive())
 		{
-			m_scoreCounter++;
-			removeChild(m_pEnemies[i]);
-			m_pEnemies[i] = nullptr;
-			m_pEnemies.erase(m_pEnemies.begin() + i);
-			i--;
+			if (dynamic_cast<Skull*>(m_pEnemies[i]))//check if enemy is a skull
+			{
+				m_scoreCounter++;
+				removeChild(m_pEnemies[i]);
+				m_pEnemies[i] = nullptr;
+				m_pEnemies.erase(m_pEnemies.begin() + i);
+				i--;
+
+				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().setSoundVolume(6);
+			}
+			else if (dynamic_cast<Zombie*>(m_pEnemies[i]))//check if enemy is a zombie
+			{
+				m_scoreCounter = m_scoreCounter + 2;
+				removeChild(m_pEnemies[i]);
+				m_pEnemies[i] = nullptr;
+				m_pEnemies.erase(m_pEnemies.begin() + i);
+				i--;
+				//play zombie death sound
+				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().setSoundVolume(6);
+			}
+			else if (dynamic_cast<SpellCaster*>(m_pEnemies[i]))//check if enemy is a Spell caster
+			{
+				m_scoreCounter = m_scoreCounter + 3;
+				removeChild(m_pEnemies[i]);
+				m_pEnemies[i] = nullptr;
+				m_pEnemies.erase(m_pEnemies.begin() + i);
+				i--;
+				//play Spellcaster death sound
+				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().setSoundVolume(6);
+			}
 		}
 	}
-}
-
-void PlayScene::CleanEnemies()
-{
-	for (auto& count : m_pEnemies)
-	{
-		count = nullptr;
-	}
-
-	m_pEnemies.clear();
-	m_pScore = nullptr;
 }
 
 void PlayScene::GUI_Function() const
@@ -185,15 +225,19 @@ void PlayScene::GUI_Function() const
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 	
-	ImGui::Begin("Debug", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove);
+	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove);
 
-	if(ImGui::Button("Kill Player"))
+	if(ImGui::Button("My Button"))
 	{
-		std::cout << "Player Killed" << std::endl;
-		m_pPlayer->takeDamage(1000);
+		std::cout << "My Button Pressed" << std::endl;
 	}
 
 	ImGui::Separator();
+
+	static float float3[3] = { 0.0f, 1.0f, 1.5f };
+	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
+	{
+	}
 	
 	ImGui::End();
 }

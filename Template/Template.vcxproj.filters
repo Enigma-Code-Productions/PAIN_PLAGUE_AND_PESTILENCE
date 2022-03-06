@@ -153,6 +153,12 @@
     <ClCompile Include="..\src\HealingPotion.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Zombie.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpellCaster.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -312,6 +318,12 @@
       <Filter>UI Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\HealingPotion.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Zombie.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SpellCaster.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>

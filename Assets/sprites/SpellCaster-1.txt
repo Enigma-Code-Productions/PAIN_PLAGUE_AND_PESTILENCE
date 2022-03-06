@@ -1,0 +1,8 @@
+SpellCaster-animation-0 0 0 96 96
+SpellCaster-animation-1 96 0 96 96
+SpellCaster-animation-2 192 0 96 96
+SpellCaster-animation-3 288 0 96 96
+SpellCaster-animation-4 384 0 96 96
+SpellCaster-animation-5 480 0 96 96
+SpellCaster-animation-6 576 0 96 96
+SpellCaster-animation-7 672 0 96 96
