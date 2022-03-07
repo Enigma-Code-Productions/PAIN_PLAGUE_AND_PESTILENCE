@@ -33,6 +33,7 @@ public:
 
 	std::vector<DisplayObject*> getDisplayList() const;
 
+
 	//std::vector<DisplayObject*> getObjecstOfType(GameObjectType tag);
 
 

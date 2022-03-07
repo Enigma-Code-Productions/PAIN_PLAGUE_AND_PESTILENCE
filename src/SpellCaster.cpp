@@ -2,7 +2,6 @@
 #include "TextureManager.h"
 #include "Util.h"
 #include "CollisionManager.h"
-
 #include "TextureManager.h"
 #include "Util.h"
 #include "CollisionManager.h"
@@ -30,6 +29,7 @@ SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 	getTransform()->position = glm::vec2(400.0f, 200.0f);
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
+	getRigidBody()->hasCollider = true;
 
 	m_pPlayer = player;
 
@@ -65,7 +65,11 @@ void SpellCaster::update()
 	//}
 
 	//Boss Follow
-	getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
+	if (CollisionManager::canMoveWithoutCollison(this,
+		getTransform()->position + Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed)))
+	{
+		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
+	}
 }
 
 void SpellCaster::clean()

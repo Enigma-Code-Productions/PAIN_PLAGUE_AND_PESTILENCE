@@ -186,11 +186,11 @@
     <ClCompile Include="..\src\Explosion1.cpp">
       <Filter>Game Objects\Effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Zombie.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\SpellCaster.cpp">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Zombie.cpp">
+      <Filter>Game Objects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -371,11 +371,11 @@
     <ClInclude Include="..\src\Explosion1.h">
       <Filter>Game Objects\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Zombie.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\SpellCaster.h">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Zombie.h">
+      <Filter>Game Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
