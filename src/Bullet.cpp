@@ -6,7 +6,7 @@ Bullet::Bullet(float speed, float initialDirection, glm::vec2 weaponPos)
 	m_bulletSpeed = speed;
 	m_direction = initialDirection;
 
-	m_bulletSpeed = 7;//why
+	m_bulletSpeed = 10;//why
 
 	getTransform()->position = weaponPos;
 }

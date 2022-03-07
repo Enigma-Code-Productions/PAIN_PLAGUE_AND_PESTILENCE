@@ -19,8 +19,8 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	setOwner(player);
 	setDamage(10);
 	setBulletCount(5);
-	setBulletSpeed(7);
-	setAccuracy(5);
+	setBulletSpeed(10);
+	setAccuracy(10);
 	setIsAttacking(false);
 	setAttackTime(40 - 1);
 	setAttackStart(0);
@@ -147,7 +147,11 @@ void WinchesterShotgun::attack()
 		}
 		for (int i = 0; i < m_bulletCount; i++)
 		{
-			float initialBulletDirection = m_direction + (rand() % 2 - 1) * m_accuracy;
+			float initialBulletDirection = m_direction + (Util::RandomRange(-1, 1)) * m_accuracy;
+			if (!getOwner()->isFacingRight())
+			{
+				initialBulletDirection += 180;
+			}
 			m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position));
 		}
 	}
