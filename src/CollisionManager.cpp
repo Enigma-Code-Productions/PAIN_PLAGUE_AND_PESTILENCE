@@ -2,6 +2,8 @@
 #include "Util.h"
 #include <algorithm>
 
+#include "Game.h"
+#include "PlayScene.h"
 
 
 int CollisionManager::squaredDistance(const glm::vec2 p1, const glm::vec2 p2)
@@ -319,59 +321,6 @@ bool CollisionManager::circleAABBCheck(GameObject* object1, GameObject* object2)
 	return false;
 }
 
-bool CollisionManager::resizedCircleAABBCheck(GameObject* object1, GameObject* object2, float resize1, float resize2)
-{
-	// circle
-	const auto circleCentre = object1->getTransform()->position * 0.5f + glm::vec2(object1->getWidth() * (1 / resize1), object1->getHeight() * (1 / resize1));
-	const int circleRadius = std::max(object1->getWidth() * 0.5f, object1->getHeight() * 0.5f);
-	// aabb
-	const auto boxWidth = object2->getWidth() * (1 / resize2);
-	int halfBoxWidth = boxWidth * 0.5f  ;
-	const auto boxHeight = object2->getHeight() * (1 / resize2);
-	int halfBoxHeight = boxHeight * 0.5f ;
-
-	const auto boxStart = object2->getTransform()->position - glm::vec2(boxWidth * 0.5f, boxHeight * 0.5f);
-
-	if (circleAABBsquaredDistance(circleCentre, circleRadius, boxStart, boxWidth, boxHeight) <= (circleRadius * circleRadius))
-	{
-		if (!object2->getRigidBody()->isColliding)
-		{
-
-			object2->getRigidBody()->isColliding = true;
-
-			const auto attackVector = object1->getTransform()->position - object2->getTransform()->position;
-			const auto normal = glm::vec2(0.0f, -1.0f);
-
-			const auto dot = Util::dot(attackVector, normal);
-			const auto angle = acos(dot / Util::magnitude(attackVector)) * Util::Rad2Deg;
-
-			switch (object2->getType())
-			{
-			case PLAYER:
-				std::cout << "Collision with Skull!" << std::endl;
-				break;
-			case TARGET:
-				std::cout << "Collision with Planet!" << std::endl;
-				SoundManager::Instance().playSound("yay", 0);
-				break;
-			default:
-
-				break;
-			}
-
-			return true;
-		}
-		return false;
-	}
-	else
-	{
-		object2->getRigidBody()->isColliding = false;
-		return false;
-	}
-
-	return false;
-}
-
 bool CollisionManager::pointRectCheck(const glm::vec2 point, const glm::vec2 rect_start, const float rect_width, const float rect_height)
 {
 	const float topLeftX = rect_start.x - rect_width * 0.5;
@@ -442,6 +391,44 @@ bool CollisionManager::LOSCheck(Agent* agent, glm::vec2 end_point, const std::ve
 
 	// if the line does not collide with an object that is the target then LOS is false
 	return false;
+}
+
+bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
+{
+	std::vector<GameObject*> colliders;
+	for (auto object : Game::Instance().getSceneState()->getDisplayList())
+	{
+		if (object->getRigidBody()->hasCollider)
+		{
+			if (object != obj)
+			{
+				colliders.push_back(object);
+			}
+		}
+	}
+
+	for (auto object : colliders)
+	{
+		auto p1 = pos;
+		auto p2 = object->getTransform()->position;
+		float p1Width = obj->getWidth() - 1;
+		float p1Height = obj->getHeight() - 1;
+		float p2Width = object->getWidth() -1;
+		float p2Height = object->getHeight() - 1;
+
+
+		if (
+			p1.x < p2.x + p2Width &&
+			p1.x + p1Width > p2.x &&
+			p1.y < p2.y + p2Height &&
+			p1.y + p1Height > p2.y
+			)
+		{
+			return false;
+		}
+	}
+	return true;
+	
 }
 
 

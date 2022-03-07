@@ -39,6 +39,7 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->isColliding = false;
+	getRigidBody()->hasCollider = true;
 	setType(PLAYER);
 
 	m_buildAnimations();
@@ -146,27 +147,32 @@ void Player::update()
 	{
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
-			this->getTransform()->position.y -= m_speed;
+			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y - m_speed)))
+				getTransform()->position.y -= m_speed;
 			running = true;
 
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 		{
-			this->getTransform()->position.y += m_speed;
+			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y + m_speed)))
+				getTransform()->position.y += m_speed;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 		{
-			this->getTransform()->position.x -= m_speed;
+			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x - m_speed, getTransform()->position.y)))
+				getTransform()->position.x -= m_speed;
 			facingRight = false;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 		{
-			this->getTransform()->position.x += m_speed;
+			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x + m_speed, getTransform()->position.y)))
+				getTransform()->position.x += m_speed;
+			
 			facingRight = true;
 			running = true;
 		}
