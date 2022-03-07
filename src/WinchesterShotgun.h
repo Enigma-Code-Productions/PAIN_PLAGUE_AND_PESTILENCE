@@ -28,6 +28,8 @@ public: //Functions
 	void setBulletCount(int count);
 	void setDirection();
 
+	std::vector<Bullet*> getBullets();
+
 private: //Functions
 
 	void m_buildAnimations();

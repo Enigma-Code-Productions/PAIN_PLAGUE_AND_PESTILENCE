@@ -21,12 +21,34 @@ void PlayScene::draw()
 	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 
+	//temporary---------------------------------------------------
+	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
+	{
+		m_pShotgun->getBullets()[i]->draw();
+	}
+	//------------------------------------------------------------
+	
+	//temporary---------------------------------------------------
+	glm::vec4 yellow = { 247, 215, 126, 255 };
+	glm::vec2 pos = { 50, 50 };
+	Util::DrawFilledRect(pos, 50, 50, yellow);
+	//------------------------------------------------------------
+
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
 void PlayScene::update()
 {
 	updateDisplayList();
+
+
+	//std::cout << m_pShotgun->getBullets().size() << std::endl;
+	//temporary---------------------------------------------------
+	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
+	{
+		m_pShotgun->getBullets()[i]->update();
+	}
+	//------------------------------------------------------------
 
 	// Clean up bullets that go off screen.
 	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)

@@ -149,6 +149,7 @@ void WinchesterShotgun::attack()
 		{
 			float initialBulletDirection = m_direction + (rand() % 2 - 1) * m_accuracy;
 			m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection));
+			std::cout << "bullet created in gun" << std::endl;
 		}
 	}
 }
@@ -237,4 +238,9 @@ void WinchesterShotgun::setDirection()
 			m_direction = (Util::Rad2Deg * atanf(dx / dy) + 90) * -1;
 		}
 	}
+}
+
+std::vector<Bullet*> WinchesterShotgun::getBullets()
+{
+	return m_pBullets;
 }
