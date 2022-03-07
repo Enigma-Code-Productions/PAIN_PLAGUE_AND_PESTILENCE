@@ -180,6 +180,7 @@
     <ClCompile Include="..\src\FirePotion.cpp">
       <Filter>Game Objects\Player\Potions</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Explosion1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -356,6 +357,7 @@
     <ClInclude Include="..\src\FirePotion.h">
       <Filter>Game Objects\Player\Potions</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Explosion1.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
@@ -379,6 +381,9 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="..\Assets\sprites\purpleBottle.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\sprites\Explosion1.png">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

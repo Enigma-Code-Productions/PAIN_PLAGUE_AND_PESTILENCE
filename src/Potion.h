@@ -12,6 +12,7 @@ protected:
 	float m_accelerationHeight;
 	float m_velocityHeight;
 	float m_rotation;
+	bool m_effectTriggered;
 public:
 	Potion(glm::vec2 pos,glm::vec2 target);
 	virtual ~Potion() = 0;

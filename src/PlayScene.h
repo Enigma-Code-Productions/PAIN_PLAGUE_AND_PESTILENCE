@@ -40,6 +40,7 @@ public: // Functions
 
 	void CleanObjects();
 
+	Player* getPlayer();
 private: //Functions
 	// IMGUI Function
 	void GUI_Function() const;

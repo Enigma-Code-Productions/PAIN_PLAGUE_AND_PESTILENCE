@@ -177,6 +177,11 @@ void PlayScene::CleanObjects()
 	m_pScore = nullptr;
 }
 
+Player* PlayScene::getPlayer()
+{
+	return m_pPlayer;
+}
+
 void PlayScene::GUI_Function() const
 {
 	// Always open with a NewFrame

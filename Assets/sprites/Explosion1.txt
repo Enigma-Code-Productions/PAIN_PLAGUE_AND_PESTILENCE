@@ -1,0 +1,10 @@
+Explosion1-0 0 0 32 32
+Explosion1-1 32 0 32 32
+Explosion1-2 64 0 32 32
+Explosion1-3 96 0 32 32
+Explosion1-4 128 0 32 32
+Explosion1-5 160 0 32 32
+Explosion1-6 192 0 32 32
+Explosion1-7 224 0 32 32
+Explosion1-8 256 0 32 32
+Explosion1-9 288 0 32 32
