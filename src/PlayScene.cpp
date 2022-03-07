@@ -30,12 +30,12 @@ void PlayScene::update()
 
 	collisionCheck();
 	deleteDeadEnemies();
-	m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 
-	if (!m_pPlayer->isAlive())
+	if (m_pScore != nullptr)
 	{
-		TheGame::Instance().changeSceneState(END_SCENE);TheGame::Instance().changeSceneState(END_SCENE);
+		m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 	}
+
 
 	if (m_scoreCounter >= 20)
 	{
@@ -48,6 +48,7 @@ void PlayScene::update()
 
 void PlayScene::clean()
 {
+	CleanEnemies();
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
 	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
@@ -86,7 +87,7 @@ void PlayScene::start()
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
-
+	m_pPlayer->setCanMove(true);
 	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
 	//Ui
@@ -110,6 +111,19 @@ void PlayScene::start()
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
 }
+
+
+void PlayScene::CleanEnemies()
+{
+	for (auto& count : m_pEnemies)
+	{
+		count = nullptr;
+	}
+
+	m_pEnemies.clear();
+	m_pScore = nullptr;
+}
+
 
 void PlayScene::collisionCheck()
 {
@@ -183,6 +197,13 @@ void PlayScene::deleteDeadEnemies()
 	{
 		if (!m_pEnemies[i]->isAlive())
 		{
+
+			m_scoreCounter++;
+			removeChild(m_pEnemies[i]);
+			m_pEnemies[i] = nullptr;
+			m_pEnemies.erase(m_pEnemies.begin() + i);
+			i--;
+
 			if (dynamic_cast<Skull*>(m_pEnemies[i]))//check if enemy is a skull
 			{
 				m_scoreCounter++;
@@ -232,7 +253,7 @@ void PlayScene::GUI_Function() const
 
 	if(ImGui::Button("My Button"))
 	{
-		std::cout << "My Button Pressed" << std::endl;
+		
 	}
 
 	ImGui::Separator();
