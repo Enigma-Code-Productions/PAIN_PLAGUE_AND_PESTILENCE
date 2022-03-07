@@ -16,6 +16,10 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 
+	// Player hit sound
+	SoundManager::Instance().load("../Assets/audio/Hit.wav", "Hit", SOUND_SFX);
+
+	// Player heal sound
 	SoundManager::Instance().load("../Assets/audio/Heal.wav", "Heal", SOUND_SFX);
 
 	// set players collider
@@ -333,6 +337,9 @@ void Player::takeDamage(int damage)
 {
 	if (getInvTimeLeft() > 0)
 		return;
+
+	SoundManager::Instance().playSound("Hit", 0, -1);
+	SoundManager::Instance().setSoundVolume(6);
 
 	AliveObject::takeDamage(damage);
 	m_invTimeLeft = getInvTime();
