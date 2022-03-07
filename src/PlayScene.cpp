@@ -45,7 +45,7 @@ void PlayScene::update()
 
 void PlayScene::checkWin()
 {
-	if (m_scoreCounter >= 5)
+	if (m_scoreCounter >= 10)
 	{
 		m_bBossActive = true;
 
@@ -205,7 +205,7 @@ void PlayScene::spawnEnemy()
 	}
 
 	//spawn skull every 1 seconds.
-	const int enemySpawnInterval = 1 * 60;
+	const int enemySpawnInterval = 2 * 60;
 	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
 	{
 		int x = rand() % 800;
@@ -214,7 +214,7 @@ void PlayScene::spawnEnemy()
 		addChild(m_pEnemies.back());
 	}
 	//10 seconds
-	const int ZombieSpawnInterval = 10 * 60;
+	const int ZombieSpawnInterval = 4 * 60;
 	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
 	{
 		int x = rand() % 800;
