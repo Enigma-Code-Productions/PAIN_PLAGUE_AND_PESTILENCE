@@ -16,7 +16,7 @@ PotionThrower::PotionThrower(Player* player) : m_MaxPotions(3), m_pPlayer(player
 	m_amountOfPotions[POISON_POTION] = 2;
 	m_amountOfPotions[FIRE_POTION] = 2;
 	m_amountOfPotions[EXPLOSIVE_POTION] = 2;
-	m_loadPotions();
+	m_loadPotionsSprites();
 }
 
 PotionThrower::~PotionThrower() = default;
@@ -122,11 +122,13 @@ void PotionThrower::deletePotion(Potion* p)
 	m_pPotions.erase(std::remove(m_pPotions.begin(), m_pPotions.end(), p), m_pPotions.end());
 }
 
-void PotionThrower::m_loadPotions()
+void PotionThrower::m_loadPotionsSprites()
 {
 	TextureManager::Instance().load("../Assets/textures/Green_Cork.png", "greenPotion");
 	TextureManager::Instance().load("../Assets/textures/purple_bottle.png", "purplePotion");
 	TextureManager::Instance().load("../Assets/textures/redBottle.png", "redPotion");
+
+
 }
 
 void PotionThrower::m_buildAnimations()

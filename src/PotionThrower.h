@@ -42,7 +42,7 @@ public: // Functions
 	void deletePotion(Potion* p);
 
 private: // Functions
-	void m_loadPotions();
+	void m_loadPotionsSprites();
 	void m_buildAnimations();
 };
 

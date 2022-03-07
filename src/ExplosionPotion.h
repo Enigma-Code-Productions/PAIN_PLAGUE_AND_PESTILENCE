@@ -14,5 +14,6 @@ public:
 	virtual void draw() override;
 	virtual void update() override;
 
+	void m_buildAnimations();
 };
 #endif 
