@@ -101,9 +101,11 @@ void PlayScene::start()
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
 
+
 	// Enemy death sound
 	SoundManager::Instance().load("../Assets/audio/SkullDeath.wav", "Skull-Death", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/ZombieDeath.mp3", "Zombie-Death", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/SpellCasterDeath.mp3", "SpellCaster-Death", SOUND_SFX);
 
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
@@ -118,6 +120,7 @@ void PlayScene::collisionCheck()
 			if (enemy->hasCollisionDamage())
 			{
 				m_pPlayer->takeDamage(enemy->getDamage());
+
 			}
 			// Can be added stuff if player has collision damage
 		}
@@ -199,7 +202,7 @@ void PlayScene::deleteDeadEnemies()
 				m_pEnemies.erase(m_pEnemies.begin() + i);
 				i--;
 				//play zombie death sound
-				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().playSound("Zombie-Death", 0, -1);
 				SoundManager::Instance().setSoundVolume(6);
 			}
 			else if (dynamic_cast<SpellCaster*>(m_pEnemies[i]))//check if enemy is a Spell caster
@@ -210,7 +213,7 @@ void PlayScene::deleteDeadEnemies()
 				m_pEnemies.erase(m_pEnemies.begin() + i);
 				i--;
 				//play Spellcaster death sound
-				SoundManager::Instance().playSound("Skull-Death", 0, -1);
+				SoundManager::Instance().playSound("SpellCaster-Death", 0, -1);
 				SoundManager::Instance().setSoundVolume(6);
 			}
 		}

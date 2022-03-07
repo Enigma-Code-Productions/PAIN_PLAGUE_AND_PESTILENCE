@@ -14,6 +14,7 @@ EndScene::~EndScene()
 
 void EndScene::draw()
 {
+	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 }
 
@@ -58,6 +59,7 @@ void EndScene::start()
 	SoundManager::Instance().playMusic("EndLevel-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(2);
 
+	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
 
 	m_label = new Label("YOU DIED", "YouMurderer", 120, red, glm::vec2(400.0f, 300.0f));
 	m_label->setParent(this);

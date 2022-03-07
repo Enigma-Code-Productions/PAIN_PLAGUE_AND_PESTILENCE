@@ -14,6 +14,7 @@ StartScene::~StartScene()
 
 void StartScene::draw()
 {
+	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 }
 
@@ -53,6 +54,8 @@ void StartScene::start()
 	SoundManager::Instance().load("../Assets/audio/Horror-Game-Intro.mp3", "StartLevel-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("StartLevel-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(2);
+
+	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
 
 	m_pStartLabel = new Label("Pain Plague And Pestilence", "YouMurderer", 90, red, glm::vec2(400.0f, 40.0f));
 	m_pStartLabel->setParent(this);

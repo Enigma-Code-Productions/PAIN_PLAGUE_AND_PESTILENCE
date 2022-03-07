@@ -14,6 +14,7 @@ WinScene::~WinScene()
 
 void WinScene::draw()
 {
+	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 }
 
@@ -57,6 +58,7 @@ void WinScene::start()
 	SoundManager::Instance().playMusic("EndLevel-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(2);
 
+	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
 
 	m_label = new Label("Congrats You Made It, Now Find The Cure", "YouMurderer", 60, red, glm::vec2(400.0f, 300.0f));
 	m_label->setParent(this);
