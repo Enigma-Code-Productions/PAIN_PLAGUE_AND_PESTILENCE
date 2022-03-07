@@ -53,6 +53,17 @@ void PotionThrower::update()
 	{
 		potion->update();
 	}
+	for (int i = 0; i < m_pPotions.size(); i++)
+	{
+		if (m_pPotions[i]->IsReadyToDelete())
+		{
+			delete m_pPotions[i];
+			m_pPotions[i] = nullptr;
+			m_pPotions.erase(m_pPotions.begin() + i);
+			m_pPotions.shrink_to_fit();
+			break;
+		}
+	}
 }
 
 void PotionThrower::clean()
@@ -103,6 +114,12 @@ int PotionThrower::GetAmountPotions(Potions p)
 Potions PotionThrower::GetChosenPotion()
 {
 	return m_chosenPotion;
+}
+
+void PotionThrower::deletePotion(Potion* p)
+{
+	delete p;
+	m_pPotions.erase(std::remove(m_pPotions.begin(), m_pPotions.end(), p), m_pPotions.end());
 }
 
 void PotionThrower::m_loadPotions()

@@ -39,6 +39,8 @@ public: // Functions
 	int GetAmountPotions(Potions p);
 	Potions GetChosenPotion();
 
+	void deletePotion(Potion* p);
+
 private: // Functions
 	void m_loadPotions();
 	void m_buildAnimations();

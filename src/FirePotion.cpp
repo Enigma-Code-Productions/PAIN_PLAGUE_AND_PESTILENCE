@@ -28,4 +28,8 @@ void FirePotion::draw()
 void FirePotion::update()
 {
 	Potion::update();
+	if (m_height == 0.0f)
+	{
+		m_forDelete = true;
+	}
 }

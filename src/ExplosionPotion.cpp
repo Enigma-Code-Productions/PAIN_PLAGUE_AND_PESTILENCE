@@ -35,6 +35,7 @@ void ExplosionPotion::update()
 		{
 			Game::Instance().getSceneState()->addChildAfterUpdate(new Explosion1(glm::vec2(getTransform()->position.x, getTransform()->position.y), glm::vec2(96.0f, 96.0f)));
 			m_effectTriggered = true;
+			m_forDelete = true;
 		}
 	}
 }

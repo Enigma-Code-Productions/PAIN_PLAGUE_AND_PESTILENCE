@@ -1,9 +1,8 @@
 #include "Potion.h"
-
 #include "TextureManager.h"
 #include "Util.h"
 
-Potion::Potion(glm::vec2 pos, glm::vec2 target) : m_height(0.0f), m_accelerationHeight(-0.098), m_velocityHeight(3.0f), m_rotation(0), m_effectTriggered(false)
+Potion::Potion(glm::vec2 pos, glm::vec2 target) : m_height(0.0f), m_accelerationHeight(-0.098), m_velocityHeight(3.0f), m_rotation(0), m_effectTriggered(false), m_forDelete(false)
 {
 	//TextureManager::Instance().load("../Assets/textures/Circle.png", "Potion");
 	getTransform()->position = pos;
@@ -37,4 +36,9 @@ void Potion::update()
 		m_accelerationHeight = 0.0f;
 		m_rotation = 0.0f;
 	}
+}
+
+bool Potion::IsReadyToDelete()
+{
+	return m_forDelete;
 }

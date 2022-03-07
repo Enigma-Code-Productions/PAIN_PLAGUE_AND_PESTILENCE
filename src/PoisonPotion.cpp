@@ -28,6 +28,10 @@ void PosionPotion::draw()
 void PosionPotion::update()
 {
 	Potion::update();
+	if (m_height == 0.0f)
+	{
+		m_forDelete = true;
+	}
 }
 
 void PosionPotion::m_buildAnimations()

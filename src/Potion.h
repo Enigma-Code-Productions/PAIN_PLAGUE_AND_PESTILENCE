@@ -13,11 +13,14 @@ protected:
 	float m_velocityHeight;
 	float m_rotation;
 	bool m_effectTriggered;
+	bool m_forDelete;
 public:
 	Potion(glm::vec2 pos,glm::vec2 target);
 	virtual ~Potion() = 0;
 	virtual void clean() override;
 	virtual void draw() override;
 	virtual void update() override;
+
+	bool IsReadyToDelete();
 };
 #endif 
