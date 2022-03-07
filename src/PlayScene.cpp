@@ -27,12 +27,6 @@ void PlayScene::draw()
 		m_pShotgun->getBullets()[i]->draw();
 	}
 	//------------------------------------------------------------
-	
-	//temporary---------------------------------------------------
-	glm::vec4 yellow = { 247, 215, 126, 255 };
-	glm::vec2 pos = { 50, 50 };
-	Util::DrawFilledRect(pos, 50, 50, yellow);
-	//------------------------------------------------------------
 
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
@@ -41,8 +35,6 @@ void PlayScene::update()
 {
 	updateDisplayList();
 
-
-	//std::cout << m_pShotgun->getBullets().size() << std::endl;
 	//temporary---------------------------------------------------
 	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
 	{
@@ -55,14 +47,13 @@ void PlayScene::update()
 	{
 		if (m_pShotgun->getBullets()[i]->getTransform()->position.x > 800 || m_pShotgun->getBullets()[i]->getTransform()->position.x < 0 || m_pShotgun->getBullets()[i]->getTransform()->position.y > 600 || m_pShotgun->getBullets()[i]->getTransform()->position.y < 0)
 		{
-			delete m_pShotgun->getBullets()[i];
-			m_pShotgun->getBullets()[i] = nullptr;
-			m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + i);
-			m_pShotgun->getBullets().shrink_to_fit();
+			
+			//delete m_pShotgun->getBullets()[i];
+			//m_pShotgun->getBullets()[i] = nullptr;
+			//m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + i);
+			//m_pShotgun->getBullets().shrink_to_fit();
 		}
 	}
-
-	//std::cout << m_pPlayer->getWeapon()->Ra << std::endl;
 
 	collisionCheck();
 	deleteDeadEnemies();

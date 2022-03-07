@@ -1,11 +1,14 @@
 #include "Bullet.h"
 #include <iostream>
 
-Bullet::Bullet(float speed, float initialDirection)
+Bullet::Bullet(float speed, float initialDirection, glm::vec2 weaponPos)
 {
 	m_bulletSpeed = speed;
 	m_direction = initialDirection;
-	std::cout << "bullet created" << std::endl;
+
+	m_bulletSpeed = 7;//why
+
+	getTransform()->position = weaponPos;
 }
 
 Bullet::~Bullet()
@@ -14,13 +17,12 @@ Bullet::~Bullet()
 
 void Bullet::draw()
 {
-	Util::DrawFilledRect(getTransform()->position, 10, 10, { 247, 215, 126, 255});
-	std::cout << "bullet drawn" << std::endl;
+	glm::vec4 yellow = { 255 - 247, 255 - 215, 255 - 126, 255 };
+	Util::DrawFilledRect(getTransform()->position, 10, 10, yellow);
 }
 
 void Bullet::update()
 {
-	std::cout << "bullet updated" << std::endl;
 	m_move();
 }
 
@@ -40,6 +42,5 @@ float Bullet::getBulletSpeed()
 
 void Bullet::m_move()
 {
-	std::cout << "bullet moved" << std::endl;
-	getTransform()->position += glm::vec2(cos(m_direction), sin(m_direction)) * m_bulletSpeed;
+	getTransform()->position += glm::vec2(cos(Util::Deg2Rad * m_direction), sin(Util::Deg2Rad * m_direction)) * m_bulletSpeed;
 }

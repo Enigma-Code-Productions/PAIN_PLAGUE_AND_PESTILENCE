@@ -5,7 +5,7 @@
 class Bullet : public DisplayObject
 {
 public:
-	Bullet(float speed, float initialDirection);
+	Bullet(float speed, float initialDirection, glm::vec2 weaponPos);
 	~Bullet();
 
 	void draw() override;
