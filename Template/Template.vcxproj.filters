@@ -37,6 +37,21 @@
     <Filter Include="Templates">
       <UniqueIdentifier>{320d3ab8-b759-4ceb-b79b-c16af8b0b7f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Player">
+      <UniqueIdentifier>{b7a29d2d-f6fe-4502-8ddd-c671b7326eda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Weapons">
+      <UniqueIdentifier>{ae826b29-b63e-4045-96e1-c1cd70d2b115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Enemies">
+      <UniqueIdentifier>{367f1283-8ba4-461d-9f13-005cb0bb738d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Player\Potions">
+      <UniqueIdentifier>{cedeb78d-c681-4581-b923-7426c8c69fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Effects">
+      <UniqueIdentifier>{e7317f9f-647c-477d-b36e-2779831b4c03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StartScene.cpp">
@@ -57,9 +72,6 @@
     <ClCompile Include="..\src\TextureManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Player.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\PlayScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -68,9 +80,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Label.cpp">
       <Filter>UI Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Skull.cpp">
-      <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Renderer.cpp">
       <Filter>Singletons</Filter>
@@ -135,9 +144,6 @@
     <ClCompile Include="..\src\TemplateObject.cpp">
       <Filter>Templates</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SoyKnife.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\AliveObject.cpp">
       <Filter>Templates</Filter>
     </ClCompile>
@@ -150,8 +156,35 @@
     <ClCompile Include="..\src\PlayerUI.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Player.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PotionThrower.cpp">
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\HealingPotion.cpp">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SoyKnife.cpp">
+      <Filter>Game Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Skull.cpp">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Potion.cpp">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PoisonPotion.cpp">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ExplosionPotion.cpp">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FirePotion.cpp">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Explosion1.cpp">
+      <Filter>Game Objects\Effects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Zombie.cpp">
       <Filter>Game Objects</Filter>
@@ -185,9 +218,6 @@
     <ClInclude Include="..\src\SceneState.h">
       <Filter>Enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Player.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\PlayerAnimationState.h">
       <Filter>Enums</Filter>
     </ClInclude>
@@ -208,9 +238,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Label.h">
       <Filter>UI Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Skull.h">
-      <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Transform.h">
       <Filter>Components</Filter>
@@ -299,9 +326,6 @@
     <ClInclude Include="..\src\TemplateObject.h">
       <Filter>Templates</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\SoyKnife.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\SoyKnifeAnimationState.h">
       <Filter>Enums</Filter>
     </ClInclude>
@@ -317,8 +341,35 @@
     <ClInclude Include="..\src\PlayerUI.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Player.h">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PotionThrower.h">
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\HealingPotion.h">
-      <Filter>Game Objects</Filter>
+      <Filter>Game Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SoyKnife.h">
+      <Filter>Game Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Skull.h">
+      <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Potion.h">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PoisonPotion.h">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ExplosionPotion.h">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\FirePotion.h">
+      <Filter>Game Objects\Player\Potions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Explosion1.h">
+      <Filter>Game Objects\Effects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Zombie.h">
       <Filter>Game Objects</Filter>
@@ -343,6 +394,15 @@
       <Filter>Textures</Filter>
     </Image>
     <Image Include="..\Assets\sprites\Player-animation.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\sprites\GreenAnimation.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\sprites\purpleBottle.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\sprites\Explosion1.png">
       <Filter>Textures</Filter>
     </Image>
   </ItemGroup>

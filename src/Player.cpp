@@ -32,8 +32,9 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
+	m_thrower = new PotionThrower(this);
 	m_pPlayerUI = new PlayerUI(this);
-
+	
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
@@ -42,7 +43,6 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 
 	m_buildAnimations();
 	setAnimationState(PLAYER_IDLE_RIGHT);
-	
 }
 
 Player::~Player()
@@ -105,7 +105,10 @@ void Player::draw()
 	{
 		m_pPlayerUI->draw();
 	}
-	
+	if (m_thrower != nullptr)
+	{
+		m_thrower->draw();
+	}
 }
 
 void Player::Death()
@@ -225,6 +228,22 @@ void Player::update()
 			m_invTimeLeft--;
 		}
 	}
+	if(m_pWeapon != nullptr )
+	{
+		m_pWeapon->update();
+	}
+	if (m_thrower != nullptr)
+	{
+		m_thrower->update();
+	}
+	if (m_pPlayerUI != nullptr)
+	{
+		m_pPlayerUI->update();
+	}
+	if (m_invTimeLeft > 0)
+	{
+		m_invTimeLeft--;
+	}
 
 	if(!isAlive())
 	{
@@ -253,6 +272,12 @@ void Player::clean()
 		m_pHealingPotion->clean();
 		delete m_pHealingPotion;
 		m_pHealingPotion = nullptr;
+	}
+	if (m_thrower != nullptr)
+	{
+		m_thrower->clean();
+		delete m_thrower;
+		m_thrower = nullptr;
 	}
 }
 
@@ -312,6 +337,11 @@ int Player::getInvTimeLeft()
 Weapon* Player::getWeapon()
 {
 	return m_pWeapon;
+}
+
+PotionThrower* Player::getThrower()
+{
+	return m_thrower;
 }
 
 bool Player::isFacingRight()

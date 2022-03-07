@@ -58,6 +58,7 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 	const float p1Height = object1->getHeight();
 	const float p2Width = object2->getWidth();
 	const float p2Height = object2->getHeight();
+	
 
 	if (
 		p1.x < p2.x + p2Width &&
@@ -66,6 +67,7 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 		p1.y + p1Height > p2.y
 		)
 	{
+		
 		if (!object2->getRigidBody()->isColliding) {
 
 			object2->getRigidBody()->isColliding = true;
@@ -292,6 +294,59 @@ bool CollisionManager::circleAABBCheck(GameObject* object1, GameObject* object2)
 			const auto angle = acos(dot / Util::magnitude(attackVector)) * Util::Rad2Deg;
 
 			switch (object2->getType()) {
+			case PLAYER:
+				std::cout << "Collision with Skull!" << std::endl;
+				break;
+			case TARGET:
+				std::cout << "Collision with Planet!" << std::endl;
+				SoundManager::Instance().playSound("yay", 0);
+				break;
+			default:
+
+				break;
+			}
+
+			return true;
+		}
+		return false;
+	}
+	else
+	{
+		object2->getRigidBody()->isColliding = false;
+		return false;
+	}
+
+	return false;
+}
+
+bool CollisionManager::resizedCircleAABBCheck(GameObject* object1, GameObject* object2, float resize1, float resize2)
+{
+	// circle
+	const auto circleCentre = object1->getTransform()->position * 0.5f + glm::vec2(object1->getWidth() * (1 / resize1), object1->getHeight() * (1 / resize1));
+	const int circleRadius = std::max(object1->getWidth() * 0.5f, object1->getHeight() * 0.5f);
+	// aabb
+	const auto boxWidth = object2->getWidth() * (1 / resize2);
+	int halfBoxWidth = boxWidth * 0.5f  ;
+	const auto boxHeight = object2->getHeight() * (1 / resize2);
+	int halfBoxHeight = boxHeight * 0.5f ;
+
+	const auto boxStart = object2->getTransform()->position - glm::vec2(boxWidth * 0.5f, boxHeight * 0.5f);
+
+	if (circleAABBsquaredDistance(circleCentre, circleRadius, boxStart, boxWidth, boxHeight) <= (circleRadius * circleRadius))
+	{
+		if (!object2->getRigidBody()->isColliding)
+		{
+
+			object2->getRigidBody()->isColliding = true;
+
+			const auto attackVector = object1->getTransform()->position - object2->getTransform()->position;
+			const auto normal = glm::vec2(0.0f, -1.0f);
+
+			const auto dot = Util::dot(attackVector, normal);
+			const auto angle = acos(dot / Util::magnitude(attackVector)) * Util::Rad2Deg;
+
+			switch (object2->getType())
+			{
 			case PLAYER:
 				std::cout << "Collision with Skull!" << std::endl;
 				break;

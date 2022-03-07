@@ -7,6 +7,7 @@
 #include "Weapon.h"
 #include "PlayerUI.h"
 #include "HealingPotion.h"
+#include "PotionThrower.h"
 
 class Player final : public AliveObject
 {
@@ -25,6 +26,7 @@ private: //Properties
 	Weapon* m_pWeapon;
 	HealingPotion* m_pHealingPotion;
 	PlayerAnimationState m_currentAnimationState;
+	PotionThrower* m_thrower;
 public: // Functions
 	Player();
 	~Player();
@@ -43,6 +45,7 @@ public: // Functions
 	void setCanMove(bool m);
 	// getters
 	Weapon* getWeapon();
+	PotionThrower* getThrower();
 	bool isFacingRight();
 	int getDamage();
 	int getInvTime();

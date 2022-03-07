@@ -181,6 +181,11 @@ void Game::changeSceneState(const SceneState new_state)
 
 }
 
+Scene* Game::getSceneState()
+{
+	return  m_currentScene;
+}
+
 SDL_Window* Game::getWindow()
 {
 	return m_pWindow.get();

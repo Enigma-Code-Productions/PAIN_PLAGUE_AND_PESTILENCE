@@ -166,10 +166,16 @@
     <ClCompile Include="..\src\AliveObject.cpp" />
     <ClCompile Include="..\src\Button.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
+    <ClCompile Include="..\src\Explosion1.cpp" />
+    <ClCompile Include="..\src\ExplosionPotion.cpp" />
+    <ClCompile Include="..\src\FirePotion.cpp" />
     <ClCompile Include="..\src\HealingPotion.cpp" />
     <ClCompile Include="..\src\HealthBar.cpp" />
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
     <ClCompile Include="..\src\PlayerUI.cpp" />
+    <ClCompile Include="..\src\PoisonPotion.cpp" />
+    <ClCompile Include="..\src\Potion.cpp" />
+    <ClCompile Include="..\src\PotionThrower.cpp" />
     <ClCompile Include="..\src\SoyKnife.cpp" />
     <ClCompile Include="..\src\SpellCaster.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
@@ -212,9 +218,15 @@
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
+    <ClInclude Include="..\src\Explosion1.h" />
+    <ClInclude Include="..\src\ExplosionPotion.h" />
+    <ClInclude Include="..\src\FirePotion.h" />
     <ClInclude Include="..\src\HealingPotion.h" />
     <ClInclude Include="..\src\HealthBar.h" />
     <ClInclude Include="..\src\PlayerUI.h" />
+    <ClInclude Include="..\src\PoisonPotion.h" />
+    <ClInclude Include="..\src\Potion.h" />
+    <ClInclude Include="..\src\PotionThrower.h" />
     <ClInclude Include="..\src\SoyKnifeAnimationState.h" />
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />
@@ -258,7 +270,10 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Assets\sprites\Explosion1.png" />
+    <Image Include="..\Assets\sprites\GreenAnimation.png" />
     <Image Include="..\Assets\sprites\Player-animation.png" />
+    <Image Include="..\Assets\sprites\purpleBottle.png" />
     <Image Include="..\Assets\sprites\Soy-Knife-Animation.png" />
     <Image Include="..\Assets\textures\Player1-idle-1.png" />
     <Image Include="..\Assets\textures\Skull.png" />

@@ -82,7 +82,7 @@ void PlayScene::checkWin()
 
 void PlayScene::clean()
 {
-	CleanEnemies();
+	CleanObjects();
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
 	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
@@ -196,9 +196,17 @@ void PlayScene::collisionCheck()
 
 void PlayScene::spawnEnemy()
 {
+
 	//spawn skull every 5 seconds.
 	const int SkullSpawnInterval = 5 * 60;
 	if (TheGame::Instance().getFrames() % SkullSpawnInterval == 0)
+	{
+		
+	}
+
+	//spawn skull every 1 seconds.
+	const int enemySpawnInterval = 1 * 60;
+	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
 	{
 		int x = rand() % 800;
 		int y = rand() % 600;
@@ -268,6 +276,28 @@ void PlayScene::deleteDeadEnemies()
 			}
 		}
 	}
+}
+
+
+void PlayScene::CleanObjects()
+{
+	for (auto& count : m_pEnemies)
+	{
+		count = nullptr;
+	}
+
+	m_pEnemies.clear();
+	m_pScore = nullptr;
+}
+
+Player* PlayScene::getPlayer()
+{
+	return m_pPlayer;
+}
+
+std::vector<AliveObject*>* PlayScene::getEnemies()
+{
+	return &m_pEnemies;
 }
 
 void PlayScene::GUI_Function() const

@@ -55,6 +55,7 @@ public:
 
 	bool isRunning() const;
 	void changeSceneState(SceneState new_state);
+	Scene* getSceneState();
 
 	SDL_Window* getWindow();
 

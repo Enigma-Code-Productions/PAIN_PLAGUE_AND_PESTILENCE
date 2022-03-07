@@ -1,0 +1,5 @@
+Purple-Bottle-0 0 0 50 45
+Purple-Bottle-1 50 0 50 45
+Purple-Bottle-2 100 0 50 45
+Purple-Bottle-3 150 0 50 45
+Purple-Bottle-Empty 200 0 50 45

@@ -31,6 +31,24 @@ void Scene::addChild(DisplayObject * child, uint32_t layer_index, std::optional<
 	m_displayList.push_back(child);
 }
 
+void Scene::addChildAfterUpdate(DisplayObject* child, uint32_t layer_index, std::optional<uint32_t> order_index)
+{
+	uint32_t index = 0;
+	// If we passed in an order index, override the auto-increment value
+	if (order_index.has_value())
+	{
+		index = order_index.value();
+	}
+	// If we did not pass in an order index, generate one for them
+	else
+	{
+		index = m_nextLayerIndex++;
+	}
+	child->setLayerIndex(layer_index, index);
+	child->m_pParentScene = this;
+	m_queueObjects.push_back(child);
+}
+
 void Scene::removeChild(DisplayObject * child)
 {
 	delete child;
@@ -84,6 +102,7 @@ void Scene::updateDisplayList()
 			display_object->update();
 		}
 	}
+	m_addChildInQueue();
 }
 
 void Scene::drawDisplayList()
@@ -108,18 +127,12 @@ std::vector<DisplayObject*> Scene::getDisplayList() const
 	return m_displayList;
 }
 
-//std::vector<DisplayObject*> Scene::getObjecstOfType(GameObjectType tag)
-//{
-//	std::vector<DisplayObject*> r;
-//
-//	for (auto object : m_displayList)
-//	{
-//		if (object->getType() == tag)
-//		{
-//			r.push_back(object);
-//		}
-//	}
-//
-//	return r;
-//}
 
+inline void Scene::m_addChildInQueue()
+{
+	for (auto obj : m_queueObjects)
+	{
+		m_displayList.push_back(obj);
+	}
+	m_queueObjects.clear();
+}

@@ -1,0 +1,10 @@
+Explosion1-0 0 0 96 96
+Explosion1-1 96 0 96 96
+Explosion1-2 192 0 96 96
+Explosion1-3 288 0 96 96
+Explosion1-4 384 0 96 96
+Explosion1-5 480 0 96 96
+Explosion1-6 576 0 96 96
+Explosion1-7 672 0 96 96
+Explosion1-8 768 0 96 96
+Explosion1-9 864 0 96 96

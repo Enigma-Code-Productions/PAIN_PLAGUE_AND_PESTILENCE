@@ -46,8 +46,16 @@ public: // Functions
 	void collisionCheck();
 	void spawnEnemy();
 	void deleteDeadEnemies();
+
 	void checkWin();
 	void CleanEnemies();
+
+
+	void CleanObjects();
+
+	Player* getPlayer();
+	std::vector<AliveObject*>* getEnemies();
+
 
 private: //Functions
 	// IMGUI Function
