@@ -56,7 +56,7 @@ void PlayScene::update()
 		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
 		
 	}
-	spawnEnemy();
+	//spawnEnemy();
 }
 
 

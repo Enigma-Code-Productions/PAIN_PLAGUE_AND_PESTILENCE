@@ -10,7 +10,7 @@ public:
 	void update() override;
 
 	void setBulletCount(int count);
-	void setAccuracy(int totalAngle);
+	void setAccuracy(float accuracy);
 	void setDirection();
 	int getBulletCount();
 	int getAccuracy();
@@ -22,7 +22,7 @@ private:
 	std::vector<Bullet*> m_pBullets;
 	float m_bulletSpeed;
 	int m_bulletCount;
-	int m_accuracy; //lower accuracy is better, and 0 is the best
+	float m_accuracy; //lower accuracy is better, and 0 is the best
 	float m_direction;
 };
 
