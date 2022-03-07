@@ -17,9 +17,11 @@ SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("SpellCaster"));
 	//set Health 
-	setMaxHealth(150);
+	//setMaxHealth(150); //Non-Boss Health
+	setMaxHealth(300); //Boss Health
 	setHealth(getMaxHealth());
-	setDamage(15);
+	//setDamage(15); //Non-boss Damage
+	setDamage(30); //Boss Damage;
 	setCollisionDamage(true);
 
 
@@ -57,10 +59,13 @@ void SpellCaster::draw()
 void SpellCaster::update()
 {
 	//if the player is within "seeing" range of the Zombie.
-	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius) && !getRigidBody()->isColliding)
-	{
-		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
-	}
+	//if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius) && !getRigidBody()->isColliding)
+	//{
+	//	getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
+	//}
+
+	//Boss Follow
+	getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
 }
 
 void SpellCaster::clean()

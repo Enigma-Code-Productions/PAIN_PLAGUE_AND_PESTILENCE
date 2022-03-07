@@ -26,6 +26,12 @@ private: //Properties
 	//Score
 	int m_scoreCounter;
 
+	//Boss Battle
+	bool m_bBossActive = false;
+	bool m_bBossSpawned;
+	bool m_bBossDead;
+	AliveObject* m_pBoss;
+
 public: // Functions
 	PlayScene();
 	~PlayScene();
@@ -40,7 +46,7 @@ public: // Functions
 	void collisionCheck();
 	void spawnEnemy();
 	void deleteDeadEnemies();
-
+	void checkWin();
 	void CleanEnemies();
 
 private: //Functions

@@ -124,7 +124,8 @@ void Player::Death()
 
 	if (getAnimation("death").current_frame == 9) //When death animation is done, end game
 	{
-		TheGame::Instance().changeSceneState(END_SCENE); TheGame::Instance().changeSceneState(END_SCENE);
+		setAlive(false);
+		TheGame::Instance().changeSceneState(END_SCENE);
 	}
 }
 

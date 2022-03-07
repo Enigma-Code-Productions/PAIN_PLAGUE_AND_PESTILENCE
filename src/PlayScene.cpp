@@ -36,13 +36,47 @@ void PlayScene::update()
 		m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
 	}
 
-
-	if (m_scoreCounter >= 20)
+	if(m_pPlayer->isAlive())
 	{
-		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
-		
+		checkWin();
 	}
-	spawnEnemy();
+
+}
+
+void PlayScene::checkWin()
+{
+	if (m_scoreCounter >= 5)
+	{
+		m_bBossActive = true;
+
+		//Delete all enemies in scene
+		if (!m_bBossSpawned)
+		{
+			for (auto enemy : m_pEnemies)
+			{
+				enemy->setAlive(false);
+			}
+			deleteDeadEnemies();
+
+			int x = rand() % 800;
+			int y = rand() % 600;
+			m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
+			addChild(m_pEnemies.back());
+			m_pBoss = m_pEnemies.back();
+			m_bBossSpawned = true;
+		}
+
+		//If the boss is in scene, check if it is dead
+		if (m_bBossSpawned)
+		{
+			if (m_bBossDead)
+			{
+				TheGame::Instance().changeSceneState(WIN_SCENE); //Change to win scene if boss dies
+			}
+		}
+	}
+	if (!m_bBossActive)
+		spawnEnemy();
 }
 
 
@@ -79,10 +113,13 @@ void PlayScene::start()
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
 
-
 	// Background
 	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
 
+	//Boss Sprite
+	m_bBossSpawned = false;
+	m_bBossDead = false;
+	m_pBoss = nullptr;
 
 	// Player Sprite
 	m_pPlayer = new Player();
@@ -178,14 +215,14 @@ void PlayScene::spawnEnemy()
 		addChild(m_pEnemies.back());
 	}
 	//15 seconds
-	const int SpellCasterSpawnInterval = 15 * 60;
-	if (TheGame::Instance().getFrames() % SpellCasterSpawnInterval == 0)
-	{
-		int x = rand() % 800;
-		int y = rand() % 600;
-		m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
-		addChild(m_pEnemies.back());
-	}
+	//const int SpellCasterSpawnInterval = 15 * 60;
+	//if (TheGame::Instance().getFrames() % SpellCasterSpawnInterval == 0)
+	//{
+	//	int x = rand() % 800;
+	//	int y = rand() % 600;
+	//	m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
+	//	addChild(m_pEnemies.back());
+	//}
 
 }
 
@@ -219,11 +256,12 @@ void PlayScene::deleteDeadEnemies()
 			}
 			else if (dynamic_cast<SpellCaster*>(m_pEnemies[i]))//check if enemy is a Spell caster
 			{
-				m_scoreCounter = m_scoreCounter + 3;
+				m_bBossDead = true;
+				/*m_scoreCounter = m_scoreCounter + 3;
 				removeChild(m_pEnemies[i]);
 				m_pEnemies[i] = nullptr;
 				m_pEnemies.erase(m_pEnemies.begin() + i);
-				i--;
+				i--;*/
 				//play Spellcaster death sound
 				SoundManager::Instance().playSound("SpellCaster-Death", 0, -1);
 				SoundManager::Instance().setSoundVolume(6);

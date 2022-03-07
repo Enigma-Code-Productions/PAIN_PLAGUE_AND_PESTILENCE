@@ -53,6 +53,7 @@ void WinScene::handleEvents()
 void WinScene::start()
 {
 	const SDL_Color red = { 128, 0, 0, 255 };
+	const SDL_Color white = { 255,255,255,255 };
 
 	SoundManager::Instance().load("../Assets/audio/Surreal-Game-Menu_Looping.mp3", "EndLevel-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("EndLevel-Music", -1, 0);
@@ -60,7 +61,7 @@ void WinScene::start()
 
 	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
 
-	m_label = new Label("Congrats You Made It, Now Find The Cure", "YouMurderer", 60, red, glm::vec2(400.0f, 300.0f));
+	m_label = new Label("Congrats You Made It, Now Find The Cure", "YouMurderer", 60, white, glm::vec2(400.0f, 200.0f));
 	m_label->setParent(this);
 	addChild(m_label);
 
