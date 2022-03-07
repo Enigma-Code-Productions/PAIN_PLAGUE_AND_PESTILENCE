@@ -2,8 +2,9 @@
 
 #include "Game.h"
 #include "TextureManager.h"
+#include "Util.h"
 
-Explosion1::Explosion1(glm::vec2 pos, glm::vec2 size)
+Explosion1::Explosion1(glm::vec2 pos) : m_damageDone(false)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/Explosion1.txt",
@@ -12,8 +13,10 @@ Explosion1::Explosion1(glm::vec2 pos, glm::vec2 size)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Explosion1"));
 	
-	setWidth(size.x);
-	setHeight(size.y);
+	setWidth(96);
+	setHeight(96);
+
+
 
 	getTransform()->position = pos;
 	m_buildAnimations();
@@ -34,7 +37,8 @@ void Explosion1::draw()
 	if (getAnimation("Explosion1").current_frame != getAnimation("Explosion1").frames.size() - 1)
 	{
 		TextureManager::Instance().playAnimation("Explosion1", getAnimation("Explosion1"),
-			x, y, 0.75f, 0, 255, true, SDL_FLIP_NONE, (getWidth() / getAnimation("Explosion1").frames[0].w));
+			x, y, 0.75f, 0, 255, true);
+
 	}
 	else
 	{
@@ -43,12 +47,33 @@ void Explosion1::draw()
 };
 void Explosion1::update()
 {
-	
+	if (getAnimation("Explosion1").current_frame == 3 && !m_damageDone)
+	{
+		dealDamage();
+		m_damageDone = true;
+	}
 }
 
 void Explosion1::dealDamage()
 {
-	
+	SDL_FRect collider({ getTransform()->position.x - (getWidth() / 5), getTransform()->position.y - (getHeight() / 5), (float)getWidth(), (float)getHeight()});
+
+	auto pPlayer = dynamic_cast<PlayScene*>(TheGame::Instance().getSceneState())->getPlayer();
+
+	auto pEnemies = dynamic_cast<PlayScene*>(TheGame::Instance().getSceneState())->getEnemies();
+
+	if (CollisionManager::circleAABBCheck(this, pPlayer))
+	{
+		pPlayer->takeDamage(90);
+		pPlayer->getRigidBody()->isColliding = false;
+	}
+	for (auto enemy : *(pEnemies))
+	{
+		if (CollisionManager::circleAABBCheck(this, enemy))
+		{
+			enemy->takeDamage(90);
+		}
+	}
 }
 
 

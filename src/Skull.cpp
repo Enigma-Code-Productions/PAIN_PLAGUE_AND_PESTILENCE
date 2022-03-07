@@ -13,7 +13,7 @@ Skull::Skull(Player* player) : m_speed(2), m_detectionRadius(250)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Skull"));
 	//set Health 
-	setMaxHealth(100);
+	setMaxHealth(50);
 	setHealth(getMaxHealth());
 	setDamage(10);
 	setCollisionDamage(true);

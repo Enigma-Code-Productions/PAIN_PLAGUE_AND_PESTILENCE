@@ -39,7 +39,7 @@ void PlayScene::update()
 			TheGame::Instance().changeSceneState(WIN_SCENE);
 
 		}
-		//spawnEnemy();
+		spawnEnemy();
 	}
 	
 }
@@ -180,6 +180,11 @@ void PlayScene::CleanObjects()
 Player* PlayScene::getPlayer()
 {
 	return m_pPlayer;
+}
+
+std::vector<AliveObject*>* PlayScene::getEnemies()
+{
+	return &m_pEnemies;
 }
 
 void PlayScene::GUI_Function() const

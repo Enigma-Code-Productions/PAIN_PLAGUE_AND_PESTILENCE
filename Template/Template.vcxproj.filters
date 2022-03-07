@@ -49,6 +49,9 @@
     <Filter Include="Game Objects\Player\Potions">
       <UniqueIdentifier>{cedeb78d-c681-4581-b923-7426c8c69fe9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Effects">
+      <UniqueIdentifier>{e7317f9f-647c-477d-b36e-2779831b4c03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StartScene.cpp">
@@ -180,7 +183,9 @@
     <ClCompile Include="..\src\FirePotion.cpp">
       <Filter>Game Objects\Player\Potions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Explosion1.cpp" />
+    <ClCompile Include="..\src\Explosion1.cpp">
+      <Filter>Game Objects\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -357,7 +362,9 @@
     <ClInclude Include="..\src\FirePotion.h">
       <Filter>Game Objects\Player\Potions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Explosion1.h" />
+    <ClInclude Include="..\src\Explosion1.h">
+      <Filter>Game Objects\Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">

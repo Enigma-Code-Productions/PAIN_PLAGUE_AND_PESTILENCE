@@ -41,6 +41,8 @@ public: // Functions
 	void CleanObjects();
 
 	Player* getPlayer();
+	std::vector<AliveObject*>* getEnemies();
+
 private: //Functions
 	// IMGUI Function
 	void GUI_Function() const;

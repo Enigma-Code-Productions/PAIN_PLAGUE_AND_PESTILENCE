@@ -33,7 +33,7 @@ void ExplosionPotion::update()
 	{
 		if (!m_effectTriggered)
 		{
-			Game::Instance().getSceneState()->addChildAfterUpdate(new Explosion1(glm::vec2(getTransform()->position.x, getTransform()->position.y), glm::vec2(96.0f, 96.0f)));
+			Game::Instance().getSceneState()->addChildAfterUpdate(new Explosion1(glm::vec2(getTransform()->position.x, getTransform()->position.y)));
 			m_effectTriggered = true;
 			m_forDelete = true;
 		}

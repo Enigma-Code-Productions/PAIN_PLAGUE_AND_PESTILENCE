@@ -6,8 +6,10 @@
 
 class Explosion1 : public Sprite
 {
+private:
+	bool m_damageDone;
 public:
-	Explosion1(glm::vec2 pos, glm::vec2 size = glm::vec2(64.0f, 64.0f));
+	Explosion1(glm::vec2 pos);
 	~Explosion1();
 
 	void clean() override;
