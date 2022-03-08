@@ -31,6 +31,7 @@ void ExplosionPotion::draw()
 	if (m_velocityHeight == 0)
 	{
 		TextureManager::Instance().playAnimation("PurpleBottleAnim", getAnimation("breakingAnimation"), x, y, 0.3f, 0.0, 255);
+
 	}
 	else
 	{
@@ -45,6 +46,9 @@ void ExplosionPotion::update()
 	{
 		if (!m_effectTriggered)
 		{
+			SoundManager::Instance().playSound("PotionBreak", 0, -1);
+			SoundManager::Instance().setSoundVolume(4);
+
 			Game::Instance().getSceneState()->addChildAfterUpdate(new Explosion1(glm::vec2(getTransform()->position.x, getTransform()->position.y)));
 			m_effectTriggered = true;
 		}

@@ -93,10 +93,12 @@ void PotionThrower::throwPotion()
 		m_pPotions.push_back(new PosionPotion(getTransform()->position, target));
 		m_amountOfPotions[POISON_POTION]--;
 		break;
+
 	case FIRE_POTION:
 		m_pPotions.push_back(new FirePotion(getTransform()->position, target));
 		m_amountOfPotions[FIRE_POTION]--;
 		break;
+
 	case EXPLOSIVE_POTION:
 		m_pPotions.push_back(new ExplosionPotion(getTransform()->position, target));
 		m_amountOfPotions[EXPLOSIVE_POTION]--;
@@ -127,7 +129,6 @@ void PotionThrower::m_loadPotionsSprites()
 	TextureManager::Instance().load("../Assets/textures/Green_Cork.png", "greenPotion");
 	TextureManager::Instance().load("../Assets/textures/purple_bottle.png", "purplePotion");
 	TextureManager::Instance().load("../Assets/textures/redBottle.png", "redPotion");
-
 
 }
 

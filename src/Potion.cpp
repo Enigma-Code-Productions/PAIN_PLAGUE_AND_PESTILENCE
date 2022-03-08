@@ -1,5 +1,6 @@
 #include "Potion.h"
 #include "TextureManager.h"
+#include "Game.h"
 #include "Util.h"
 
 Potion::Potion(glm::vec2 pos, glm::vec2 target) : m_height(0.0f), m_accelerationHeight(-0.098), m_velocityHeight(3.0f), m_rotation(0), m_effectTriggered(false), m_forDelete(false)
@@ -8,6 +9,7 @@ Potion::Potion(glm::vec2 pos, glm::vec2 target) : m_height(0.0f), m_acceleration
 	getTransform()->position = pos;
 	getRigidBody()->velocity = (target - getTransform()->position) * 0.0155f;
 
+	SoundManager::Instance().load("../Assets/audio/PotionBreak.mp3", "PotionBreak", SOUND_SFX);
 }
 
 Potion::~Potion() = default;
