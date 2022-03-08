@@ -16,11 +16,10 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 
-	// Player hit sound
+	// Player sounds
 	SoundManager::Instance().load("../Assets/audio/Hit.wav", "Hit", SOUND_SFX);
-
-	// Player heal sound
 	SoundManager::Instance().load("../Assets/audio/Heal.wav", "Heal", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/Portal.mp3", "Portal", SOUND_SFX);
 
 	// set players collider
 	setWidth(56);
@@ -85,10 +84,18 @@ void Player::draw()
 	case PLAYER_DEATH_RIGHT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
 			x, y, 0.05f, 0, alpha, true);
+
+		SoundManager::Instance().playSound("Portal", 0, -1);
+		SoundManager::Instance().setSoundVolume(6);
+
 		break;
 	case PLAYER_DEATH_LEFT:
 		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
 			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+
+		SoundManager::Instance().playSound("Portal", 0, -1);
+		SoundManager::Instance().setSoundVolume(2);
+
 		break;
 	default:
 		break;
