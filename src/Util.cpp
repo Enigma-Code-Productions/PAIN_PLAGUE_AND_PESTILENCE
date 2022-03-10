@@ -361,7 +361,7 @@ void Util::DrawFilledRect(const glm::vec2 position, const int width, const int h
 		
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_FillRect(surface, nullptr, SDL_MapRGB(surface->format, r, g, b));
-	SDL_RenderDrawRect(renderer, &rectangle);
+	SDL_RenderFillRect(renderer, &rectangle);
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 }
 

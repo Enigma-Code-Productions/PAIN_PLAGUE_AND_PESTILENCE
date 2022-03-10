@@ -9,6 +9,8 @@
 #include "SpellCaster.h"
 #include "Label.h"
 #include "SoyKnife.h"
+#include "Bullet.h"
+#include "WinchesterShotgun.h"
 
 class PlayScene : public Scene
 {
@@ -22,6 +24,9 @@ private: //Properties
 	Skull* m_pSkull;
 	Zombie* m_pZombie;
 	Label* m_pScore;
+
+	WinchesterShotgun* m_pShotgun;
+	std::vector<Bullet*> m_pShotgunBullets;
 
 	//Score
 	int m_scoreCounter;

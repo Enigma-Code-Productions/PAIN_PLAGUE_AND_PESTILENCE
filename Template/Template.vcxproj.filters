@@ -150,8 +150,15 @@
     <ClCompile Include="..\src\HealthBar.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\WinScene.cpp">
-      <Filter>Scenes</Filter>
+    <ClCompile Include="..\src\WinScene.cpp" />
+    <ClCompile Include="..\src\RangedWeapon.cpp">
+      <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WinchesterShotgun.cpp">
+      <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\PlayerUI.cpp">
       <Filter>UI Objects</Filter>
@@ -335,8 +342,18 @@
     <ClInclude Include="..\src\HealthBar.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\WinScene.h">
-      <Filter>Scenes</Filter>
+    <ClInclude Include="..\src\WinScene.h" />
+    <ClInclude Include="..\src\RangedWeapon.h">
+      <Filter>Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>Templates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterShotgun.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterShotgunAnimationState.h">
+      <Filter>Enums</Filter>
     </ClInclude>
     <ClInclude Include="..\src\PlayerUI.h">
       <Filter>UI Objects</Filter>

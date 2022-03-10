@@ -146,20 +146,20 @@ void SoyKnife::m_buildAnimations()
 	idleAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-idle"));
 	setAnimation(idleAnimation);
 
-	Animation attckAnimation = Animation();
+	Animation attackAnimation = Animation();
 
-	attckAnimation.name = "attack";
+	attackAnimation.name = "attack";
 
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-idle"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-0"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-1"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-2"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-3"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-4"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-5"));
-	attckAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-6"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-idle"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-0"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-1"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-2"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-3"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-4"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-5"));
+	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("SoyKnife-attack-6"));
 
-	setAnimation(attckAnimation);
+	setAnimation(attackAnimation);
 }
 
 void SoyKnife::m_move()

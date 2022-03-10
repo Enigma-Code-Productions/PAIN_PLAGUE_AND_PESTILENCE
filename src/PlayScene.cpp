@@ -21,12 +21,42 @@ void PlayScene::draw()
 	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 
+	//temporary---------------------------------------------------
+	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
+	{
+		m_pShotgun->getBullets()[i]->draw();
+	}
+	//------------------------------------------------------------
+
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
 void PlayScene::update()
 {
 	updateDisplayList();
+
+	//temporary---------------------------------------------------
+	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
+	{
+		m_pShotgun->getBullets()[i]->update();
+	}
+	//------------------------------------------------------------
+
+	m_pShotgunBullets = m_pShotgun->getBullets();
+
+	// Clean up bullets that go off screen.
+	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
+	{
+		if (m_pShotgunBullets[i]->getTransform()->position.x > 800 || m_pShotgunBullets[i]->getTransform()->position.x < 0 || m_pShotgunBullets[i]->getTransform()->position.y > 600 || m_pShotgunBullets[i]->getTransform()->position.y < 0)
+		{
+			delete m_pShotgunBullets[i];
+			m_pShotgunBullets[i] = nullptr;
+			m_pShotgunBullets.erase(m_pShotgunBullets.begin() + i);
+			break;
+		}
+	}
+	m_pShotgunBullets.shrink_to_fit();
+	m_pShotgun->setBullets(m_pShotgunBullets);
 
 	collisionCheck();
 	deleteDeadEnemies();
@@ -125,7 +155,13 @@ void PlayScene::start()
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
 	m_pPlayer->setCanMove(true);
-	m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
+
+	//m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
+
+	m_pShotgun = new WinchesterShotgun(m_pPlayer);
+	m_pPlayer->setWeapon(m_pShotgun);
+
+	m_pShotgunBullets = m_pShotgun->getBullets();
 
 	//Ui
 	m_scoreCounter = 0;
@@ -185,6 +221,26 @@ void PlayScene::collisionCheck()
 						if (enemy->getLastHitFrame() < m_pPlayer->getWeapon()->getAttackStart())
 						{
 							enemy->takeDamage(m_pPlayer->getDamage());
+						}
+					}
+				}
+			}
+			else if (m_pPlayer->getWeapon()->getType() == RANGED_WEAPON)
+			{
+				for (unsigned i = 0; i < m_pEnemies.size(); i++)
+				{
+					for (unsigned j = 0; j < m_pShotgunBullets.size(); j++)
+					{
+						if (CollisionManager::AABBCheck(m_pShotgunBullets[j], m_pEnemies[i]))
+						{
+							m_pEnemies[i]->takeDamage(m_pShotgun->getDamage());
+
+							//delete bullet
+							delete m_pShotgunBullets[j];
+							m_pShotgunBullets[j] = nullptr;
+							m_pShotgunBullets.erase(m_pShotgunBullets.begin() + j);
+							m_pShotgunBullets.shrink_to_fit();
+							m_pShotgun->setBullets(m_pShotgunBullets);
 						}
 					}
 				}
