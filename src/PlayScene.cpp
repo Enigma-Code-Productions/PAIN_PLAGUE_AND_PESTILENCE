@@ -22,7 +22,7 @@ void PlayScene::draw()
 	drawDisplayList();
 
 	//temporary---------------------------------------------------
-	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
+	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
 	{
 		m_pShotgun->getBullets()[i]->draw();
 	}
@@ -36,24 +36,27 @@ void PlayScene::update()
 	updateDisplayList();
 
 	//temporary---------------------------------------------------
-	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
+	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
 	{
 		m_pShotgun->getBullets()[i]->update();
 	}
 	//------------------------------------------------------------
 
+	m_pShotgunBullets = m_pShotgun->getBullets();
+
 	// Clean up bullets that go off screen.
-	for (unsigned i = 0; i < m_pShotgun->getBullets().size(); i++)
+	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
 	{
-		if (m_pShotgun->getBullets()[i]->getTransform()->position.x > 800 || m_pShotgun->getBullets()[i]->getTransform()->position.x < 0 || m_pShotgun->getBullets()[i]->getTransform()->position.y > 600 || m_pShotgun->getBullets()[i]->getTransform()->position.y < 0)
+		if (m_pShotgunBullets[i]->getTransform()->position.x > 800 || m_pShotgunBullets[i]->getTransform()->position.x < 0 || m_pShotgunBullets[i]->getTransform()->position.y > 600 || m_pShotgunBullets[i]->getTransform()->position.y < 0)
 		{
-			//delete m_pShotgun->getBullets()[i];
-			//m_pShotgun->getBullets()[i] = nullptr;
-			//m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + i);
-			//break;
+			delete m_pShotgunBullets[i];
+			m_pShotgunBullets[i] = nullptr;
+			m_pShotgunBullets.erase(m_pShotgunBullets.begin() + i);
+			break;
 		}
 	}
-	//m_pShotgun->getBullets().shrink_to_fit();
+	m_pShotgunBullets.shrink_to_fit();
+	m_pShotgun->setBullets(m_pShotgunBullets);
 
 	collisionCheck();
 	deleteDeadEnemies();
@@ -69,7 +72,7 @@ void PlayScene::update()
 		TheGame::Instance().changeSceneState(WIN_SCENE); TheGame::Instance().changeSceneState(WIN_SCENE);
 		
 	}
-	//spawnEnemy();
+	spawnEnemy();
 }
 
 
@@ -118,6 +121,8 @@ void PlayScene::start()
 
 	m_pShotgun = new WinchesterShotgun(m_pPlayer);
 	m_pPlayer->setWeapon(m_pShotgun);
+
+	m_pShotgunBullets = m_pShotgun->getBullets();
 
 
 	//m_pEnemies.push_back(new Skull(m_pPlayer));
@@ -171,17 +176,18 @@ void PlayScene::collisionCheck()
 			{
 				for (unsigned i = 0; i < m_pEnemies.size(); i++)
 				{
-					for (unsigned j = 0; j < m_pShotgun->getBullets().size(); j++)
+					for (unsigned j = 0; j < m_pShotgunBullets.size(); j++)
 					{
-						if (CollisionManager::AABBCheck(m_pShotgun->getBullets()[j], m_pEnemies[i]))
+						if (CollisionManager::AABBCheck(m_pShotgunBullets[j], m_pEnemies[i]))
 						{
 							m_pEnemies[i]->takeDamage(m_pShotgun->getDamage());
 
 							//delete bullet
-							delete m_pShotgun->getBullets()[j];
-							m_pShotgun->getBullets()[j] = nullptr;
-							m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + j);
-							m_pShotgun->getBullets().shrink_to_fit();
+							delete m_pShotgunBullets[j];
+							m_pShotgunBullets[j] = nullptr;
+							m_pShotgunBullets.erase(m_pShotgunBullets.begin() + j);
+							m_pShotgunBullets.shrink_to_fit();
+							m_pShotgun->setBullets(m_pShotgunBullets);
 						}
 					}
 				}

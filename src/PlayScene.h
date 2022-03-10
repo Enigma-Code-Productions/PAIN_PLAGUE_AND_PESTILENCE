@@ -23,6 +23,7 @@ private: //Properties
 	Label* m_pScore;
 
 	WinchesterShotgun* m_pShotgun;
+	std::vector<Bullet*> m_pShotgunBullets;
 
 	//Score
 	int m_scoreCounter;

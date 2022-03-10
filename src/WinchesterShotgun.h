@@ -29,6 +29,7 @@ public: //Functions
 	void setDirection();
 
 	std::vector<Bullet*> getBullets();
+	void setBullets(std::vector<Bullet*> bullets);
 
 private: //Functions
 

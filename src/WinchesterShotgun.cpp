@@ -17,7 +17,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	setWidth(144);
 	setHeight(75);
 	setOwner(player);
-	setDamage(10);
+	setDamage(25);
 	setBulletCount(5);
 	setBulletSpeed(10);
 	setAccuracy(10);
@@ -135,9 +135,6 @@ void WinchesterShotgun::attack()
 		//SoundManager::Instance().playSound("Knife", 0, 0);
 		//SoundManager::Instance().setSoundVolume(6);
 		setAttackStart(TheGame::Instance().getFrames());
-
-		std::cout << "attack on frame: " << getAttackStart() << std::endl;
-
 		setIsAttacking(true);
 
 		for (int i = 0; i < m_bulletCount; i++)
@@ -253,4 +250,9 @@ void WinchesterShotgun::setDirection()
 std::vector<Bullet*> WinchesterShotgun::getBullets()
 {
 	return m_pBullets;
+}
+
+void WinchesterShotgun::setBullets(std::vector<Bullet*> bullets)
+{
+	m_pBullets = bullets;
 }
