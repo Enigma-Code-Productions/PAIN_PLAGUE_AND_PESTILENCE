@@ -47,13 +47,13 @@ void PlayScene::update()
 	{
 		if (m_pShotgun->getBullets()[i]->getTransform()->position.x > 800 || m_pShotgun->getBullets()[i]->getTransform()->position.x < 0 || m_pShotgun->getBullets()[i]->getTransform()->position.y > 600 || m_pShotgun->getBullets()[i]->getTransform()->position.y < 0)
 		{
-			
 			//delete m_pShotgun->getBullets()[i];
 			//m_pShotgun->getBullets()[i] = nullptr;
 			//m_pShotgun->getBullets().erase(m_pShotgun->getBullets().begin() + i);
-			//m_pShotgun->getBullets().shrink_to_fit();
+			//break;
 		}
 	}
+	//m_pShotgun->getBullets().shrink_to_fit();
 
 	collisionCheck();
 	deleteDeadEnemies();
@@ -118,7 +118,6 @@ void PlayScene::start()
 
 	m_pShotgun = new WinchesterShotgun(m_pPlayer);
 	m_pPlayer->setWeapon(m_pShotgun);
-	//m_pBullets
 
 
 	//m_pEnemies.push_back(new Skull(m_pPlayer));

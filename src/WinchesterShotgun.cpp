@@ -22,7 +22,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	setBulletSpeed(10);
 	setAccuracy(10);
 	setIsAttacking(false);
-	setAttackTime(40 - 1);
+	setAttackTime(55); // to get this number: (number of frames in the animation / 2) * (number of frames in the animation + 1)
 	setAttackStart(0);
 
 	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
@@ -47,7 +47,7 @@ void WinchesterShotgun::draw()
 	case WINCHESTER_SHOTGUN_IDLE_RIGHT:
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x - 90, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_VERTICAL);
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_VERTICAL);
 		}
 		else
 		{
@@ -57,7 +57,7 @@ void WinchesterShotgun::draw()
 	case WINCHESTER_SHOTGUN_IDLE_LEFT:		
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x + 90, y, 0.12f, (int)m_direction + 180, 255, true);
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction + 180, 255, true);
 		}
 		else
 		{
@@ -67,21 +67,21 @@ void WinchesterShotgun::draw()
 	case WINCHESTER_SHOTGUN_ATTACK_RIGHT:
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x - 90, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_VERTICAL);
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true, SDL_FLIP_VERTICAL);
 		}
 		else
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 0.12f, (int)m_direction, 255, true);
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true);
 		}
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_LEFT:
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x + 90, y, 0.12f, (int)m_direction + 180, 255, true);
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction + 180, 255, true);
 		}
 		else
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_HORIZONTAL);
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true, SDL_FLIP_HORIZONTAL);
 		}
 		break;
 	default:
@@ -93,9 +93,14 @@ void WinchesterShotgun::update()
 {
 	setDirection();
 	m_move();
+
+	if (TheGame::Instance().getFrames() == getAttackStart() + getAttackTime())
+	{
+		setIsAttacking(false);
+	}
+
 	if (!isAttacking())
 	{
-
 		if (getOwner()->isFacingRight())
 		{
 			setAnimationState(WINCHESTER_SHOTGUN_IDLE_RIGHT);
@@ -104,7 +109,6 @@ void WinchesterShotgun::update()
 		{
 			setAnimationState(WINCHESTER_SHOTGUN_IDLE_LEFT);
 		}
-
 	}
 	else
 	{
@@ -116,10 +120,6 @@ void WinchesterShotgun::update()
 		{
 			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_LEFT);
 		}
-	}
-	if (TheGame::Instance().getFrames() == getAttackStart() + getAttackTime())
-	{
-		setIsAttacking(false);
 	}
 
 }
@@ -135,16 +135,11 @@ void WinchesterShotgun::attack()
 		//SoundManager::Instance().playSound("Knife", 0, 0);
 		//SoundManager::Instance().setSoundVolume(6);
 		setAttackStart(TheGame::Instance().getFrames());
+
+		std::cout << "attack on frame: " << getAttackStart() << std::endl;
+
 		setIsAttacking(true);
 
-		if (getOwner()->isFacingRight())
-		{
-			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_RIGHT);
-		}
-		else
-		{
-			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_LEFT);
-		}
 		for (int i = 0; i < m_bulletCount; i++)
 		{
 			float initialBulletDirection = m_direction + (Util::RandomRange(-1, 1)) * m_accuracy;
@@ -194,10 +189,20 @@ void WinchesterShotgun::m_move()
 	if (getOwner()->isFacingRight())
 	{
 		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
+
+		if (m_direction <= -90 || m_direction > 90)
+		{
+			getTransform()->position.x -= 90;
+		}
 	}
 	else
 	{
 		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(-45, 15));
+
+		if (m_direction <= -90 || m_direction > 90)
+		{
+			getTransform()->position.x += 90;
+		}
 	}
 }
 
