@@ -22,7 +22,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	setBulletSpeed(10);
 	setAccuracy(10);
 	setIsAttacking(false);
-	setAttackTime(55); // to get this number: (number of frames in the animation / 2) * (number of frames in the animation + 1)
+	setAttackTime(55); // to get this number: (number of frames in the animation / 2, round up) * (number of frames in the animation + 1), then give or take 1
 	setAttackStart(0);
 
 	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
@@ -186,7 +186,7 @@ void WinchesterShotgun::m_buildAnimations()
 
 void WinchesterShotgun::m_move()
 {
-	if (getOwner()->isFacingRight())
+	/*if (getOwner()->isFacingRight())
 	{
 		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
 
@@ -203,7 +203,9 @@ void WinchesterShotgun::m_move()
 		{
 			getTransform()->position.x += 90;
 		}
-	}
+	}*/
+
+	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(0, 25));
 }
 
 void WinchesterShotgun::setAccuracy(float accuracy)
