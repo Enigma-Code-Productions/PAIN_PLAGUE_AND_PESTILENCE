@@ -26,7 +26,7 @@ bool CollisionManager::squaredRadiusCheck(GameObject* object1, GameObject* objec
 	if (CollisionManager::squaredDistance(P1, P2) < (halfHeights * halfHeights)) {
 		if (!object2->getRigidBody()->isColliding) {
 
-			object2->getRigidBody()->isColliding = true;
+			//object2->getRigidBody()->isColliding = true;
 
 			switch (object2->getType()) {
 			case TARGET:
@@ -72,7 +72,7 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 		
 		if (!object2->getRigidBody()->isColliding) {
 
-			object2->getRigidBody()->isColliding = true;
+			//object2->getRigidBody()->isColliding = true;
 
 			switch (object2->getType()) {
 			case TARGET:
@@ -287,7 +287,7 @@ bool CollisionManager::circleAABBCheck(GameObject* object1, GameObject* object2)
 	{
 		if (!object2->getRigidBody()->isColliding) {
 
-			object2->getRigidBody()->isColliding = true;
+			//object2->getRigidBody()->isColliding = true;
 
 			const auto attackVector = object1->getTransform()->position - object2->getTransform()->position;
 			const auto normal = glm::vec2(0.0f, -1.0f);
