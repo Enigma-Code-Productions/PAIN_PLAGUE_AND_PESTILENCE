@@ -34,7 +34,7 @@ public:
 
 	static bool LOSCheck(Agent* agent, glm::vec2 end_point, const std::vector<DisplayObject*>& objects, DisplayObject* target);
 
-	static bool canMoveWithoutCollison(GameObject*, glm::vec2 pos, GameObject** collisionObject = nullptr);
+	static bool canMoveWithoutCollison(GameObject*, glm::vec2 pos);
 
 private:
 	CollisionManager();
