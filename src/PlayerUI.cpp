@@ -5,7 +5,7 @@
 PlayerUI::PlayerUI(Player* player): m_pPlayer(player)
 {
 	m_pHelathBar = new HealthBar(player->getMaxHealth());
-
+	
 	const SDL_Color red = { 230, 0, 38, 255 };
 	const SDL_Color black = { 0, 0, 0, 255 };
 	m_pHealsLeftLabel = new Label(std::to_string(m_pPlayer->getHealsLeft()) + " Heals",
@@ -43,7 +43,6 @@ void PlayerUI::update()
 {
 	m_pHelathBar->update();
 	m_pHealsLeftLabel->update();
-
 	m_pPotionsAmount->setText(std::to_string(m_pPlayer->getThrower()->GetAmountPotions(m_pPlayer->getThrower()->GetChosenPotion())));
 	m_pPotionsAmount->update();
 }

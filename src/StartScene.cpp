@@ -41,7 +41,7 @@ void StartScene::handleEvents()
 		TheGame::Instance().quit();
 	}
 
-	if(EventManager::Instance().isKeyDown(SDL_SCANCODE_1))
+	if(EventManager::Instance().isKeyDown(SDL_SCANCODE_EQUALS))
 	{
 		TheGame::Instance().changeSceneState(PLAY_SCENE);
 	}

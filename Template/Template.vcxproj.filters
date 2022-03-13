@@ -150,7 +150,6 @@
     <ClCompile Include="..\src\HealthBar.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\WinScene.cpp" />
     <ClCompile Include="..\src\PlayerUI.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
@@ -198,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="..\src\RangedWeapon.cpp">
       <Filter>Templates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WinScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -342,7 +344,6 @@
     <ClInclude Include="..\src\HealthBar.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\WinScene.h" />
     <ClInclude Include="..\src\PlayerUI.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
@@ -396,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="..\src\DrawLayers.h">
       <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
