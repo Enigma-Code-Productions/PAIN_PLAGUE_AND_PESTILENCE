@@ -27,7 +27,8 @@ private: //Properties
 
 	SoyKnife* m_pKnife;
 	WinchesterShotgun* m_pShotgun;
-	std::vector<Bullet*> m_pShotgunBullets;
+	std::vector<Bullet*> m_pPlayersBullets;
+	std::vector<Bullet*> m_pEnemiesBullets;
 
 	//Score
 	int m_scoreCounter;
@@ -62,6 +63,8 @@ public: // Functions
 	Player* getPlayer();
 	std::vector<AliveObject*>* getEnemies();
 
+	void addBullet(Bullet* b);
+	void removeBullet(Bullet* b);
 
 private: //Functions
 	// IMGUI Function

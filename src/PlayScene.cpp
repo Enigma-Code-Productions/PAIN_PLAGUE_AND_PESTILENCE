@@ -20,42 +20,12 @@ void PlayScene::draw()
 	TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 
-	//temporary---------------------------------------------------
-	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
-	{
-		m_pShotgun->getBullets()[i]->draw();
-	}
-	//------------------------------------------------------------
-
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
 void PlayScene::update()
 {
 	updateDisplayList();
-
-	//temporary---------------------------------------------------
-	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
-	{
-		m_pShotgun->getBullets()[i]->update();
-	}
-	//------------------------------------------------------------
-
-	m_pShotgunBullets = m_pShotgun->getBullets();
-
-	// Clean up bullets that go off screen.
-	for (unsigned i = 0; i < m_pShotgunBullets.size(); i++)
-	{
-		if (m_pShotgunBullets[i]->getTransform()->position.x > 800 || m_pShotgunBullets[i]->getTransform()->position.x < 0 || m_pShotgunBullets[i]->getTransform()->position.y > 600 || m_pShotgunBullets[i]->getTransform()->position.y < 0)
-		{
-			delete m_pShotgunBullets[i];
-			m_pShotgunBullets[i] = nullptr;
-			m_pShotgunBullets.erase(m_pShotgunBullets.begin() + i);
-			break;
-		}
-	}
-	m_pShotgunBullets.shrink_to_fit();
-	m_pShotgun->setBullets(m_pShotgunBullets);
 
 	collisionCheck();
 	deleteDeadEnemies();
@@ -69,7 +39,7 @@ void PlayScene::update()
 	{
 		checkWin();
 	}
-
+	std::cout << m_pPlayersBullets.size() << std::endl;
 }
 
 void PlayScene::checkWin()
@@ -163,8 +133,6 @@ void PlayScene::start()
 	m_pPlayer->setWeapon(m_pShotgun);
 	addChild(m_pShotgun, FORWARD_OBJECTS);
 
-	m_pShotgunBullets = m_pShotgun->getBullets();
-
 	//Ui
 	m_scoreCounter = 0;
 	const SDL_Color black = { 0, 0, 0, 255 };
@@ -231,18 +199,14 @@ void PlayScene::collisionCheck()
 			{
 				for (unsigned i = 0; i < m_pEnemies.size(); i++)
 				{
-					for (unsigned j = 0; j < m_pShotgunBullets.size(); j++)
+					for (unsigned j = 0; j < m_pPlayersBullets.size(); j++)
 					{
-						if (CollisionManager::AABBCheck(m_pShotgunBullets[j], m_pEnemies[i]))
+						if (CollisionManager::AABBCheck(m_pPlayersBullets[j], m_pEnemies[i]))
 						{
 							m_pEnemies[i]->takeDamage(m_pShotgun->getDamage());
 
 							//delete bullet
-							delete m_pShotgunBullets[j];
-							m_pShotgunBullets[j] = nullptr;
-							m_pShotgunBullets.erase(m_pShotgunBullets.begin() + j);
-							m_pShotgunBullets.shrink_to_fit();
-							m_pShotgun->setBullets(m_pShotgunBullets);
+							removeBullet(m_pPlayersBullets[j]);
 						}
 					}
 				}
@@ -356,6 +320,32 @@ Player* PlayScene::getPlayer()
 std::vector<AliveObject*>* PlayScene::getEnemies()
 {
 	return &m_pEnemies;
+}
+
+void PlayScene::addBullet(Bullet* b)
+{
+	if (b->getOwner() == PLAYER_BULLET)
+	{
+		m_pPlayersBullets.push_back(b);
+	}
+	else if (b->getOwner() ==  ENEMY_BULLET)
+	{
+		m_pEnemiesBullets.push_back(b);
+	}
+	addChildAfterUpdate(b);
+}
+
+void PlayScene::removeBullet(Bullet* b)
+{
+	if (b->getOwner() == PLAYER_BULLET)
+	{
+		m_pPlayersBullets.erase(std::remove(m_pPlayersBullets.begin(), m_pPlayersBullets.end(), b), m_pPlayersBullets.end());
+	}
+	else if(b->getOwner() == ENEMY_BULLET)
+	{
+		m_pEnemiesBullets.erase(std::remove(m_pEnemiesBullets.begin(), m_pEnemiesBullets.end(), b), m_pEnemiesBullets.end());
+	}
+	removeChildAfterUpdate(b);
 }
 
 void PlayScene::GUI_Function() const

@@ -7,7 +7,6 @@ class WinchesterShotgun final : public RangedWeapon
 private: // Properties
 	WinchesterShotgunAnimationState m_currentAnimationState;
 	float m_direction;
-	std::vector<Bullet*> m_pBullets;
 	float m_bulletSpeed;
 	int m_bulletCount;
 	float m_accuracy;
@@ -28,8 +27,6 @@ public: //Functions
 	void setBulletCount(int count);
 	void setDirection();
 
-	std::vector<Bullet*> getBullets();
-	void setBullets(std::vector<Bullet*> bullets);
 
 private: //Functions
 

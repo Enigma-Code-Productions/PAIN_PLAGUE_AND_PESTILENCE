@@ -144,7 +144,9 @@ void WinchesterShotgun::attack()
 			{
 				initialBulletDirection += 180;
 			}
-			m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position));
+			auto tempBullet = new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position);
+
+			dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 		}
 	}
 }
@@ -245,14 +247,4 @@ void WinchesterShotgun::setDirection()
 			m_direction = (Util::Rad2Deg * atanf(dx / dy) + 90) * -1;
 		}
 	}
-}
-
-std::vector<Bullet*> WinchesterShotgun::getBullets()
-{
-	return m_pBullets;
-}
-
-void WinchesterShotgun::setBullets(std::vector<Bullet*> bullets)
-{
-	m_pBullets = bullets;
 }

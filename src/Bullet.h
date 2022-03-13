@@ -2,6 +2,12 @@
 #include "DisplayObject.h"
 #include "Util.h"
 
+enum BulletOwner
+{
+	PLAYER_BULLET,
+	ENEMY_BULLET
+};
+
 class Bullet : public DisplayObject
 {
 public:
@@ -15,9 +21,13 @@ public:
 	void setBulletSpeed(float speed);
 	float getBulletSpeed();
 
+	void setOwner(BulletOwner o);
+	BulletOwner getOwner();
+
 private:
 	void m_move();
 	float m_direction;
 	float m_bulletSpeed;
 
+	BulletOwner m_owner;
 };
