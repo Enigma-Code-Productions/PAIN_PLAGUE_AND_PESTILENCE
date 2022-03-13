@@ -1,8 +1,0 @@
-Player-idle-0 0 0 90 96
-Player-idle-1 90 0 90 96
-Player-run-0 180 0 90 96
-Player-run-1 270 0 90 96
-Player-run-2 360 0 90 96
-Player-run-3 450 0 90 96
-Player-run-4 540 0 90 96
-Player-run-5 630 0 90 96
