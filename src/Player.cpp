@@ -104,6 +104,9 @@ void Player::Death()
 	{
 		getParent()->removeChildAfterUpdate(m_pWeapon);
 		m_pWeapon = nullptr;
+
+		SoundManager::Instance().playSound("Portal", 0, -1);
+		SoundManager::Instance().setSoundVolume(1);
 	}
 	setCanMove(false);
 	if (isFacingRight())
@@ -115,8 +118,6 @@ void Player::Death()
 		setAnimationState(PLAYER_DEATH_LEFT);
 	}
 
-	SoundManager::Instance().playSound("Portal", 0, -1);
-	SoundManager::Instance().setSoundVolume(1);
 
 	if (getAnimation("death").current_frame == 9) //When death animation is done, end game
 	{
