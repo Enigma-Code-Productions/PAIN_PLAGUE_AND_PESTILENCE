@@ -28,8 +28,7 @@ void ExplosionPotion::clean()
 
 void ExplosionPotion::draw()
 {
-	const auto x = getTransform()->position.x;
-	const auto y = getTransform()->position.y - m_height;
+	getTransform()->position.y -= m_height;
 
 	if (m_velocityHeight == 0)
 	{
@@ -39,6 +38,7 @@ void ExplosionPotion::draw()
 	{
 		TextureManager::Instance().playAnimation(this, "purpleBottleIdle", 0.04f, m_rotation, 255);
 	}
+	getTransform()->position.y += m_height;
 }
 
 void ExplosionPotion::update()

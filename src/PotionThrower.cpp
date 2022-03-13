@@ -29,10 +29,11 @@ void PotionThrower::update()
 {
 	getTransform()->position = m_pPlayer->getTransform()->position;
 
-	if (!m_pPlayer->isFacingRight())
-		getTransform()->position.x -= 60.0f;
-
-	getTransform()->position.y -= 40.0f;
+	if (m_pPlayer->isFacingRight())
+		getTransform()->position.x += 45.0f;
+	else
+		getTransform()->position.x -= 45.0f;
+	
 	if (EventManager::Instance().keyReleased(SDL_SCANCODE_G))
 	{
 		throwPotion();
@@ -81,7 +82,7 @@ void PotionThrower::throwPotion()
 		break;
 	}
 	
-	getParent()->addChildAfterUpdate(tempPotion);
+	getParent()->addChildAfterUpdate(tempPotion, FRONT_OBJECTS);
 
 }
 

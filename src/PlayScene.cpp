@@ -127,7 +127,7 @@ void PlayScene::start()
 
 	m_pShotgun = new WinchesterShotgun(m_pPlayer);
 	m_pPlayer->setWeapon(m_pShotgun);
-	addChild(m_pShotgun, FORWARD_OBJECTS);
+	addChild(m_pShotgun, FRONT_OBJECTS);
 
 	//Ui
 	m_scoreCounter = 0;
