@@ -394,7 +394,7 @@
     <ClInclude Include="..\src\RangedWeapon.h">
       <Filter>Templates</Filter>
     </ClInclude>
-    <ClInclude Include="DrawLayers.h">
+    <ClInclude Include="..\src\DrawLayers.h">
       <Filter>Enums</Filter>
     </ClInclude>
   </ItemGroup>

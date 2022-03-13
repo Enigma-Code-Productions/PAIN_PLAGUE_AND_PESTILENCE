@@ -222,6 +222,7 @@
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
     <ClInclude Include="..\src\Config.h" />
+    <ClInclude Include="..\src\DrawLayers.h" />
     <ClInclude Include="..\src\Explosion1.h" />
     <ClInclude Include="..\src\ExplosionPotion.h" />
     <ClInclude Include="..\src\FirePotion.h" />
@@ -272,7 +273,6 @@
     <ClInclude Include="..\src\WinchesterShotgunAnimationState.h" />
     <ClInclude Include="..\src\WinScene.h" />
     <ClInclude Include="..\src\Zombie.h" />
-    <ClInclude Include="DrawLayers.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

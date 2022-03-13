@@ -9,7 +9,7 @@
 
 PlayScene::PlayScene()
 {
-	PlayScene::start();
+
 }
 
 PlayScene::~PlayScene()
@@ -152,7 +152,7 @@ void PlayScene::start()
 
 	// Player Sprite
 	m_pPlayer = new Player();
-	addChild(m_pPlayer);
+	addChild(m_pPlayer, OBJECTS);
 	m_pPlayer->setCanMove(true);
 
 

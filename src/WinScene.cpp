@@ -6,7 +6,7 @@
 
 WinScene::WinScene()
 {
-	WinScene::start();
+
 }
 
 WinScene::~WinScene()

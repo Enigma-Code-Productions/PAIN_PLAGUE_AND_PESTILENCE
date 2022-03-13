@@ -34,6 +34,7 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 
 
 	m_thrower = new PotionThrower(this);
+	getParent()->addChild(m_thrower);
 	m_pPlayerUI = new PlayerUI(this);
 	
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
@@ -99,18 +100,11 @@ void Player::draw()
 	{
 		m_pWeapon->draw();
 	}
-	/*if (m_pHealingPotion != nullptr)
-	{
-		m_pHealingPotion->draw();
-	}*/
 	if (m_pPlayerUI != nullptr)
 	{
 		m_pPlayerUI->draw();
 	}
-	if (m_thrower != nullptr)
-	{
-		m_thrower->draw();
-	}
+
 }
 
 void Player::Death()
@@ -240,10 +234,6 @@ void Player::update()
 	{
 		m_pWeapon->update();
 	}
-	if (m_thrower != nullptr)
-	{
-		m_thrower->update();
-	}
 	if (m_pPlayerUI != nullptr)
 	{
 		m_pPlayerUI->update();
@@ -274,12 +264,6 @@ void Player::clean()
 		m_pPlayerUI->clean();
 		delete m_pPlayerUI;
 		m_pPlayerUI = nullptr;
-	}
-	if (m_thrower != nullptr)
-	{
-		m_thrower->clean();
-		delete m_thrower;
-		m_thrower = nullptr;
 	}
 }
 
