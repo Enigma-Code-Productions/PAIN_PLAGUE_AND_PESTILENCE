@@ -72,7 +72,7 @@ bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 		
 		if (!object2->getRigidBody()->isColliding) {
 
-			object2->getRigidBody()->isColliding = true;
+			//object2->getRigidBody()->isColliding = true;
 
 			switch (object2->getType()) {
 			case TARGET:
@@ -393,7 +393,7 @@ bool CollisionManager::LOSCheck(Agent* agent, glm::vec2 end_point, const std::ve
 	return false;
 }
 
-bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
+bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos, GameObject** collisionObject)
 {
 	std::vector<GameObject*> colliders;
 	for (auto object : Game::Instance().getSceneState()->getDisplayList())
@@ -424,9 +424,15 @@ bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 			p1.y + p1Height > p2.y
 			)
 		{
+			if (collisionObject != nullptr)
+			{
+				collisionObject = &object;
+			}
+			
 			return false;
 		}
 	}
+
 	return true;
 	
 }

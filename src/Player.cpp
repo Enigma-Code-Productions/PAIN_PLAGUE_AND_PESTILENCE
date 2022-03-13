@@ -145,10 +145,22 @@ void Player::update()
 
 	if(m_bCanMove)
 	{
+		GameObject** intersectObject = nullptr;
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
-			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y - m_speed)))
+			if (CollisionManager::canMoveWithoutCollison(this,
+				glm::vec2(getTransform()->position.x, getTransform()->position.y - m_speed), intersectObject))
+			{
 				getTransform()->position.y -= m_speed;
+			}
+			else
+			{
+				if (intersectObject != nullptr)
+				{
+					GameObject* ObjPtr = *intersectObject;
+					getTransform()->position.y = ObjPtr->getTransform()->position.y + ObjPtr->getHeight();
+				}
+			}
 			running = true;
 
 		}
@@ -156,26 +168,58 @@ void Player::update()
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 		{
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y + m_speed)))
+			{
 				getTransform()->position.y += m_speed;
+			}
+			else
+			{
+				if (intersectObject != nullptr)
+				{
+					GameObject* ObjPtr = *intersectObject;
+					getTransform()->position.y = ObjPtr->getTransform()->position.y - ObjPtr->getHeight();
+				}
+			}
 			running = true;
 		}
+		
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 		{
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x - m_speed, getTransform()->position.y)))
+			{
 				getTransform()->position.x -= m_speed;
+			}
+			else
+			{
+				if (intersectObject != nullptr)
+				{
+					GameObject* ObjPtr = *intersectObject;
+					getTransform()->position.x = ObjPtr->getTransform()->position.x + ObjPtr->getWidth();
+				}
+			}
 			facingRight = false;
 			running = true;
 		}
+	
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 		{
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x + m_speed, getTransform()->position.y)))
+			{
 				getTransform()->position.x += m_speed;
-			
+			}
+			else
+			{
+				if (intersectObject != nullptr)
+				{
+					GameObject* ObjPtr = *intersectObject;
+					getTransform()->position.x = ObjPtr->getTransform()->position.x - ObjPtr->getWidth();
+				}
+			}
 			facingRight = true;
 			running = true;
 		}
+		
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE))
 		{
