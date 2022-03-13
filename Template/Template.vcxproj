@@ -164,6 +164,7 @@
     <ClCompile Include="..\include\IMGUI_SDL\imgui_sdl.cpp" />
     <ClCompile Include="..\src\Agent.cpp" />
     <ClCompile Include="..\src\AliveObject.cpp" />
+    <ClCompile Include="..\src\Bullet.cpp" />
     <ClCompile Include="..\src\Button.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Explosion1.cpp" />
@@ -176,6 +177,7 @@
     <ClCompile Include="..\src\PoisonPotion.cpp" />
     <ClCompile Include="..\src\Potion.cpp" />
     <ClCompile Include="..\src\PotionThrower.cpp" />
+    <ClCompile Include="..\src\RangedWeapon.cpp" />
     <ClCompile Include="..\src\SoyKnife.cpp" />
     <ClCompile Include="..\src\SpellCaster.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
@@ -200,6 +202,7 @@
     <ClCompile Include="..\src\Skull.cpp" />
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
+    <ClCompile Include="..\src\WinchesterShotgun.cpp" />
     <ClCompile Include="..\src\WinScene.cpp" />
     <ClCompile Include="..\src\Zombie.cpp" />
   </ItemGroup>
@@ -214,6 +217,7 @@
     <ClInclude Include="..\src\Agent.h" />
     <ClInclude Include="..\src\AliveObject.h" />
     <ClInclude Include="..\src\Animation.h" />
+    <ClInclude Include="..\src\Bullet.h" />
     <ClInclude Include="..\src\Button.h" />
     <ClInclude Include="..\src\CollisionManager.h" />
     <ClInclude Include="..\src\CollisionShape.h" />
@@ -227,6 +231,7 @@
     <ClInclude Include="..\src\PoisonPotion.h" />
     <ClInclude Include="..\src\Potion.h" />
     <ClInclude Include="..\src\PotionThrower.h" />
+    <ClInclude Include="..\src\RangedWeapon.h" />
     <ClInclude Include="..\src\SoyKnifeAnimationState.h" />
     <ClInclude Include="..\src\ImGuiWindowFrame.h" />
     <ClInclude Include="..\src\SoundType.h" />
@@ -263,6 +268,8 @@
     <ClInclude Include="..\src\Transform.h" />
     <ClInclude Include="..\src\Util.h" />
     <ClInclude Include="..\src\Weapon.h" />
+    <ClInclude Include="..\src\WinchesterShotgun.h" />
+    <ClInclude Include="..\src\WinchesterShotgunAnimationState.h" />
     <ClInclude Include="..\src\WinScene.h" />
     <ClInclude Include="..\src\Zombie.h" />
   </ItemGroup>

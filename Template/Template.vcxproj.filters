@@ -151,15 +151,6 @@
       <Filter>UI Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\WinScene.cpp" />
-    <ClCompile Include="..\src\RangedWeapon.cpp">
-      <Filter>Templates</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Bullet.cpp">
-      <Filter>Templates</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\WinchesterShotgun.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\PlayerUI.cpp">
       <Filter>UI Objects</Filter>
     </ClCompile>
@@ -198,6 +189,15 @@
     </ClCompile>
     <ClCompile Include="..\src\Zombie.cpp">
       <Filter>Game Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WinchesterShotgun.cpp">
+      <Filter>Game Objects\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\RangedWeapon.cpp">
+      <Filter>Templates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -343,18 +343,6 @@
       <Filter>UI Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\WinScene.h" />
-    <ClInclude Include="..\src\RangedWeapon.h">
-      <Filter>Templates</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Bullet.h">
-      <Filter>Templates</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\WinchesterShotgun.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\WinchesterShotgunAnimationState.h">
-      <Filter>Enums</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\PlayerUI.h">
       <Filter>UI Objects</Filter>
     </ClInclude>
@@ -393,6 +381,18 @@
     </ClInclude>
     <ClInclude Include="..\src\Zombie.h">
       <Filter>Game Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterShotgun.h">
+      <Filter>Game Objects\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterShotgunAnimationState.h">
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\RangedWeapon.h">
+      <Filter>Templates</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
