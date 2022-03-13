@@ -396,7 +396,7 @@ bool CollisionManager::LOSCheck(Agent* agent, glm::vec2 end_point, const std::ve
 bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 {
 	std::vector<GameObject*> colliders;
-	for (auto object : Game::Instance().getSceneState()->getDisplayList())
+	for (auto object : Game::Instance().getCurrentScene()->getDisplayList())
 	{
 		if (object->getRigidBody()->hasCollider)
 		{

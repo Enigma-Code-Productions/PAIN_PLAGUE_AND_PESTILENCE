@@ -46,13 +46,18 @@ void Scene::addChildAfterUpdate(DisplayObject* child, uint32_t layer_index, std:
 	}
 	child->setLayerIndex(layer_index, index);
 	child->m_pParentScene = this;
-	m_queueObjects.push_back(child);
+	m_addQueueObjects.push_back(child);
 }
 
 void Scene::removeChild(DisplayObject * child)
 {
 	delete child;
 	m_displayList.erase(std::remove(m_displayList.begin(), m_displayList.end(), child), m_displayList.end());
+}
+
+void Scene::removeChildAfterUpdate(DisplayObject* child)
+{
+	m_removeQueueObjects.push_back(child);
 }
 
 void Scene::removeAllChildren()
@@ -102,6 +107,7 @@ void Scene::updateDisplayList()
 			display_object->update();
 		}
 	}
+	m_removeChildrenInQueue();
 	m_addChildInQueue();
 }
 
@@ -130,9 +136,21 @@ std::vector<DisplayObject*> Scene::getDisplayList() const
 
 inline void Scene::m_addChildInQueue()
 {
-	for (auto obj : m_queueObjects)
+	for (auto obj : m_addQueueObjects)
 	{
 		m_displayList.push_back(obj);
 	}
-	m_queueObjects.clear();
+	m_addQueueObjects.clear();
+}
+
+
+
+void Scene::m_removeChildrenInQueue()
+{
+	for (auto obj : m_removeQueueObjects)
+	{
+		delete obj;
+		m_displayList.erase(std::remove(m_displayList.begin(), m_displayList.end(), obj), m_displayList.end());
+	}
+	m_removeQueueObjects.clear();
 }

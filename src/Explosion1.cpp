@@ -42,7 +42,7 @@ void Explosion1::draw()
 	}
 	else
 	{
-		Game::Instance().getSceneState()->removeChild(this);
+		Game::Instance().getCurrentScene()->removeChild(this);
 	}
 };
 void Explosion1::update()
@@ -58,9 +58,9 @@ void Explosion1::dealDamage()
 {
 	SDL_FRect collider({ getTransform()->position.x - (getWidth() / 5), getTransform()->position.y - (getHeight() / 5), (float)getWidth(), (float)getHeight()});
 
-	auto pPlayer = dynamic_cast<PlayScene*>(TheGame::Instance().getSceneState())->getPlayer();
+	auto pPlayer = dynamic_cast<PlayScene*>(TheGame::Instance().getCurrentScene())->getPlayer();
 
-	auto pEnemies = dynamic_cast<PlayScene*>(TheGame::Instance().getSceneState())->getEnemies();
+	auto pEnemies = dynamic_cast<PlayScene*>(TheGame::Instance().getCurrentScene())->getEnemies();
 
 	if (CollisionManager::circleAABBCheck(this, pPlayer))
 	{

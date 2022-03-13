@@ -181,7 +181,7 @@ void Game::changeSceneState(const SceneState new_state)
 
 }
 
-Scene* Game::getSceneState()
+Scene* Game::getCurrentScene()
 {
 	return  m_currentScene;
 }

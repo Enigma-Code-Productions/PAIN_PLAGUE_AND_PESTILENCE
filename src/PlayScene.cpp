@@ -4,7 +4,6 @@
 
 // required for IMGUI
 #include "imgui.h"
-#include "imgui_sdl.h"
 #include "Renderer.h"
 #include "Util.h"
 
@@ -155,6 +154,7 @@ void PlayScene::start()
 	m_pPlayer = new Player();
 	addChild(m_pPlayer);
 	m_pPlayer->setCanMove(true);
+
 
 	//m_pKnife = new SoyKnife(m_pPlayer);
 	//m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));

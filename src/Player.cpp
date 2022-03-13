@@ -32,6 +32,7 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
+
 	m_thrower = new PotionThrower(this);
 	m_pPlayerUI = new PlayerUI(this);
 	
@@ -98,10 +99,10 @@ void Player::draw()
 	{
 		m_pWeapon->draw();
 	}
-	if (m_pHealingPotion != nullptr)
+	/*if (m_pHealingPotion != nullptr)
 	{
 		m_pHealingPotion->draw();
-	}
+	}*/
 	if (m_pPlayerUI != nullptr)
 	{
 		m_pPlayerUI->draw();
@@ -218,12 +219,11 @@ void Player::update()
 				m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 				m_pPlayerUI->setHeals();
 				m_bHealing = false;
-				delete m_pHealingPotion;
+			getParent()->removeChildAfterUpdate(m_pHealingPotion);
 				m_pHealingPotion = nullptr;
 			}
 			else
 			{
-				m_pHealingPotion->update();
 				m_healingTimeLeft--;
 			}
 		}
@@ -274,12 +274,6 @@ void Player::clean()
 		m_pPlayerUI->clean();
 		delete m_pPlayerUI;
 		m_pPlayerUI = nullptr;
-	}
-	if (m_pHealingPotion != nullptr)
-	{
-		m_pHealingPotion->clean();
-		delete m_pHealingPotion;
-		m_pHealingPotion = nullptr;
 	}
 	if (m_thrower != nullptr)
 	{
@@ -439,6 +433,7 @@ void Player::Heal()
 	SoundManager::Instance().setSoundVolume(6);
 
 	m_pHealingPotion = new HealingPotion(this);
+	getParent()->addChildAfterUpdate(m_pHealingPotion);
 	m_bHealing = true;
 	m_healingTimeLeft = HEALING_TIME;
 }

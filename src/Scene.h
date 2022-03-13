@@ -24,6 +24,7 @@ public:
 	void addChild(DisplayObject* child, uint32_t layer_index = 0, std::optional<uint32_t> order_index = std::nullopt);
 	void addChildAfterUpdate(DisplayObject* child, uint32_t layer_index = 0, std::optional<uint32_t> order_index = std::nullopt);
 	void removeChild(DisplayObject* child);
+	void removeChildAfterUpdate(DisplayObject* child);
 
 	void removeAllChildren();
 	int numberOfChildren() const;
@@ -33,16 +34,15 @@ public:
 
 	std::vector<DisplayObject*> getDisplayList() const;
 
-
-	//std::vector<DisplayObject*> getObjecstOfType(GameObjectType tag);
-
-
 private:
 	uint32_t m_nextLayerIndex = 0;
 	std::vector<DisplayObject*> m_displayList;
-	std::vector<DisplayObject*> m_queueObjects;
+	std::vector<DisplayObject*> m_addQueueObjects;
+	std::vector<DisplayObject*> m_removeQueueObjects;
 
 	static bool sortObjects(DisplayObject* left, DisplayObject* right);
 	void m_addChildInQueue();
+	void m_removeChildrenInQueue();
 };
+
 #endif /* defined (__SCENE__) */

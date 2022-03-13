@@ -1,7 +1,10 @@
 #include "DisplayObject.h"
+#include "Game.h"
 
 DisplayObject::DisplayObject()
-= default;
+{
+	setParent(Game::Instance().getCurrentScene());
+}
 
 DisplayObject::~DisplayObject()
 = default;

@@ -6,7 +6,7 @@
 
 class Player;
 
-class HealingPotion final : Sprite
+class HealingPotion final : public Sprite
 {
 private:
 	bool m_bFacingRight;
