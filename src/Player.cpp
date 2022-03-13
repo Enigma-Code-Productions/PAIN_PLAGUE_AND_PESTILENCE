@@ -23,8 +23,8 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	SoundManager::Instance().load("../Assets/audio/Walking2.mp3", "Walking", SOUND_SFX);
 
 	// set players collider
-	setWidth(56);
-	setHeight(80);
+	setWidth(90);
+	setHeight(96);
 
 	//set players health
 	setDamage(10);
@@ -70,28 +70,22 @@ void Player::draw()
 	switch(m_currentAnimationState)
 	{
 	case PLAYER_IDLE_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, alpha, true);
+		TextureManager::Instance().playAnimation(this, "idle", 0.04f, 0, alpha);
 		break;
 	case PLAYER_IDLE_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "idle", 0.04f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_RUN_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, alpha, true);
+		TextureManager::Instance().playAnimation(this, "run", 0.5f, 0, alpha);
 		break;
 	case PLAYER_RUN_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "run", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_DEATH_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
-			x, y, 0.05f, 0, alpha, true);
+		TextureManager::Instance().playAnimation(this, "death", 0.5f, 0, alpha);
 		break;
 	case PLAYER_DEATH_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
-			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "death", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;
