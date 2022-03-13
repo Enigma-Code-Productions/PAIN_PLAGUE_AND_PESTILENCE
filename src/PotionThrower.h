@@ -18,7 +18,6 @@ enum Potions
 class PotionThrower final : public Sprite
 {
 private: // Properties
-	std::vector<Potion*> m_pPotions;
 	Player* m_pPlayer;
 
 	Potions m_chosenPotion;
@@ -39,7 +38,6 @@ public: // Functions
 	int GetAmountPotions(Potions p);
 	Potions GetChosenPotion();
 
-	void deletePotion(Potion* p);
 
 private: // Functions
 	void m_loadPotionsSprites();

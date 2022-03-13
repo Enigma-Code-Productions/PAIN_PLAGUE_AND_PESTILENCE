@@ -23,10 +23,6 @@ PotionThrower::~PotionThrower() = default;
 
 void PotionThrower::draw()
 {
-	for (auto potion : m_pPotions)
-	{
-		potion->draw();
-	}
 }
 
 void PotionThrower::update()
@@ -49,35 +45,11 @@ void PotionThrower::update()
 			m_chosenPotion = static_cast<Potions>(0);
 		}
 	}
-	for (auto potion : m_pPotions)
-	{
-		potion->update();
-	}
-	for (int i = 0; i < m_pPotions.size(); i++)
-	{
-		if (m_pPotions[i]->IsReadyToDelete())
-		{
-			delete m_pPotions[i];
-			m_pPotions[i] = nullptr;
-			m_pPotions.erase(m_pPotions.begin() + i);
-			m_pPotions.shrink_to_fit();
-			break;
-		}
-	}
+
 }
 
 void PotionThrower::clean()
 {
-	if (!m_pPotions.empty())
-	{
-		for (int i = 0; i < m_pPotions.size(); i++)
-		{
-			delete m_pPotions[i];
-			m_pPotions[i] = nullptr;
-		}
-		m_pPotions.clear();
-	}
-	
 }
 
 void PotionThrower::throwPotion()
@@ -86,26 +58,31 @@ void PotionThrower::throwPotion()
 		return;
 
 	auto target = EventManager::Instance().getMousePosition();
+	Potion* tempPotion = nullptr;
 
 	switch (m_chosenPotion)
 	{
 	case POISON_POTION:
-		m_pPotions.push_back(new PosionPotion(getTransform()->position, target));
+		
+		tempPotion = new PosionPotion(getTransform()->position, target);
 		m_amountOfPotions[POISON_POTION]--;
 		break;
 
 	case FIRE_POTION:
-		m_pPotions.push_back(new FirePotion(getTransform()->position, target));
+		tempPotion = new FirePotion(getTransform()->position, target);
 		m_amountOfPotions[FIRE_POTION]--;
 		break;
 
 	case EXPLOSIVE_POTION:
-		m_pPotions.push_back(new ExplosionPotion(getTransform()->position, target));
+		tempPotion = new ExplosionPotion(getTransform()->position, target);
 		m_amountOfPotions[EXPLOSIVE_POTION]--;
+		break;
+	default:
 		break;
 	}
 	
-	
+	getParent()->addChildAfterUpdate(tempPotion);
+
 }
 
 int PotionThrower::GetAmountPotions(Potions p)
@@ -116,12 +93,6 @@ int PotionThrower::GetAmountPotions(Potions p)
 Potions PotionThrower::GetChosenPotion()
 {
 	return m_chosenPotion;
-}
-
-void PotionThrower::deletePotion(Potion* p)
-{
-	delete p;
-	m_pPotions.erase(std::remove(m_pPotions.begin(), m_pPotions.end(), p), m_pPotions.end());
 }
 
 void PotionThrower::m_loadPotionsSprites()

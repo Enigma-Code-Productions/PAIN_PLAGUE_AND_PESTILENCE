@@ -39,8 +39,3 @@ void Potion::update()
 		m_rotation = 0.0f;
 	}
 }
-
-bool Potion::IsReadyToDelete()
-{
-	return m_forDelete;
-}

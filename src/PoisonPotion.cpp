@@ -33,7 +33,7 @@ void PosionPotion::update()
 	{
 		SoundManager::Instance().playSound("PotionBreak", 0, -1);
 		SoundManager::Instance().setSoundVolume(4);
-		m_forDelete = true;
+		getParent()->removeChildAfterUpdate(this);
 	}
 }
 

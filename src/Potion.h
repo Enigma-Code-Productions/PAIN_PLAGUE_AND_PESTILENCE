@@ -20,7 +20,5 @@ public:
 	virtual void clean() override;
 	virtual void draw() override;
 	virtual void update() override;
-
-	bool IsReadyToDelete();
 };
 #endif 

@@ -332,7 +332,7 @@ void PlayScene::addBullet(Bullet* b)
 	{
 		m_pEnemiesBullets.push_back(b);
 	}
-	addChildAfterUpdate(b);
+	addChildAfterUpdate(b, BULLETS);
 }
 
 void PlayScene::removeBullet(Bullet* b)
