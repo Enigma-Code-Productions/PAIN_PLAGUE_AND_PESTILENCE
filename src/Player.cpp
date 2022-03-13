@@ -102,6 +102,11 @@ void Player::Death()
 		SoundManager::Instance().playSound("Portal", 0, -1);
 		SoundManager::Instance().setSoundVolume(1);
 	}
+	if (m_pHealingPotion != nullptr)
+	{
+		getParent()->removeChildAfterUpdate(m_pHealingPotion);
+		m_pHealingPotion = nullptr;
+	}
 	setCanMove(false);
 	if (isFacingRight())
 	{
