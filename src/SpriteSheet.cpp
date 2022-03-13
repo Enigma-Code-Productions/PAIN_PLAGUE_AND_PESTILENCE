@@ -29,6 +29,11 @@ void SpriteSheet::setTexture(SDL_Texture* texture)
 	m_texture = texture;
 }
 
+std::string SpriteSheet::getName() const
+{
+	return  m_name;
+}
+
 void SpriteSheet::addFrame(const Frame& frame)
 {
 	m_frames[frame.name] = frame;
