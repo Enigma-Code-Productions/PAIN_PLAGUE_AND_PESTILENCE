@@ -23,7 +23,6 @@ private: //Properties
 	Player* m_pPlayer;
 	Skull* m_pSkull;
 	Zombie* m_pZombie;
-	Label* m_pScore;
 
 	SoyKnife* m_pKnife;
 	WinchesterShotgun* m_pShotgun;
@@ -57,6 +56,7 @@ public: // Functions
 	void checkWin();
 	void CleanEnemies();
 
+	int getScore();
 
 	void CleanObjects();
 

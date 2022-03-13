@@ -16,6 +16,7 @@ private:
 	HealthBar* m_pHelathBar;
 	Label* m_pHealsLeftLabel;
 	Label* m_pPotionsAmount;
+	Label* m_pScore;
 
 public:
 	PlayerUI(Player* player);

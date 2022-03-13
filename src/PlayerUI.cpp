@@ -1,5 +1,6 @@
 #include "PlayerUI.h"
 #include "Player.h"
+#include "PlayScene.h"
 #include "TextureManager.h"
 
 PlayerUI::PlayerUI(Player* player): m_pPlayer(player)
@@ -14,6 +15,8 @@ PlayerUI::PlayerUI(Player* player): m_pPlayer(player)
 	m_pPotionsAmount = new Label(std::to_string(m_pPlayer->getThrower()->GetAmountPotions(m_pPlayer->getThrower()->GetChosenPotion())),
 		"Toxia-OwOA", 50, black, glm::vec2(90.0f, 570.0f)); //800X600 window size
 
+	m_pScore = new Label(std::to_string(dynamic_cast<PlayScene*>(getParent())->getScore()) + " Pts", "Toxia-OwOA", 60, black, glm::vec2(700.0f, 30.0f)); //800X600 window size
+
 }
 
 PlayerUI::~PlayerUI() = default;
@@ -23,6 +26,7 @@ void PlayerUI::draw()
 	m_pHelathBar->draw();
 	m_pHealsLeftLabel->draw();
 	m_pPotionsAmount->draw();
+	m_pScore->draw();
 
 	auto potion = m_pPlayer->getThrower()->GetChosenPotion();
 	switch (potion)
@@ -45,6 +49,8 @@ void PlayerUI::update()
 	m_pHealsLeftLabel->update();
 	m_pPotionsAmount->setText(std::to_string(m_pPlayer->getThrower()->GetAmountPotions(m_pPlayer->getThrower()->GetChosenPotion())));
 	m_pPotionsAmount->update();
+	m_pScore->setText(std::to_string(dynamic_cast<PlayScene*>(getParent())->getScore()) + " Pts");
+	m_pScore->update();
 }
 
 void PlayerUI::clean()
@@ -52,6 +58,17 @@ void PlayerUI::clean()
 	m_pHelathBar->clean();
 	m_pHealsLeftLabel->clean();
 	m_pPotionsAmount->clean();
+	m_pScore->clean();
+
+	delete m_pHelathBar;
+	delete m_pHealsLeftLabel;
+	delete m_pPotionsAmount;
+	delete m_pScore;
+
+	m_pHelathBar = nullptr;
+	m_pHealsLeftLabel = nullptr;
+	m_pPotionsAmount = nullptr;
+	m_pScore = nullptr;
 }
 
 HealthBar* PlayerUI::getHealthBar()

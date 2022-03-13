@@ -30,11 +30,6 @@ void PlayScene::update()
 	collisionCheck();
 	deleteDeadEnemies();
 
-	if (m_pScore != nullptr)
-	{
-		m_pScore->setText(std::to_string(m_scoreCounter) + " Pts");
-	}
-
 	if(m_pPlayer->isAlive())
 	{
 		checkWin();
@@ -134,10 +129,6 @@ void PlayScene::start()
 
 	//Ui
 	m_scoreCounter = 0;
-	const SDL_Color black = { 0, 0, 0, 255 };
-	m_pScore = new Label( std::to_string(m_scoreCounter) + " Pts", "Toxia-OwOA", 60, black, glm::vec2(700.0f, 30.0f)); //800X600 window size
-	addChild(m_pScore);
-	m_pScore->setParent(this);
 
 	// Music
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
@@ -162,7 +153,11 @@ void PlayScene::CleanEnemies()
 	}
 
 	m_pEnemies.clear();
-	m_pScore = nullptr;
+}
+
+int PlayScene::getScore()
+{
+	return m_scoreCounter;
 }
 
 
@@ -308,7 +303,6 @@ void PlayScene::CleanObjects()
 	}
 
 	m_pEnemies.clear();
-	m_pScore = nullptr;
 }
 
 Player* PlayScene::getPlayer()
