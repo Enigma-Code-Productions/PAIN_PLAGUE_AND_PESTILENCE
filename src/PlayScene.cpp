@@ -69,7 +69,9 @@ void PlayScene::checkWin()
 		}
 	}
 	if (!m_bBossActive)
-		spawnEnemy();
+	{
+		//spawnEnemy();
+	}
 }
 
 
