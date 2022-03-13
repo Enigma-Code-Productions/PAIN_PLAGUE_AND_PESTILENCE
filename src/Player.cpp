@@ -100,8 +100,11 @@ void Player::draw()
 
 void Player::Death()
 {
-	//m_pWeapon->setEnabled(false);
-	m_pWeapon = nullptr;
+	if (m_pWeapon != nullptr)
+	{
+		getParent()->removeChildAfterUpdate(m_pWeapon);
+		m_pWeapon = nullptr;
+	}
 	setCanMove(false);
 	if (isFacingRight())
 	{
