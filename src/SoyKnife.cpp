@@ -48,20 +48,16 @@ void SoyKnife::draw()
 	switch (m_currentAnimationState)
 	{
 	case SOY_KNIFE_IDLE_RIGHT:
-		TextureManager::Instance().playAnimation("SoyKnife", getAnimation("idle"),
-			x, y, 0.12f, 0, 255, true);
+		TextureManager::Instance().playAnimation(this, "idle",0.12f, 0, 255);
 		break;
 	case SOY_KNIFE_IDLE_LEFT:
-		TextureManager::Instance().playAnimation("SoyKnife", getAnimation("idle"),
-			x, y, 0.12f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "idle", 0.12f, 0, 255, SDL_FLIP_HORIZONTAL);
 		break;
 	case SOY_KNIFE_ATTACK_RIGHT:
-		TextureManager::Instance().playAnimation("SoyKnife", getAnimation("attack"),
-			x, y, 1.0f, 0, 255, true);
+		TextureManager::Instance().playAnimation(this, "attack",1.0f, 0, 255);
 		break;
 	case SOY_KNIFE_ATTACK_LEFT:
-		TextureManager::Instance().playAnimation("SoyKnife", getAnimation("attack"),
-			x, y, 1.0f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "attack", 1.0f, 0, 255, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;

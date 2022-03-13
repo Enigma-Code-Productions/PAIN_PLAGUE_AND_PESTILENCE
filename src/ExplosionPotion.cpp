@@ -11,6 +11,9 @@ ExplosionPotion::ExplosionPotion(glm::vec2 pos, glm::vec2 target) : Potion(pos, 
 		"../Assets/sprites/purpleBottle_sheet.png",
 		"PurpleBottleAnim");
 
+	setWidth(50);
+	setHeight(45);
+
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("PurpleBottleAnim"));
 	m_buildAnimations();
 }
@@ -25,18 +28,17 @@ void ExplosionPotion::clean()
 
 void ExplosionPotion::draw()
 {
-	const auto x = getTransform()->position.x;
-	const auto y = getTransform()->position.y - m_height;
+	getTransform()->position.y -= m_height;
 
 	if (m_velocityHeight == 0)
 	{
-		TextureManager::Instance().playAnimation("PurpleBottleAnim", getAnimation("breakingAnimation"), x, y, 0.3f, 0.0, 255);
-
+		TextureManager::Instance().playAnimation(this, "breakingAnimation", 0.3f, 0.0, 255);
 	}
 	else
 	{
-		TextureManager::Instance().playAnimation("PurpleBottleAnim", getAnimation("purpleBottleIdle"), x, y, 0.04f, m_rotation, 255);
+		TextureManager::Instance().playAnimation(this, "purpleBottleIdle", 0.04f, m_rotation, 255);
 	}
+	getTransform()->position.y += m_height;
 }
 
 void ExplosionPotion::update()

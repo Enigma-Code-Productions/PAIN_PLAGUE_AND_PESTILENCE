@@ -311,6 +311,57 @@ void TextureManager::playAnimation(
 	SDL_RenderCopyEx(Renderer::Instance().getRenderer(), m_textureMap[sprite_sheet_name].get(), &srcRect, &destRect, angle, nullptr, flip);
 }
 
+void TextureManager::playAnimation(Sprite* sprite, std::string animation_name,
+	float speed_factor, double angle, int alpha, SDL_RendererFlip flip)
+{
+	auto animation = &(sprite->getAnimation(animation_name));
+	const auto totalFrames = animation->frames.size();
+	const int animationRate = round(totalFrames / 2 / speed_factor);
+
+	if (totalFrames > 1)
+	{
+		if (TheGame::Instance().getFrames() % animationRate == 0)
+		{
+			animation->current_frame++;
+			if (animation->current_frame > totalFrames - 1)
+			{
+				animation->current_frame = 0;
+			}
+		}
+	}
+
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
+
+	srcRect.x = 0;
+	srcRect.y = 0;
+
+	destRect.x = sprite->getTransform()->position.x;
+	destRect.y = sprite->getTransform()->position.y;
+
+	// frame_height size
+	const auto textureWidth = animation->frames[animation->current_frame].w;
+	const auto textureHeight = animation->frames[animation->current_frame].h;
+
+	// starting point of the where we are looking
+	srcRect.x = animation->frames[animation->current_frame].x;
+	srcRect.y = animation->frames[animation->current_frame].y;
+
+	srcRect.w = animation->frames[animation->current_frame].w;
+	srcRect.h = animation->frames[animation->current_frame].h;
+
+	destRect.w = sprite->getWidth();
+	destRect.h = sprite->getHeight();
+
+	const int xOffset = sprite->getWidth() * 0.5;
+	const int yOffset = sprite->getHeight() * 0.5;
+	destRect.x -= xOffset;
+	destRect.y -= yOffset;
+
+	SDL_SetTextureAlphaMod(m_textureMap[sprite->getSpriteSheet()->getName()].get(), alpha);
+	SDL_RenderCopyEx(Renderer::Instance().getRenderer(), m_textureMap[sprite->getSpriteSheet()->getName()].get(), &srcRect, &destRect, angle, nullptr, flip);
+}
+
 void TextureManager::drawText(const std::string & id, const int x, const int y, const double angle, const int alpha, const bool centered, const SDL_RendererFlip flip)
 {
 	SDL_Rect srcRect;

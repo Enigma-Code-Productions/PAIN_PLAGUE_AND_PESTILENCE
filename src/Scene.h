@@ -11,8 +11,25 @@ class Scene : public GameObject
 {
 public:
 	friend class DisplayObject;
+	friend class Game;
 	Scene();
 	virtual ~Scene();
+
+	
+
+	void addChild(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
+	void addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
+	void removeChild(DisplayObject* child);
+	void removeChildAfterUpdate(DisplayObject* child);
+
+	int numberOfChildren() const;
+
+	std::vector<DisplayObject*> getDisplayList() const;
+
+protected:
+	void removeAllChildren();
+	void updateDisplayList();
+	void drawDisplayList();
 
 	// Inherited via GameObject
 	virtual void draw() override = 0;
@@ -20,19 +37,6 @@ public:
 	virtual void clean() override = 0;
 	virtual void handleEvents() = 0;
 	virtual void start() = 0;
-
-	void addChild(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
-	void addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
-	void removeChild(DisplayObject* child);
-	void removeChildAfterUpdate(DisplayObject* child);
-
-	void removeAllChildren();
-	int numberOfChildren() const;
-
-	void updateDisplayList();
-	void drawDisplayList();
-
-	std::vector<DisplayObject*> getDisplayList() const;
 
 private:
 	uint32_t m_nextLayerIndex = 0;

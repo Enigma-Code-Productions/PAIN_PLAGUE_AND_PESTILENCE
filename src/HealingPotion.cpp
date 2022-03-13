@@ -34,13 +34,11 @@ void HealingPotion::draw()
 
 	if (m_bFacingRight)
 	{
-		TextureManager::Instance().playAnimation("HealingAnimation", getAnimation("healing"),
-			x, y, 0.75f, 0, 255, true);
+		TextureManager::Instance().playAnimation(this, "healing",0.75f, 0, 255);
 	}
 	else
 	{
-		TextureManager::Instance().playAnimation("HealingAnimation", getAnimation("healing"),
-			x, y, 0.75f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this,"healing",0.75f, 0, 255, SDL_FLIP_HORIZONTAL);
 	}
 }
 

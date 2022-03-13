@@ -47,8 +47,7 @@ void Skull::draw()
 	const auto y = getTransform()->position.y;
 
 	// draw the Skull
-	TextureManager::Instance().playAnimation("Skull", getAnimation("Skull-idle"),
-		x, y, 0.4f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+	TextureManager::Instance().playAnimation(this, "Skull-idle", 0.4f, 0, 255, SDL_FLIP_HORIZONTAL);
 }
 
 void Skull::update()

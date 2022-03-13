@@ -42,51 +42,63 @@ void WinchesterShotgun::draw()
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
 
+	auto  angle = (double)m_direction;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
+	std::string animation_name = "idle";
+
 	switch (m_currentAnimationState)
 	{
 	case WINCHESTER_SHOTGUN_IDLE_RIGHT:
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_VERTICAL);
+			flip = SDL_FLIP_VERTICAL;
 		}
 		else
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction, 255, true);
+			flip = SDL_FLIP_NONE;
 		}
+		animation_name = "idle";
 		break;
 	case WINCHESTER_SHOTGUN_IDLE_LEFT:		
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction + 180, 255, true);
+			angle += 180;
+			flip = SDL_FLIP_NONE;
 		}
 		else
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)m_direction, 255, true, SDL_FLIP_HORIZONTAL);
+			flip = SDL_FLIP_HORIZONTAL;
 		}
+		animation_name = "idle";
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_RIGHT:
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true, SDL_FLIP_VERTICAL);
+			flip = SDL_FLIP_VERTICAL;
 		}
 		else
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true);
+			flip = SDL_FLIP_NONE;
 		}
+		animation_name = "attack";
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_LEFT:
 		if (m_direction <= -90 || m_direction > 90)
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction + 180, 255, true);
+			angle += 180;
+			flip = SDL_FLIP_NONE;
 		}
 		else
 		{
-			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)m_direction, 255, true, SDL_FLIP_HORIZONTAL);
+			flip = SDL_FLIP_HORIZONTAL;
 		}
+		animation_name = "attack";
 		break;
 	default:
 		break;
 	}
+
+	TextureManager::Instance().playAnimation(this, animation_name, 1.0f, angle, 255, flip);
 }
 
 void WinchesterShotgun::update()

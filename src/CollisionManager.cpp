@@ -54,13 +54,13 @@ bool CollisionManager::squaredRadiusCheck(GameObject* object1, GameObject* objec
 bool CollisionManager::AABBCheck(GameObject* object1, GameObject* object2)
 {
 	// prepare relevant variables
-	const auto p1 = object1->getTransform()->position;
-	const auto p2 = object2->getTransform()->position;
+	const auto p1 = object1->getTransform()->position - glm::vec2(object1->getWidth() / 2, object1->getHeight() / 2);
+	const auto p2 = object2->getTransform()->position - glm::vec2(object2->getWidth() / 2, object2->getHeight() / 2);
 	const float p1Width = object1->getWidth();
 	const float p1Height = object1->getHeight();
 	const float p2Width = object2->getWidth();
 	const float p2Height = object2->getHeight();
-	
+
 
 	if (
 		p1.x < p2.x + p2Width &&
@@ -407,14 +407,16 @@ bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 		}
 	}
 
+	const auto p1 = pos - glm::vec2(obj->getWidth() / 2, obj->getHeight() / 2);
+	const float p1Width = obj->getWidth() - 1;
+	const float p1Height = obj->getHeight() - 1;
+
 	for (auto object : colliders)
 	{
-		auto p1 = pos;
-		auto p2 = object->getTransform()->position;
-		float p1Width = obj->getWidth() - 1;
-		float p1Height = obj->getHeight() - 1;
-		float p2Width = object->getWidth() -1;
-		float p2Height = object->getHeight() - 1;
+		
+		const auto p2 = object->getTransform()->position - glm::vec2(object->getWidth() / 2, object->getHeight() / 2);
+		const float p2Width = object->getWidth() -1;
+		const float p2Height = object->getHeight() - 1;
 
 
 		if (

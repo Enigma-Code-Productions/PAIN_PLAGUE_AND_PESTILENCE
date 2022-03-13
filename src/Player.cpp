@@ -23,8 +23,8 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	SoundManager::Instance().load("../Assets/audio/Walking2.mp3", "Walking", SOUND_SFX);
 
 	// set players collider
-	setWidth(56);
-	setHeight(80);
+	setWidth(90);
+	setHeight(96);
 
 	//set players health
 	setDamage(10);
@@ -70,28 +70,22 @@ void Player::draw()
 	switch(m_currentAnimationState)
 	{
 	case PLAYER_IDLE_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, alpha, true);
+		TextureManager::Instance().playAnimation(this, "idle", 0.04f, 0, alpha);
 		break;
 	case PLAYER_IDLE_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("idle"),
-			x, y, 0.04f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "idle", 0.04f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_RUN_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, alpha, true);
+		TextureManager::Instance().playAnimation(this, "run", 0.5f, 0, alpha);
 		break;
 	case PLAYER_RUN_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("run"),
-			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "run", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_DEATH_RIGHT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
-			x, y, 0.05f, 0, alpha, true);
+		TextureManager::Instance().playAnimation(this, "death", 0.5f, 0, alpha);
 		break;
 	case PLAYER_DEATH_LEFT:
-		TextureManager::Instance().playAnimation("Player", getAnimation("death"),
-			x, y, 0.50f, 0, alpha, true, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "death", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	default:
 		break;
@@ -107,6 +101,11 @@ void Player::Death()
 
 		SoundManager::Instance().playSound("Portal", 0, -1);
 		SoundManager::Instance().setSoundVolume(1);
+	}
+	if (m_pHealingPotion != nullptr)
+	{
+		getParent()->removeChildAfterUpdate(m_pHealingPotion);
+		m_pHealingPotion = nullptr;
 	}
 	setCanMove(false);
 	if (isFacingRight())
@@ -208,8 +207,9 @@ void Player::update()
 				m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 				m_pPlayerUI->setHeals();
 				m_bHealing = false;
-			getParent()->removeChildAfterUpdate(m_pHealingPotion);
+				getParent()->removeChildAfterUpdate(m_pHealingPotion);
 				m_pHealingPotion = nullptr;
+				m_pWeapon->setEnabled(true);
 			}
 			else
 			{
@@ -387,6 +387,7 @@ void Player::Heal()
 	SoundManager::Instance().playSound("Heal", 0, 0);
 	SoundManager::Instance().setSoundVolume(6);
 
+	m_pWeapon->setEnabled(false);
 	m_pHealingPotion = new HealingPotion(this);
 	getParent()->addChildAfterUpdate(m_pHealingPotion);
 	m_bHealing = true;

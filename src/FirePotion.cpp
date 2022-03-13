@@ -18,8 +18,6 @@ void FirePotion::draw()
 	{
 		TextureManager::Instance().draw("redPotion", getTransform()->position.x, getTransform()->position.y - m_height, m_rotation,
 			255, false, SDL_FLIP_NONE, 0.33f);
-
-
 	}
 	else
 	{
