@@ -24,7 +24,7 @@ SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 	setCollisionDamage(true);
 
 
-	setWidth(65);
+	setWidth(96);
 	setHeight(96);
 	getTransform()->position = glm::vec2(400.0f, 200.0f);
 	getRigidBody()->velocity = glm::vec2(0, 0);
@@ -52,8 +52,7 @@ void SpellCaster::draw()
 	const auto y = getTransform()->position.y;
 
 	// draw the Skull
-	TextureManager::Instance().playAnimation("SpellCaster", getAnimation("SpellCaster-idle"),
-		x, y, 0.4f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+	TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0.0f, 255, SDL_FLIP_HORIZONTAL);
 }
 
 void SpellCaster::update()
