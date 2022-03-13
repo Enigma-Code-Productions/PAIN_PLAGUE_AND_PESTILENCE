@@ -36,6 +36,7 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	m_thrower = new PotionThrower(this);
 	getParent()->addChild(m_thrower);
 	m_pPlayerUI = new PlayerUI(this);
+	getParent()->addChild(m_pPlayerUI, UI);
 	
 	getTransform()->position = glm::vec2(400.0f, 300.0f);
 	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
@@ -95,21 +96,11 @@ void Player::draw()
 	default:
 		break;
 	}
-	
-	if (m_pWeapon != nullptr && !m_bHealing)
-	{
-		m_pWeapon->draw();
-	}
-	if (m_pPlayerUI != nullptr)
-	{
-		m_pPlayerUI->draw();
-	}
-
 }
 
 void Player::Death()
 {
-	//delete m_pWeapon;
+	//m_pWeapon->setEnabled(false);
 	m_pWeapon = nullptr;
 	setCanMove(false);
 	if (isFacingRight())
@@ -221,22 +212,10 @@ void Player::update()
 				m_healingTimeLeft--;
 			}
 		}
-		if (m_pWeapon != nullptr)
-		{
-			m_pWeapon->update();
-		}
 		if (m_invTimeLeft > 0)
 		{
 			m_invTimeLeft--;
 		}
-	}
-	if(m_pWeapon != nullptr )
-	{
-		m_pWeapon->update();
-	}
-	if (m_pPlayerUI != nullptr)
-	{
-		m_pPlayerUI->update();
 	}
 	if (m_invTimeLeft > 0)
 	{
@@ -253,18 +232,6 @@ void Player::update()
 
 void Player::clean()
 {
-	if (m_pWeapon != nullptr)
-	{
-		m_pWeapon->clean();
-		delete m_pWeapon;
-		m_pWeapon = nullptr;
-	}
-	if (m_pPlayerUI != nullptr)
-	{
-		m_pPlayerUI->clean();
-		delete m_pPlayerUI;
-		m_pPlayerUI = nullptr;
-	}
 }
 
 void Player::setAnimationState(const PlayerAnimationState new_state)

@@ -8,7 +8,7 @@
 
 class Player;
 
-class PlayerUI final: DisplayObject
+class PlayerUI final: public DisplayObject
 {
 private:
 	Player* m_pPlayer;

@@ -57,6 +57,7 @@ void Scene::removeChild(DisplayObject * child)
 
 void Scene::removeChildAfterUpdate(DisplayObject* child)
 {
+	child->setEnabled(false);
 	m_removeQueueObjects.push_back(child);
 }
 

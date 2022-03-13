@@ -161,6 +161,7 @@ void PlayScene::start()
 
 	m_pShotgun = new WinchesterShotgun(m_pPlayer);
 	m_pPlayer->setWeapon(m_pShotgun);
+	addChild(m_pShotgun, FORWARD_OBJECTS);
 
 	m_pShotgunBullets = m_pShotgun->getBullets();
 
