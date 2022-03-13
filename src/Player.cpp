@@ -114,7 +114,7 @@ void Player::draw()
 
 void Player::Death()
 {
-	delete m_pWeapon;
+	//delete m_pWeapon;
 	m_pWeapon = nullptr;
 	setCanMove(false);
 	if (isFacingRight())

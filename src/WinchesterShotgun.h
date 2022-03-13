@@ -2,7 +2,7 @@
 #include "RangedWeapon.h"
 #include "Player.h"
 #include "WinchesterShotgunAnimationState.h"
-class WinchesterShotgun : public RangedWeapon
+class WinchesterShotgun final : public RangedWeapon
 {
 private: // Properties
 	WinchesterShotgunAnimationState m_currentAnimationState;

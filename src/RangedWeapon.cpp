@@ -1,5 +1,4 @@
 #include "RangedWeapon.h"
-#include <iostream>
 
 void RangedWeapon::attack()
 {
@@ -7,7 +6,6 @@ void RangedWeapon::attack()
 	{
 		float initialBulletDirection = m_direction + (rand() % 2 - 1) * m_accuracy;
 		m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position));
-		//std::cout << "attack" << std::endl;
 	}
 }
 

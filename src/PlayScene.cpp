@@ -156,6 +156,7 @@ void PlayScene::start()
 	addChild(m_pPlayer);
 	m_pPlayer->setCanMove(true);
 
+	//m_pKnife = new SoyKnife(m_pPlayer);
 	//m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
 
 	m_pShotgun = new WinchesterShotgun(m_pPlayer);

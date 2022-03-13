@@ -6,6 +6,10 @@
 class RangedWeapon : public Weapon
 {
 public:
+	RangedWeapon() {}
+	RangedWeapon(Player*) {}
+	virtual ~RangedWeapon() = default;
+
 	void attack() override;
 	void update() override;
 
