@@ -202,8 +202,9 @@ void Player::update()
 				m_pPlayerUI->getHealthBar()->setHealth(getHealth());
 				m_pPlayerUI->setHeals();
 				m_bHealing = false;
-			getParent()->removeChildAfterUpdate(m_pHealingPotion);
+				getParent()->removeChildAfterUpdate(m_pHealingPotion);
 				m_pHealingPotion = nullptr;
+				m_pWeapon->setEnabled(true);
 			}
 			else
 			{
@@ -381,6 +382,7 @@ void Player::Heal()
 	SoundManager::Instance().playSound("Heal", 0, 0);
 	SoundManager::Instance().setSoundVolume(6);
 
+	m_pWeapon->setEnabled(false);
 	m_pHealingPotion = new HealingPotion(this);
 	getParent()->addChildAfterUpdate(m_pHealingPotion);
 	m_bHealing = true;
