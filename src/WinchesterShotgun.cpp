@@ -12,7 +12,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("WinchesterShotgun"));
 
-	//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/Winchester.mp3", "Winchester", SOUND_SFX);
 
 	setWidth(144);
 	setHeight(75);
@@ -132,8 +132,9 @@ void WinchesterShotgun::attack()
 {
 	if (!isAttacking())
 	{
-		//SoundManager::Instance().playSound("Knife", 0, 0);
-		//SoundManager::Instance().setSoundVolume(6);
+		SoundManager::Instance().playSound("Winchester", 0, 0);
+		SoundManager::Instance().setSoundVolume(6);
+
 		setAttackStart(TheGame::Instance().getFrames());
 		setIsAttacking(true);
 

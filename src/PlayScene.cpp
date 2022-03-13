@@ -45,6 +45,12 @@ void PlayScene::checkWin()
 		//Delete all enemies in scene
 		if (!m_bBossSpawned)
 		{
+			SoundManager::Instance().stopMusic(0);
+			SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
+
+			SoundManager::Instance().playMusic("Boss-Music", -1, 0);
+			SoundManager::Instance().setMusicVolume(3);
+
 			for (auto enemy : m_pEnemies)
 			{
 				enemy->setAlive(false);
@@ -79,6 +85,7 @@ void PlayScene::clean()
 	removeAllChildren();
 	SoundManager::Instance().stopMusic(0);
 	SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
+	SoundManager::Instance().unload("Boss-Music", SOUND_MUSIC);
 }
 
 void PlayScene::handleEvents()
@@ -132,6 +139,7 @@ void PlayScene::start()
 
 	// Music
 	SoundManager::Instance().load("../Assets/audio/Aftermath.mp3", "Level-Music", SOUND_MUSIC);
+	SoundManager::Instance().load("../Assets/audio/Boss.mp3", "Boss-Music", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("Level-Music", -1, 0);
 	SoundManager::Instance().setMusicVolume(3);
 
