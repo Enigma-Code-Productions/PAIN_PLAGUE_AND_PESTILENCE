@@ -21,8 +21,8 @@ public:
 	virtual void handleEvents() = 0;
 	virtual void start() = 0;
 
-	void addChild(DisplayObject* child, uint32_t layer_index = 0, std::optional<uint32_t> order_index = std::nullopt);
-	void addChildAfterUpdate(DisplayObject* child, uint32_t layer_index = 0, std::optional<uint32_t> order_index = std::nullopt);
+	void addChild(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
+	void addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
 	void removeChild(DisplayObject* child);
 	void removeChildAfterUpdate(DisplayObject* child);
 

@@ -13,7 +13,7 @@ Scene::~Scene()
 }
 
 
-void Scene::addChild(DisplayObject * child, uint32_t layer_index, std::optional<uint32_t> order_index)
+void Scene::addChild(DisplayObject * child, DrawLayers layer_index, std::optional<uint32_t> order_index)
 {
 	uint32_t index = 0;
 	// If we passed in an order index, override the auto-increment value
@@ -31,7 +31,7 @@ void Scene::addChild(DisplayObject * child, uint32_t layer_index, std::optional<
 	m_displayList.push_back(child);
 }
 
-void Scene::addChildAfterUpdate(DisplayObject* child, uint32_t layer_index, std::optional<uint32_t> order_index)
+void Scene::addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index, std::optional<uint32_t> order_index)
 {
 	uint32_t index = 0;
 	// If we passed in an order index, override the auto-increment value
