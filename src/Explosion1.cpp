@@ -36,13 +36,11 @@ void Explosion1::draw()
 
 	if (getAnimation("Explosion1").current_frame != getAnimation("Explosion1").frames.size() - 1)
 	{
-		TextureManager::Instance().playAnimation("Explosion1", getAnimation("Explosion1"),
-			x, y, 0.75f, 0, 255, true);
-
+		TextureManager::Instance().playAnimation(this, "Explosion1", 0.75, 0, 255);
 	}
 	else
 	{
-		Game::Instance().getCurrentScene()->removeChild(this);
+		Game::Instance().getCurrentScene()->removeChildAfterUpdate(this);
 	}
 };
 void Explosion1::update()
