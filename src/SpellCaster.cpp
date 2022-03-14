@@ -61,10 +61,6 @@ void SpellCaster::draw()
 	{
 		TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0, 255, SDL_FLIP_HORIZONTAL);
 	}
-	else
-	{
-		TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0, 255);
-	}
 }
 
 void SpellCaster::update()
