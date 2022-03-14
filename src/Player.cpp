@@ -20,7 +20,7 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	SoundManager::Instance().load("../Assets/audio/Hit.wav", "Hit", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/Heal.wav", "Heal", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/Portal.mp3", "Portal", SOUND_SFX);
-	SoundManager::Instance().load("../Assets/audio/Walking2.mp3", "Walking", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/Walking.mp3", "Walking", SOUND_SFX);
 
 	// set players collider
 	setWidth(90);
@@ -139,6 +139,7 @@ void Player::update()
 	{
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
+
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y - m_speed)))
 				getTransform()->position.y -= m_speed;
 			running = true;
@@ -184,6 +185,10 @@ void Player::update()
 
 		if (running)
 		{
+			// walk sound
+			//SoundManager::Instance().playSound("Walking", 0, 1);
+			//SoundManager::Instance().setSoundVolume(10);
+
 			if (facingRight)
 				setAnimationState(PLAYER_RUN_RIGHT);
 			else

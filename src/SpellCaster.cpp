@@ -52,7 +52,19 @@ void SpellCaster::draw()
 	const auto y = getTransform()->position.y;
 
 	// draw the Skull
-	TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0.0f, 255, SDL_FLIP_HORIZONTAL);
+
+	if (m_pPlayer->getTransform()->position.x > x)
+	{
+		TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0, 255);
+	}
+	else if (m_pPlayer->getTransform()->position.x < x)
+	{
+		TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0, 255, SDL_FLIP_HORIZONTAL);
+	}
+	else
+	{
+		TextureManager::Instance().playAnimation(this, "SpellCaster-idle", 0.4f, 0, 255);
+	}
 }
 
 void SpellCaster::update()

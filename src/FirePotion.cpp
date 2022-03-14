@@ -32,7 +32,7 @@ void FirePotion::update()
 	if (m_height == 0.0f)
 	{
 		SoundManager::Instance().playSound("PotionBreak", 0, -1);
-		SoundManager::Instance().setSoundVolume(4);
+
 		getParent()->removeChildAfterUpdate(this);
 	}
 }

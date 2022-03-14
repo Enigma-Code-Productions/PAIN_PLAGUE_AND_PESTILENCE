@@ -47,7 +47,22 @@ void Skull::draw()
 	const auto y = getTransform()->position.y;
 
 	// draw the Skull
-	TextureManager::Instance().playAnimation(this, "Skull-idle", 0.4f, 0, 255, SDL_FLIP_HORIZONTAL);
+	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius))
+	{
+		if (m_pPlayer->getTransform()->position.x > x)
+		{
+			TextureManager::Instance().playAnimation(this, "Skull-idle", 0.4f, 0, 255);
+		}
+		else if (m_pPlayer->getTransform()->position.x < x)
+		{
+			TextureManager::Instance().playAnimation(this, "Skull-idle", 0.4f, 0, 255, SDL_FLIP_HORIZONTAL);
+		}
+	}
+	else 
+	{
+		TextureManager::Instance().playAnimation(this, "Skull-idle", 0.4f, 0, 255);
+	}
+
 }
 
 void Skull::update()

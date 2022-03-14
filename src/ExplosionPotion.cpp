@@ -49,7 +49,6 @@ void ExplosionPotion::update()
 		if (!m_effectTriggered)
 		{
 			SoundManager::Instance().playSound("PotionBreak", 0, -1);
-			SoundManager::Instance().setSoundVolume(4);
 
 			getParent()->addChildAfterUpdate(new Explosion1(glm::vec2(getTransform()->position.x, getTransform()->position.y)), EFFECTS);
 			m_effectTriggered = true;
