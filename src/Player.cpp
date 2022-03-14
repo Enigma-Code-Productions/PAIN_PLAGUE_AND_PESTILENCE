@@ -100,7 +100,6 @@ void Player::Death()
 		m_pWeapon = nullptr;
 
 		SoundManager::Instance().playSound("Portal", 0, -1);
-		SoundManager::Instance().setSoundVolume(1);
 	}
 	if (m_pHealingPotion != nullptr)
 	{

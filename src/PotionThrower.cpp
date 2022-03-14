@@ -17,6 +17,9 @@ PotionThrower::PotionThrower(Player* player) : m_MaxPotions(3), m_pPlayer(player
 	m_amountOfPotions[FIRE_POTION] = 2;
 	m_amountOfPotions[EXPLOSIVE_POTION] = 2;
 	m_loadPotionsSprites();
+
+	SoundManager::Instance().load("../Assets/audio/NextPotion.wav", "NextPotion", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/ThrowPotion.wav", "ThrowPotion", SOUND_SFX);
 }
 
 PotionThrower::~PotionThrower() = default;
@@ -36,10 +39,14 @@ void PotionThrower::update()
 	
 	if (EventManager::Instance().keyReleased(SDL_SCANCODE_G))
 	{
+		SoundManager::Instance().playSound("ThrowPotion", 0, -1);
+
 		throwPotion();
 	}
 	if (EventManager::Instance().keyPressed(SDL_SCANCODE_Q))
 	{
+		SoundManager::Instance().playSound("NextPotion", 0, -1);
+
 		m_chosenPotion = static_cast<Potions>(m_chosenPotion + 1);
 		if (m_chosenPotion == NUM_OF_POTIONS)
 		{
