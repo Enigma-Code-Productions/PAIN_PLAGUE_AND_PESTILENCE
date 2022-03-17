@@ -16,6 +16,7 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include "Sprite.h"
+#include "Tile.h"
 
 /* Singleton */
 class TextureManager
@@ -58,7 +59,6 @@ public:
 	int getTextureMapSize() const;
 	void displayTextureMap();
 	void clean();
-
 
 private:
 

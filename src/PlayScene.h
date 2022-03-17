@@ -10,6 +10,7 @@
 #include "Label.h"
 #include "SoyKnife.h"
 #include "Bullet.h"
+#include "TileGrid.h"
 #include "WinchesterShotgun.h"
 
 class PlayScene : public Scene
@@ -28,6 +29,8 @@ private: //Properties
 	WinchesterShotgun* m_pShotgun;
 	std::vector<Bullet*> m_pPlayersBullets;
 	std::vector<Bullet*> m_pEnemiesBullets;
+
+	TileGrid* m_pGrid;
 
 	//Score
 	int m_scoreCounter;

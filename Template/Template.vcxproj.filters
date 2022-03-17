@@ -201,6 +201,8 @@
     <ClCompile Include="..\src\WinScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\TileGrid.cpp" />
+    <ClCompile Include="..\src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -401,6 +403,8 @@
     <ClInclude Include="..\src\WinScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\TileGrid.h" />
+    <ClInclude Include="..\src\Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">
@@ -429,10 +433,24 @@
     <Image Include="..\Assets\sprites\Explosion1.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="..\Assets\textures\Tiles.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Assets\sprites\atlas.xml">
       <Filter>Textures</Filter>
     </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Assets\data\Level1Data.txt">
+      <Filter>Textures</Filter>
+    </Text>
+    <Text Include="..\Assets\data\Level1Layout.txt">
+      <Filter>Textures</Filter>
+    </Text>
+    <Text Include="..\Assets\data\Tiledata.txt">
+      <Filter>Textures</Filter>
+    </Text>
   </ItemGroup>
 </Project>

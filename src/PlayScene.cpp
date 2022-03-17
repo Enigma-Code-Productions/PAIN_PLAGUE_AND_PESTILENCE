@@ -17,7 +17,7 @@ PlayScene::~PlayScene()
 
 void PlayScene::draw()
 {
-	TextureManager::Instance().draw("Background", 0, 0);
+	//TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
@@ -76,7 +76,7 @@ void PlayScene::checkWin()
 	}
 	if (!m_bBossActive)
 	{
-		spawnEnemy();
+		//spawnEnemy();
 	}
 }
 
@@ -117,6 +117,8 @@ void PlayScene::start()
 
 	// Background
 	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
+
+	m_pGrid = new TileGrid("Level1Data.txt", "Level1Layout.txt", "Tiledata.txt", "Tiles.png");
 
 	//Boss Sprite
 	m_bBossSpawned = false;
