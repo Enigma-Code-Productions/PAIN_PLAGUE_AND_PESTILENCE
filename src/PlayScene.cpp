@@ -17,7 +17,6 @@ PlayScene::~PlayScene()
 
 void PlayScene::draw()
 {
-	//TextureManager::Instance().draw("Background", 0, 0);
 	drawDisplayList();
 
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
@@ -33,50 +32,6 @@ void PlayScene::update()
 	if(m_pPlayer->isAlive())
 	{
 		checkWin();
-	}
-}
-
-void PlayScene::checkWin()
-{
-	if (m_scoreCounter >= 10)
-	{
-		m_bBossActive = true;
-
-		//Delete all enemies in scene
-		if (!m_bBossSpawned)
-		{
-			SoundManager::Instance().stopMusic(0);
-			SoundManager::Instance().unload("Level-Music", SOUND_MUSIC);
-
-			SoundManager::Instance().playMusic("Boss-Music", -1, 0);
-			SoundManager::Instance().setMusicVolume(3);
-
-			for (auto enemy : m_pEnemies)
-			{
-				enemy->setAlive(false);
-			}
-			deleteDeadEnemies();
-
-			int x = rand() % 800;
-			int y = rand() % 600;
-			m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
-			addChild(m_pEnemies.back());
-			m_pBoss = m_pEnemies.back();
-			m_bBossSpawned = true;
-		}
-
-		//If the boss is in scene, check if it is dead
-		if (m_bBossSpawned)
-		{
-			if (m_bBossDead)
-			{
-				TheGame::Instance().changeSceneState(WIN_SCENE); //Change to win scene if boss dies
-			}
-		}
-	}
-	if (!m_bBossActive)
-	{
-		//spawnEnemy();
 	}
 }
 
@@ -113,30 +68,13 @@ void PlayScene::handleEvents()
 void PlayScene::start()
 {
 	// Set GUI Title
-	m_guiTitle = "Play Scene";
-
-	// Background
-	TextureManager::Instance().load("../Assets/textures/Full-tile.png", "Background");
-
-	m_pGrid = new TileGrid("Level1Data.txt", "Level1Layout.txt", "Tiledata.txt", "Tiles.png");
-
-	//Boss Sprite
-	m_bBossSpawned = false;
-	m_bBossDead = false;
-	m_pBoss = nullptr;
+	std::string m_guiTitle = "Play Scene";
 
 	// Player Sprite
 	m_pPlayer = new Player();
 	addChild(m_pPlayer, OBJECTS);
 	m_pPlayer->setCanMove(true);
 
-
-	//m_pKnife = new SoyKnife(m_pPlayer);
-	//m_pPlayer->setWeapon(new SoyKnife(m_pPlayer));
-
-	m_pShotgun = new WinchesterShotgun(m_pPlayer);
-	m_pPlayer->setWeapon(m_pShotgun);
-	addChild(m_pShotgun, FRONT_OBJECTS);
 
 	//Ui
 	m_scoreCounter = 0;
@@ -291,11 +229,7 @@ void PlayScene::deleteDeadEnemies()
 			else if (dynamic_cast<SpellCaster*>(m_pEnemies[i]))//check if enemy is a Spell caster
 			{
 				m_bBossDead = true;
-				/*m_scoreCounter = m_scoreCounter + 3;
-				removeChild(m_pEnemies[i]);
-				m_pEnemies[i] = nullptr;
-				m_pEnemies.erase(m_pEnemies.begin() + i);
-				i--;*/
+				
 				//play Spellcaster death sound
 				SoundManager::Instance().playSound("SpellCaster-Death", 0, -1);
 			}

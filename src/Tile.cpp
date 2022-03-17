@@ -1,5 +1,4 @@
 #include "Tile.h"
-
 #include "Game.h"
 #include "TextureManager.h"
 
@@ -26,7 +25,6 @@ void Tile::update()
 void Tile::draw()
 {
 	SDL_FRect dst = { getTransform()->position.x - (getWidth() / 2.0f), getTransform()->position.y - (getHeight() / 2.0f), (float)getWidth(), (float)getHeight() };
-//	std::cout << dst.x << " " << dst.y << std::endl;
 	SDL_RenderCopyF(Renderer::Instance().getRenderer(), TextureManager::Instance().getTexture(m_srcKey), &m_src, &dst);
 }
 

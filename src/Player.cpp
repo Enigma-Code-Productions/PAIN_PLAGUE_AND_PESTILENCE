@@ -33,6 +33,9 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	setCollisionDamage(false);
 
 
+
+	m_pWeapon = new SoyKnife(this);
+	getParent()->addChild(m_pWeapon, FRONT_OBJECTS);
 	m_thrower = new PotionThrower(this);
 	getParent()->addChild(m_thrower);
 	m_pPlayerUI = new PlayerUI(this);

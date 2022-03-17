@@ -17,7 +17,7 @@ private:
 
 
 public:
-	TileGrid(std::string level_data, std::string level_layout, std::string tile_data, std::string texture_file_name);
+	TileGrid(std::string level_data);
 	~TileGrid();
 
 	void update() override;

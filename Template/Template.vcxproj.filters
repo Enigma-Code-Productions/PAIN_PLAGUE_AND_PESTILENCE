@@ -52,6 +52,9 @@
     <Filter Include="Game Objects\Effects">
       <UniqueIdentifier>{e7317f9f-647c-477d-b36e-2779831b4c03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scenes\Levels">
+      <UniqueIdentifier>{223cf154-b57b-4456-813f-1d612cb244f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StartScene.cpp">
@@ -201,8 +204,13 @@
     <ClCompile Include="..\src\WinScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\TileGrid.cpp" />
-    <ClCompile Include="..\src\Tile.cpp" />
+    <ClCompile Include="..\src\Tile.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TileGrid.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -403,8 +411,13 @@
     <ClInclude Include="..\src\WinScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\TileGrid.h" />
-    <ClInclude Include="..\src\Tile.h" />
+    <ClInclude Include="..\src\Tile.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TileGrid.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Level1.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">

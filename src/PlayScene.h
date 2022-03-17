@@ -15,31 +15,23 @@
 
 class PlayScene : public Scene
 {
-private: //Properties
-	// IMGUI Function
-	std::string m_guiTitle;
+protected: //Properties
 
 	//Objects
 	std::vector<AliveObject*> m_pEnemies;
-	Player* m_pPlayer;
-	Skull* m_pSkull;
-	Zombie* m_pZombie;
 
-	SoyKnife* m_pKnife;
-	WinchesterShotgun* m_pShotgun;
 	std::vector<Bullet*> m_pPlayersBullets;
 	std::vector<Bullet*> m_pEnemiesBullets;
+
+	Player* m_pPlayer;
 
 	TileGrid* m_pGrid;
 
 	//Score
 	int m_scoreCounter;
 
-	//Boss Battle
-	bool m_bBossActive = false;
-	bool m_bBossSpawned;
-	bool m_bBossDead;
-	AliveObject* m_pBoss;
+	bool m_bBossDead = false;
+
 
 public: // Functions
 	PlayScene();
@@ -56,7 +48,7 @@ public: // Functions
 	void spawnEnemy();
 	void deleteDeadEnemies();
 
-	void checkWin();
+	virtual void checkWin() = 0;
 	void CleanEnemies();
 
 	int getScore();

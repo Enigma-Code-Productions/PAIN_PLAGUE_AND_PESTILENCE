@@ -46,7 +46,7 @@ void WinScene::handleEvents()
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_MINUS))
 	{
-		TheGame::Instance().changeSceneState(PLAY_SCENE);
+		TheGame::Instance().changeSceneState(LEVEL_1);
 	}
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_EQUALS))
 	{
@@ -75,7 +75,7 @@ void WinScene::start()
 	m_pRestartButton->addEventListener(CLICK, [&]()-> void
 		{
 			m_pRestartButton->setActive(false);
-			TheGame::Instance().changeSceneState(PLAY_SCENE);
+			TheGame::Instance().changeSceneState(LEVEL_1);
 		});
 
 	m_pRestartButton->addEventListener(MOUSE_OVER, [&]()->void

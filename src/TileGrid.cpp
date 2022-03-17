@@ -5,12 +5,17 @@
 
 #include "TextureManager.h"
 
-TileGrid::TileGrid(std::string level_data, std::string level_layout, std::string tile_data, std::string texture_file_name)
+TileGrid::TileGrid(std::string level_data)
 {
-	TextureManager::Instance().load("../Assets/textures/" + texture_file_name, "tiles");
+	
 
 	std::ifstream file;
 	file.open("../Assets/data/" + level_data);
+
+	std::string level_layout;
+	std::string tile_data;
+	std::string texture_file_name;
+
 
 	if (file.is_open())
 	{
@@ -26,11 +31,19 @@ TileGrid::TileGrid(std::string level_data, std::string level_layout, std::string
 		m_tileWidth = width;
 		getTransform()->position = start;
 
+		std::getline(file, tile_data); // To skip \n in the end of the line
+
+		std::getline(file, tile_data);
+		std::getline(file, level_layout);
+		std::getline(file, texture_file_name);
+
 	}
 	else
 	{
 		std::cout << "Cannot open " << level_data << std::endl;
 	}
+
+	TextureManager::Instance().load("../Assets/textures/" + texture_file_name, "tiles");
 
 	file.close();
 	file.open("../Assets/data/" + tile_data);

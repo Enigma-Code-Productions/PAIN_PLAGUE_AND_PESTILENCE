@@ -5,6 +5,7 @@
 #include "glm/gtx/string_cast.hpp"
 #include "Renderer.h"
 #include "EventManager.h"
+#include "Level1.h"
 
 
 //Game* Game::s_pInstance = nullptr;
@@ -98,7 +99,7 @@ void Game::start()
 {
 	m_currentSceneState = NO_SCENE;
 
-	changeSceneState(PLAY_SCENE);
+	changeSceneState(LEVEL_1);
 }
 
 bool Game::isRunning() const
@@ -162,8 +163,8 @@ void Game::changeSceneState(const SceneState new_state)
 			m_currentScene->start();
 			std::cout << "start scene activated" << std::endl;
 			break;
-		case PLAY_SCENE:
-			m_currentScene = new PlayScene();
+		case LEVEL_1:
+			m_currentScene = new Level1();
 			m_currentScene->start();
 			std::cout << "play scene activated" << std::endl;
 			break;
