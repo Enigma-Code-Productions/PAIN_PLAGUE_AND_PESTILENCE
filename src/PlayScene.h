@@ -56,10 +56,15 @@ public: // Functions
 	void addBullet(Bullet* b);
 	void removeBullet(Bullet* b);
 
+	
+
 private: //Functions
 	// IMGUI Function
 	void GUI_Function() const;
-	
+
+	friend void Player::update();
+
+	void moveAllObjects(glm::vec2 dPos);
 };
 
 #endif /* defined (__PLAY_SCENE__) */

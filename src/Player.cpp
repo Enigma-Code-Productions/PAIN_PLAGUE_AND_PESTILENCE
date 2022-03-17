@@ -139,25 +139,27 @@ void Player::update()
 
 	if(m_bCanMove)
 	{
+		glm::vec2 d_pos = glm::vec2(0.0f, 0.0f);
+
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
 
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y - m_speed)))
-				getTransform()->position.y -= m_speed;
+				d_pos.y += m_speed;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 		{
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y + m_speed)))
-				getTransform()->position.y += m_speed;
+				d_pos.y -= m_speed;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 		{
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x - m_speed, getTransform()->position.y)))
-				getTransform()->position.x -= m_speed;
+				d_pos.x += m_speed;
 			facingRight = false;
 			running = true;
 		}
@@ -165,7 +167,7 @@ void Player::update()
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 		{
 			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x + m_speed, getTransform()->position.y)))
-				getTransform()->position.x += m_speed;
+				d_pos.x -= m_speed;
 			
 			facingRight = true;
 			running = true;
@@ -204,6 +206,12 @@ void Player::update()
 				setAnimationState(PLAYER_IDLE_LEFT);
 		}
 #pragma endregion inputHandling
+
+		if (d_pos.x != 0.0f || d_pos.y != 0.0f)
+		{
+			dynamic_cast<PlayScene*>(getParent())->moveAllObjects(d_pos);
+		}
+
 
 		if (m_pHealingPotion != nullptr)
 		{

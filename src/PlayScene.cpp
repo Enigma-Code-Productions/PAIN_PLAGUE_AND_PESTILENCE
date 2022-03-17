@@ -253,3 +253,14 @@ void PlayScene::GUI_Function() const
 	
 	ImGui::End();
 }
+
+void PlayScene::moveAllObjects(glm::vec2 d_pos)
+{
+	for (auto DisplayObject : getDisplayList())
+	{
+		if (!dynamic_cast<Player*>(DisplayObject))
+		{
+			DisplayObject->getTransform()->position += d_pos;
+		}
+	}
+}
