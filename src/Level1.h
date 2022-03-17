@@ -15,9 +15,12 @@ private:
 
 public:
 
+	void update() override;
 	void start() override;
 
 	void checkWin() override;
+
+	void spawnEnemy();
 
 private:
 

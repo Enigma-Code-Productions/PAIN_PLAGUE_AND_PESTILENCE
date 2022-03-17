@@ -27,12 +27,8 @@ void PlayScene::update()
 	updateDisplayList();
 
 	collisionCheck();
-	deleteDeadEnemies();
 
-	if(m_pPlayer->isAlive())
-	{
-		checkWin();
-	}
+	deleteDeadEnemies();
 }
 
 
@@ -95,16 +91,6 @@ void PlayScene::start()
 }
 
 
-void PlayScene::CleanEnemies()
-{
-	for (auto& count : m_pEnemies)
-	{
-		count = nullptr;
-	}
-
-	m_pEnemies.clear();
-}
-
 int PlayScene::getScore()
 {
 	return m_scoreCounter;
@@ -160,45 +146,6 @@ void PlayScene::collisionCheck()
 	
 }
 
-void PlayScene::spawnEnemy()
-{
-
-	//spawn skull every 5 seconds.
-	const int SkullSpawnInterval = 5 * 60;
-	if (TheGame::Instance().getFrames() % SkullSpawnInterval == 0)
-	{
-		
-	}
-
-	//spawn skull every 1 seconds.
-	const int enemySpawnInterval = 2 * 60;
-	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
-	{
-		int x = rand() % 800;
-		int y = rand() % 600;
-		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
-		addChild(m_pEnemies.back());
-	}
-	//10 seconds
-	const int ZombieSpawnInterval = 4 * 60;
-	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
-	{
-		int x = rand() % 800;
-		int y = rand() % 600;
-		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
-		addChild(m_pEnemies.back());
-	}
-	//15 seconds
-	//const int SpellCasterSpawnInterval = 15 * 60;
-	//if (TheGame::Instance().getFrames() % SpellCasterSpawnInterval == 0)
-	//{
-	//	int x = rand() % 800;
-	//	int y = rand() % 600;
-	//	m_pEnemies.push_back(new SpellCaster(m_pPlayer, glm::vec2(x, y)));
-	//	addChild(m_pEnemies.back());
-	//}
-
-}
 
 void PlayScene::deleteDeadEnemies()
 {
@@ -228,8 +175,6 @@ void PlayScene::deleteDeadEnemies()
 			}
 			else if (dynamic_cast<SpellCaster*>(m_pEnemies[i]))//check if enemy is a Spell caster
 			{
-				m_bBossDead = true;
-				
 				//play Spellcaster death sound
 				SoundManager::Instance().playSound("SpellCaster-Death", 0, -1);
 			}

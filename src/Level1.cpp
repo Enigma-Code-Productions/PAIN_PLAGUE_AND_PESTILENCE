@@ -3,6 +3,16 @@
 #include "Game.h"
 #include "SoundManager.h"
 
+void Level1::update()
+{
+	PlayScene::update();
+
+	if (m_pPlayer->isAlive())
+	{
+		checkWin();
+	}
+}
+
 void Level1::start()
 {
 	PlayScene::start();
@@ -47,6 +57,9 @@ void Level1::checkWin()
 		//If the boss is in scene, check if it is dead
 		if (m_bBossSpawned)
 		{
+			if (!m_pBoss->isAlive())
+				m_bBossDead = true;
+
 			if (m_bBossDead)
 			{
 				TheGame::Instance().changeSceneState(WIN_SCENE); //Change to win scene if boss dies
@@ -55,6 +68,29 @@ void Level1::checkWin()
 	}
 	if (!m_bBossActive)
 	{
-		//spawnEnemy();
+		spawnEnemy();
 	}
+}
+
+void Level1::spawnEnemy()
+{
+	//spawn skull every 1 seconds.
+	const int enemySpawnInterval = 2 * 60;
+	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
+	}
+	//10 seconds
+	const int ZombieSpawnInterval = 4 * 60;
+	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
+	{
+		int x = rand() % 800;
+		int y = rand() % 600;
+		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
+		addChild(m_pEnemies.back());
+	}
+
 }

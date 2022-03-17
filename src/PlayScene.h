@@ -30,9 +30,6 @@ protected: //Properties
 	//Score
 	int m_scoreCounter;
 
-	bool m_bBossDead = false;
-
-
 public: // Functions
 	PlayScene();
 	~PlayScene();
@@ -45,11 +42,9 @@ public: // Functions
 	virtual void start() override;
 
 	void collisionCheck();
-	void spawnEnemy();
 	void deleteDeadEnemies();
 
 	virtual void checkWin() = 0;
-	void CleanEnemies();
 
 	int getScore();
 
