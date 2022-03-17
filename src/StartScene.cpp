@@ -43,7 +43,7 @@ void StartScene::handleEvents()
 
 	if(EventManager::Instance().isKeyDown(SDL_SCANCODE_EQUALS))
 	{
-		TheGame::Instance().changeSceneState(PLAY_SCENE);
+		TheGame::Instance().changeSceneState(LEVEL_1);
 	}
 }
 
@@ -70,7 +70,7 @@ void StartScene::start()
 	m_pStartButton->addEventListener(CLICK, [&]()-> void
 	{
 		m_pStartButton->setActive(false);
-		TheGame::Instance().changeSceneState(PLAY_SCENE);
+		TheGame::Instance().changeSceneState(LEVEL_1);
 	});
 	
 	m_pStartButton->addEventListener(MOUSE_OVER, [&]()->void

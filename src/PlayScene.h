@@ -10,33 +10,25 @@
 #include "Label.h"
 #include "SoyKnife.h"
 #include "Bullet.h"
+#include "TileGrid.h"
 #include "WinchesterShotgun.h"
 
 class PlayScene : public Scene
 {
-private: //Properties
-	// IMGUI Function
-	std::string m_guiTitle;
+protected: //Properties
 
 	//Objects
 	std::vector<AliveObject*> m_pEnemies;
-	Player* m_pPlayer;
-	Skull* m_pSkull;
-	Zombie* m_pZombie;
 
-	SoyKnife* m_pKnife;
-	WinchesterShotgun* m_pShotgun;
 	std::vector<Bullet*> m_pPlayersBullets;
 	std::vector<Bullet*> m_pEnemiesBullets;
 
+	Player* m_pPlayer;
+
+	TileGrid* m_pGrid;
+
 	//Score
 	int m_scoreCounter;
-
-	//Boss Battle
-	bool m_bBossActive = false;
-	bool m_bBossSpawned;
-	bool m_bBossDead;
-	AliveObject* m_pBoss;
 
 public: // Functions
 	PlayScene();
@@ -50,11 +42,9 @@ public: // Functions
 	virtual void start() override;
 
 	void collisionCheck();
-	void spawnEnemy();
 	void deleteDeadEnemies();
 
-	void checkWin();
-	void CleanEnemies();
+	virtual void checkWin() = 0;
 
 	int getScore();
 
@@ -66,10 +56,15 @@ public: // Functions
 	void addBullet(Bullet* b);
 	void removeBullet(Bullet* b);
 
+	
+
 private: //Functions
 	// IMGUI Function
 	void GUI_Function() const;
-	
+
+	friend void Player::update();
+
+	void moveAllObjects(glm::vec2 dPos);
 };
 
 #endif /* defined (__PLAY_SCENE__) */
