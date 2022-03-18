@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "Util.h"
 #include "CollisionManager.h"
+#include "Game.h"
 
 
 SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
@@ -30,6 +31,8 @@ SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 	getRigidBody()->velocity = glm::vec2(0, 0);
 	getRigidBody()->isColliding = false;
 	getRigidBody()->hasCollider = true;
+
+	m_bulletSpeed = 2;
 
 	m_pPlayer = player;
 
@@ -77,6 +80,14 @@ void SpellCaster::update()
 	{
 		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
 	}
+
+	std::cout << "Distance: " << Util::distance(getTransform()->position, m_pPlayer->getTransform()->position) << std::endl;
+
+	if(Game::Instance().getFrames() % m_bossProjectileInterval == 0)
+	{
+		if (Util::distance(getTransform()->position, m_pPlayer->getTransform()->position) < m_shootDistance)
+			m_shootProjectile();
+	}
 }
 
 void SpellCaster::clean()
@@ -99,3 +110,30 @@ void SpellCaster::m_buildAnimations()
 	//animation.frames.push_back(getSpriteSheet()->getFrame("SpellCaster-animation-7"));
 	setAnimation(animation);
 }
+
+void SpellCaster::m_shootProjectile()
+{
+	m_setDirection();
+	auto tempBullet = new Bullet(m_bulletSpeed, m_direction, getTransform()->position);
+	tempBullet->setOwner(ENEMY_BULLET);
+	dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
+}
+
+void SpellCaster::m_setDirection()
+{
+	float dx, dy;
+
+	dx = getTransform()->position.x - m_pPlayer->getTransform()->position.x;
+	dy = getTransform()->position.y - m_pPlayer->getTransform()->position.y;
+
+	if(dy < 0)
+	{
+		m_direction = (Util::Rad2Deg * atan(dx / dy) - 90) * -1;
+	}
+	if(dy >= 0)
+	{
+		m_direction = (Util::Rad2Deg * atan(dx / dy) + 90) * -1;
+	}
+}
+
+
