@@ -55,6 +55,9 @@
     <Filter Include="Scenes\Levels">
       <UniqueIdentifier>{223cf154-b57b-4456-813f-1d612cb244f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bullets">
+      <UniqueIdentifier>{0a7ccaf9-0c7c-40cb-a6b6-94855de53d3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\StartScene.cpp">
@@ -195,9 +198,6 @@
     <ClCompile Include="..\src\WinchesterShotgun.cpp">
       <Filter>Game Objects\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Bullet.cpp">
-      <Filter>Game Objects</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\RangedWeapon.cpp">
       <Filter>Templates</Filter>
     </ClCompile>
@@ -211,6 +211,15 @@
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Level1.cpp" />
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\SpellCasterBullet.cpp">
+      <Filter>Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\WinchesterBullet.cpp">
+      <Filter>Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -399,9 +408,6 @@
     <ClInclude Include="..\src\WinchesterShotgunAnimationState.h">
       <Filter>Enums</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Bullet.h">
-      <Filter>Game Objects</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\RangedWeapon.h">
       <Filter>Templates</Filter>
     </ClInclude>
@@ -418,6 +424,15 @@
       <Filter>Game Objects</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Level1.h" />
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SpellCasterBullet.h">
+      <Filter>Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\WinchesterBullet.h">
+      <Filter>Bullets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">

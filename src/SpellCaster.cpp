@@ -6,6 +6,7 @@
 #include "Util.h"
 #include "CollisionManager.h"
 #include "Game.h"
+#include "SpellCasterBullet.h"
 
 
 SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
@@ -113,7 +114,7 @@ void SpellCaster::m_shootProjectile()
 {
 	std::cout << "SHOOT" << std::endl;
 	m_setDirection();
-	auto tempBullet = new Bullet(m_bulletSpeed, m_direction, getTransform()->position, ENEMY_BULLET);
+	auto tempBullet = new SpellCasterBullet(m_bulletSpeed, m_direction, getTransform()->position, ENEMY_BULLET);
 	dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 }
 

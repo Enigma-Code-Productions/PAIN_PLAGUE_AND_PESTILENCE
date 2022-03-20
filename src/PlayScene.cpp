@@ -99,6 +99,16 @@ int PlayScene::getScore()
 
 void PlayScene::collisionCheck()
 {
+	for(auto bullets : m_pEnemiesBullets)
+	{
+		if(CollisionManager::AABBCheck(bullets, m_pPlayer))
+		{
+			m_pPlayer->takeDamage(bullets->getBulletDamage());
+
+			removeBullet(bullets);
+		}
+	}
+
 	for(auto enemy: m_pEnemies)
 	{
 		if (CollisionManager::AABBCheck(enemy, m_pPlayer))

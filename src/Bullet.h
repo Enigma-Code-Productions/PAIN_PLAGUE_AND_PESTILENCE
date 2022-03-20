@@ -22,14 +22,17 @@ public:
 	void setBulletSpeed(float speed);
 	float getBulletSpeed();
 
+	void setBulletDamage(float damage);
+	float getBulletDamage();
+
 	void setOwner(BulletOwner o);
 	BulletOwner getOwner();
 
 private:
-	void m_buildAnimations();
 	void m_move();
 	float m_direction;
 	float m_bulletSpeed;
+	float m_bulletDamage;
 
 	BulletOwner m_owner;
 };
