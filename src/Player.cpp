@@ -347,6 +347,7 @@ void Player::takeDamage(int damage)
 	AliveObject::takeDamage(damage);
 	m_invTimeLeft = getInvTime();
 	m_pPlayerUI->getHealthBar()->setHealth(getHealth());
+	
 }
 
 

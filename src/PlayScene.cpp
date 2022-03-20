@@ -106,8 +106,25 @@ void PlayScene::collisionCheck()
 			if (enemy->hasCollisionDamage())
 			{
 				m_pPlayer->takeDamage(enemy->getDamage());
+				
 			}
 			// Can be added stuff if player has collision damage
+			if (m_pPlayer->getTransform()->position.x < enemy->getTransform()->position.x)
+			{
+				m_pPlayer->getTransform()->position.x = m_pPlayer->getTransform()->position.x - 20;
+			}
+			if (m_pPlayer->getTransform()->position.x > enemy->getTransform()->position.x)
+			{
+				m_pPlayer->getTransform()->position.x = m_pPlayer->getTransform()->position.x + 20;
+			}
+			if (m_pPlayer->getTransform()->position.y < enemy->getTransform()->position.y)
+			{
+				m_pPlayer->getTransform()->position.y = m_pPlayer->getTransform()->position.y - 20;
+			}
+			if (m_pPlayer->getTransform()->position.y > enemy->getTransform()->position.y)
+			{
+				m_pPlayer->getTransform()->position.y = m_pPlayer->getTransform()->position.y + 20;
+			}
 		}
 		if (m_pPlayer->getWeapon() != nullptr)
 		{
