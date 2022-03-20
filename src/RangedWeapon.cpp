@@ -5,7 +5,7 @@ void RangedWeapon::attack()
 	for (int i = 0; i < m_bulletCount; i++)
 	{
 		float initialBulletDirection = m_direction + (rand() % 2 - 1) * m_accuracy;
-		m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position));
+		m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET));
 	}
 }
 

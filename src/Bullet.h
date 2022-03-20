@@ -1,5 +1,6 @@
 #pragma once
 #include "DisplayObject.h"
+#include "Sprite.h"
 #include "Util.h"
 
 enum BulletOwner
@@ -8,10 +9,10 @@ enum BulletOwner
 	ENEMY_BULLET
 };
 
-class Bullet : public DisplayObject
+class Bullet : public Sprite
 {
 public:
-	Bullet(float speed, float initialDirection, glm::vec2 weaponPos);
+	Bullet(float speed, float initialDirection, glm::vec2 weaponPos, BulletOwner bullet_owner);
 	~Bullet();
 
 	void draw() override;
@@ -25,6 +26,7 @@ public:
 	BulletOwner getOwner();
 
 private:
+	void m_buildAnimations();
 	void m_move();
 	float m_direction;
 	float m_bulletSpeed;

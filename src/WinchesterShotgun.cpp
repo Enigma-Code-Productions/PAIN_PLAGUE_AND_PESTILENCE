@@ -157,7 +157,7 @@ void WinchesterShotgun::attack()
 			{
 				initialBulletDirection += 180;
 			}
-			auto tempBullet = new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position);
+			auto tempBullet = new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET);
 
 			dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 		}

@@ -68,7 +68,7 @@ void SpellCaster::draw()
 
 void SpellCaster::update()
 {
-	//if the player is within "seeing" range of the Zombie.
+	//if the player is within "seeing" range of the Enemy.
 	//if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius) && !getRigidBody()->isColliding)
 	//{
 	//	getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
@@ -80,8 +80,6 @@ void SpellCaster::update()
 	{
 		getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
 	}
-
-	std::cout << "Distance: " << Util::distance(getTransform()->position, m_pPlayer->getTransform()->position) << std::endl;
 
 	if(Game::Instance().getFrames() % m_bossProjectileInterval == 0)
 	{
@@ -113,9 +111,9 @@ void SpellCaster::m_buildAnimations()
 
 void SpellCaster::m_shootProjectile()
 {
+	std::cout << "SHOOT" << std::endl;
 	m_setDirection();
-	auto tempBullet = new Bullet(m_bulletSpeed, m_direction, getTransform()->position);
-	tempBullet->setOwner(ENEMY_BULLET);
+	auto tempBullet = new Bullet(m_bulletSpeed, m_direction, getTransform()->position, ENEMY_BULLET);
 	dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 }
 

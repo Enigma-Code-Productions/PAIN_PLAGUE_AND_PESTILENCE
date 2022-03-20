@@ -1,0 +1,3 @@
+SpellCasterBullet-move-0 0 0 30 30
+SpellCasterBullet-move-1 30 0 30 30
+SpellCasterBullet-move-2 60 0 30 30
