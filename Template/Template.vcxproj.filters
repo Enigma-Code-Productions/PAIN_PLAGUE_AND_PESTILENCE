@@ -210,7 +210,6 @@
     <ClCompile Include="..\src\TileGrid.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Level1.cpp" />
     <ClCompile Include="..\src\Bullet.cpp">
       <Filter>Bullets</Filter>
     </ClCompile>
@@ -219,6 +218,9 @@
     </ClCompile>
     <ClCompile Include="..\src\WinchesterBullet.cpp">
       <Filter>Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Level1.cpp">
+      <Filter>Scenes\Levels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -423,7 +425,6 @@
     <ClInclude Include="..\src\TileGrid.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Level1.h" />
     <ClInclude Include="..\src\Bullet.h">
       <Filter>Bullets</Filter>
     </ClInclude>
@@ -432,6 +433,9 @@
     </ClInclude>
     <ClInclude Include="..\src\WinchesterBullet.h">
       <Filter>Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Level1.h">
+      <Filter>Scenes\Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

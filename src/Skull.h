@@ -21,7 +21,7 @@ public:
 
 private:
 	void m_buildAnimations();
-	const int m_speed;
+	const float m_speed;
 	float m_detectionRadius;
 	Player* m_pPlayer;
 };

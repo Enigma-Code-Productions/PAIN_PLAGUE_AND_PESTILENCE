@@ -5,10 +5,15 @@
 
 struct RigidBody
 {
+	friend class GameObjec;
+
 	float mass;
+	
 	glm::vec2 velocity;
 	glm::vec2 acceleration;
-	bool hasCollider = false;
+	float maxVelocity;
+
+	bool hasCollider;
 	bool isColliding;
 };
 #endif /* defined (__RIGID_BODY__) */

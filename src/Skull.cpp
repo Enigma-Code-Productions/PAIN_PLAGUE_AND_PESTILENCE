@@ -4,7 +4,7 @@
 #include "CollisionManager.h"
 
 
-Skull::Skull(Player* player) : m_speed(2), m_detectionRadius(250)
+Skull::Skull(Player* player) : m_speed(0.5), m_detectionRadius(250)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/Skull-animation.txt",
@@ -70,12 +70,10 @@ void Skull::update()
 	//if the player is within "seeing" range of the skull.
 	if (CollisionManager::squaredDistance(getTransform()->position, m_pPlayer->getTransform()->position) < (m_detectionRadius * m_detectionRadius) && !getRigidBody()->isColliding)
 	{
-		if (CollisionManager::canMoveWithoutCollison(this, 
-			getTransform()->position + Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed)))
-		{
-			getTransform()->position += Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * glm::vec2(m_speed, m_speed);
-		}
+	
+		getRigidBody()->acceleration = Util::normalize(m_pPlayer->getTransform()->position - getTransform()->position) * m_speed;
 	}
+	move();
 }
 
 void Skull::clean()

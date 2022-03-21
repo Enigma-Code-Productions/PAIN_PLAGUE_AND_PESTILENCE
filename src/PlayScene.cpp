@@ -19,11 +19,6 @@ void PlayScene::draw()
 {
 	drawDisplayList();
 
-	for (auto obj : m_pCollidableObjects)
-	{
-		Util::DrawRect(obj->getTransform()->position, obj->getWidth(), obj->getHeight());
-	}
-
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
@@ -76,7 +71,7 @@ void PlayScene::start()
 	addChild(m_pPlayer, OBJECTS);
 	m_pPlayer->setCanMove(true);
 
-
+	setDrag(0.95f);
 	//Ui
 	m_scoreCounter = 0;
 
@@ -277,6 +272,17 @@ void PlayScene::removeBullet(Bullet* b)
 	}
 	removeChildAfterUpdate(b);
 }
+
+float PlayScene::getDrag() const
+{
+	return m_drag;
+}
+
+void PlayScene::setDrag(float drag) 
+{
+	m_drag = drag;
+}
+
 
 void PlayScene::GUI_Function() const
 {

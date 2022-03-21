@@ -15,6 +15,9 @@
 
 class PlayScene : public Scene
 {
+private: // Properties
+	std::vector<GameObject*> m_pCollidableObjects;
+	float m_drag;
 protected: //Properties
 
 	//Objects
@@ -22,9 +25,6 @@ protected: //Properties
 
 	std::vector<Bullet*> m_pPlayersBullets;
 	std::vector<Bullet*> m_pEnemiesBullets;
-
-	std::vector<GameObject*> m_pCollidableObjects;
-
 	Player* m_pPlayer;
 
 	TileGrid* m_pGrid;
@@ -35,6 +35,9 @@ protected: //Properties
 public: // Functions
 	PlayScene();
 	~PlayScene();
+
+	// Makes this class abstract
+	virtual void checkWin() = 0;
 
 	// Scene LifeCycle Functions
 	virtual void draw() override;
@@ -53,8 +56,6 @@ public: // Functions
 	void collisionCheck();
 	void deleteDeadEnemies();
 
-	virtual void checkWin() = 0;
-
 	int getScore();
 
 	void CleanObjects();
@@ -65,15 +66,15 @@ public: // Functions
 	void addBullet(Bullet* b);
 	void removeBullet(Bullet* b);
 
+	float getDrag() const;
+	void setDrag(float drag);
 	
-
 private: //Functions
+	friend void Player::update();
+	void moveAllObjects(glm::vec2 dPos);
+
 	// IMGUI Function
 	void GUI_Function() const;
-
-	friend void Player::update();
-
-	void moveAllObjects(glm::vec2 dPos);
 };
 
 #endif /* defined (__PLAY_SCENE__) */

@@ -1,8 +1,15 @@
 #include "GameObject.h"
 
+#include "Game.h"
+
 GameObject::GameObject() :
 	m_width(0), m_height(0), m_type(NONE), m_enabled(true), m_visible(true)
 {
+	getRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
+	getRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
+	getRigidBody()->isColliding = false;
+	getRigidBody()->hasCollider = false;
+	getRigidBody()->maxVelocity = 10;
 }
 
 GameObject::~GameObject()
@@ -66,4 +73,24 @@ void GameObject::setVisible(const bool state)
 bool GameObject::isVisible() const
 {
 	return m_visible;
+}
+
+void GameObject::move()
+{
+	const auto rigid_body = getRigidBody();
+
+	
+	rigid_body->velocity += rigid_body->acceleration;
+	rigid_body->velocity *= dynamic_cast<PlayScene*>(Game::Instance().getCurrentScene())->getDrag();
+	rigid_body->velocity = Util::clamp(rigid_body->velocity, rigid_body->maxVelocity);
+
+	if (rigid_body->hasCollider)
+	{
+		if (!CollisionManager::canMoveWithoutCollison(this, getTransform()->position + rigid_body->velocity))
+		{
+			rigid_body->velocity = glm::vec2(0.0f, 0.0f);
+		}
+	}
+	getTransform()->position += rigid_body->velocity;
+	rigid_body->acceleration = glm::vec2(0.0f, 0.0f);
 }
