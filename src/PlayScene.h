@@ -23,6 +23,8 @@ protected: //Properties
 	std::vector<Bullet*> m_pPlayersBullets;
 	std::vector<Bullet*> m_pEnemiesBullets;
 
+	std::vector<GameObject*> m_pCollidableObjects;
+
 	Player* m_pPlayer;
 
 	TileGrid* m_pGrid;
@@ -40,6 +42,13 @@ public: // Functions
 	virtual void clean() override;
 	virtual void handleEvents() override;
 	virtual void start() override;
+
+	void virtual  addChild(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt) override;
+	void virtual addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt) override;
+	void virtual removeChild(DisplayObject* child) override;
+	void virtual removeChildAfterUpdate(DisplayObject* child) override;
+
+	std::vector<GameObject*> getCollidables();
 
 	void collisionCheck();
 	void deleteDeadEnemies();

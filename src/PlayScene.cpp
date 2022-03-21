@@ -19,6 +19,11 @@ void PlayScene::draw()
 {
 	drawDisplayList();
 
+	for (auto obj : m_pCollidableObjects)
+	{
+		Util::DrawRect(obj->getTransform()->position, obj->getWidth(), obj->getHeight());
+	}
+
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
@@ -88,6 +93,40 @@ void PlayScene::start()
 	SoundManager::Instance().setSoundVolume(6);
 
 	ImGuiWindowFrame::Instance().setGUIFunction(std::bind(&PlayScene::GUI_Function, this));
+}
+
+void PlayScene::addChild(DisplayObject* child, DrawLayers layer_index, std::optional<uint32_t> order_index)
+{
+	Scene::addChild(child, layer_index, order_index);
+	if (child->getRigidBody()->hasCollider)
+		m_pCollidableObjects.push_back(child);
+}
+
+void PlayScene::addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index, std::optional<uint32_t> order_index)
+{
+	Scene::addChildAfterUpdate(child, layer_index, order_index);
+	if (child->getRigidBody()->hasCollider)
+		m_pCollidableObjects.push_back(child);
+}
+
+void PlayScene::removeChild(DisplayObject* child)
+{
+	if (child->getRigidBody()->hasCollider)
+		m_pCollidableObjects.erase(std::remove(m_pCollidableObjects.begin(), m_pCollidableObjects.end(), child), m_pCollidableObjects.end());
+
+	Scene::removeChild(child);
+}
+
+void PlayScene::removeChildAfterUpdate(DisplayObject* child)
+{
+	if (child->getRigidBody()->hasCollider)
+		m_pCollidableObjects.erase(std::remove(m_pCollidableObjects.begin(), m_pCollidableObjects.end(), child), m_pCollidableObjects.end());
+	Scene::removeChildAfterUpdate(child);
+}
+
+std::vector<GameObject*> PlayScene::getCollidables()
+{
+	return m_pCollidableObjects;
 }
 
 

@@ -395,17 +395,8 @@ bool CollisionManager::LOSCheck(Agent* agent, glm::vec2 end_point, const std::ve
 
 bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 {
-	std::vector<GameObject*> colliders;
-	for (auto object : Game::Instance().getCurrentScene()->getDisplayList())
-	{
-		if (object->getRigidBody()->hasCollider)
-		{
-			if (object != obj)
-			{
-				colliders.push_back(object);
-			}
-		}
-	}
+
+	const auto colliders = static_cast<PlayScene*>(Game::Instance().getCurrentScene())->getCollidables();
 
 	const auto p1 = pos - glm::vec2(obj->getWidth() / 2, obj->getHeight() / 2);
 	const float p1Width = obj->getWidth() - 1;
@@ -413,12 +404,12 @@ bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 
 	for (auto object : colliders)
 	{
-		
+		if (object == obj)
+			continue;
+
 		const auto p2 = object->getTransform()->position - glm::vec2(object->getWidth() / 2, object->getHeight() / 2);
 		const float p2Width = object->getWidth() -1;
 		const float p2Height = object->getHeight() - 1;
-
-
 		if (
 			p1.x < p2.x + p2Width &&
 			p1.x + p1Width > p2.x &&

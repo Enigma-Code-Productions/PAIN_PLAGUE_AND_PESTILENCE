@@ -17,10 +17,10 @@ public:
 
 	
 
-	void addChild(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
-	void addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
-	void removeChild(DisplayObject* child);
-	void removeChildAfterUpdate(DisplayObject* child);
+	void virtual  addChild(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
+	void virtual addChildAfterUpdate(DisplayObject* child, DrawLayers layer_index = BACKGROUND, std::optional<uint32_t> order_index = std::nullopt);
+	void virtual removeChild(DisplayObject* child);
+	void virtual removeChildAfterUpdate(DisplayObject* child);
 
 	int numberOfChildren() const;
 
