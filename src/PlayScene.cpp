@@ -143,7 +143,7 @@ void PlayScene::collisionCheck()
 					{
 						if (CollisionManager::AABBCheck(m_pPlayersBullets[j], m_pEnemies[i]))
 						{
-							m_pEnemies[i]->takeDamage(m_pPlayer->getWeapon()->getDamage());
+							m_pEnemies[i]->takeDamage(m_pPlayersBullets[j]->getBulletDamage());
 
 							//delete bullet
 							removeBullet(m_pPlayersBullets[j]);

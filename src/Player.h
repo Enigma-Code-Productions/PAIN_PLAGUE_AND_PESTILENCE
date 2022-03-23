@@ -22,6 +22,11 @@ private: //Properties
 	bool m_bHealing;
 	bool m_bCanMove;
 
+	//this needs to be here until weapons can be picked up from an external source like a chest
+	Weapon* m_pKnife;
+	Weapon* m_pShotgun;
+	//-----------------------------------------------------------------------------------------
+
 	PlayerUI* m_pPlayerUI;
 	Weapon* m_pWeapon;
 	HealingPotion* m_pHealingPotion;

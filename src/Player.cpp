@@ -32,10 +32,15 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 	setHealth(getMaxHealth());
 	setCollisionDamage(false);
 
+	//this needs to be here until weapons can be picked up from an external source like a chest
+	m_pKnife = new SoyKnife(this);
+	m_pShotgun = new WinchesterShotgun(this);
+	getParent()->addChild(m_pKnife, FRONT_OBJECTS);
+	setWeapon(m_pKnife);
+	//-----------------------------------------------------------------------------------------
 
-
-	m_pWeapon = new SoyKnife(this);
-	getParent()->addChild(m_pWeapon, FRONT_OBJECTS);
+	//m_pWeapon = new SoyKnife(this);
+	//getParent()->addChild(m_pWeapon, FRONT_OBJECTS);
 	m_thrower = new PotionThrower(this);
 	getParent()->addChild(m_thrower);
 	m_pPlayerUI = new PlayerUI(this);
@@ -183,8 +188,27 @@ void Player::update()
 		{
 			if (!getWeapon()->isAttacking())
 				Heal();
+		}
 
+		//swap weapons
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_1))
+		{
+			if (getWeapon()->getType() == RANGED_WEAPON)
+			{
+				getParent()->removeChild(m_pShotgun);
+				getParent()->addChild(m_pKnife, FRONT_OBJECTS);
+				setWeapon(m_pKnife);
+			}
+		}
 
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_2))
+		{
+			if (getWeapon()->getType() == MELEE_WEAPON)
+			{
+				getParent()->removeChild(m_pKnife);
+				getParent()->addChild(m_pShotgun, FRONT_OBJECTS);
+				setWeapon(m_pShotgun);
+			}
 		}
 
 		if (running)

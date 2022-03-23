@@ -34,7 +34,7 @@ SpellCaster::SpellCaster(Player* player) : m_speed(1), m_detectionRadius(250)
 	getRigidBody()->hasCollider = true;
 
 	m_bulletSpeed = 2;
-
+	m_bulletDamage = 30;
 	m_pPlayer = player;
 
 	setType(ENEMY);
@@ -114,7 +114,7 @@ void SpellCaster::m_shootProjectile()
 {
 	std::cout << "SHOOT" << std::endl;
 	m_setDirection();
-	auto tempBullet = new SpellCasterBullet(m_bulletSpeed, m_direction, getTransform()->position, ENEMY_BULLET);
+	auto tempBullet = new SpellCasterBullet(m_bulletDamage, m_bulletSpeed, m_direction, getTransform()->position, ENEMY_BULLET);
 	dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 }
 

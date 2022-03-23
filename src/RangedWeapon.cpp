@@ -1,11 +1,32 @@
 #include "RangedWeapon.h"
+#include "Game.h"
+#include "WinchesterBullet.h"
+
+void RangedWeapon::m_move()
+{
+	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(0, 25));
+}
 
 void RangedWeapon::attack()
 {
-	for (int i = 0; i < m_bulletCount; i++)
+	if (!isAttacking())
 	{
-		float initialBulletDirection = m_direction + (rand() % 2 - 1) * m_accuracy;
-		m_pBullets.push_back(new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET));
+		//SoundManager::Instance().playSound("Knife", 0, 0);
+		//SoundManager::Instance().setSoundVolume(6);
+		setAttackStart(TheGame::Instance().getFrames());
+		setIsAttacking(true);
+
+		for (int i = 0; i < m_bulletCount; i++)
+		{
+			float initialBulletDirection = m_direction + (Util::RandomRange(-1, 1)) * m_accuracy;
+			if (!getOwner()->isFacingRight())
+			{
+				initialBulletDirection += 180;
+			}
+			auto tempBullet = new WinchesterBullet(getDamage(), m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET);
+			m_pBullets.push_back(tempBullet);
+			dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
+		}
 	}
 }
 
@@ -26,7 +47,34 @@ void RangedWeapon::setAccuracy(float accuracy)
 
 void RangedWeapon::setDirection()
 {
-	m_direction = Util::signedAngle(getTransform()->position, EventManager::Instance().getMousePosition());
+	float dx, dy;
+
+	if (getOwner()->isFacingRight())
+	{
+		dx = getTransform()->position.x - EventManager::Instance().getMousePosition().x;
+		dy = getTransform()->position.y - EventManager::Instance().getMousePosition().y;
+		if (dy < 0)
+		{
+			m_direction = (Util::Rad2Deg * atanf(dx / dy) - 90) * -1;
+		}
+		if (dy >= 0)
+		{
+			m_direction = (Util::Rad2Deg * atanf(dx / dy) + 90) * -1;
+		}
+	}
+	else
+	{
+		dx = EventManager::Instance().getMousePosition().x - getTransform()->position.x;
+		dy = EventManager::Instance().getMousePosition().y - getTransform()->position.y;
+		if (dy < 0)
+		{
+			m_direction = (Util::Rad2Deg * atanf(dx / dy) - 90) * -1;
+		}
+		if (dy >= 0)
+		{
+			m_direction = (Util::Rad2Deg * atanf(dx / dy) + 90) * -1;
+		}
+	}
 }
 
 int RangedWeapon::getBulletCount()
@@ -52,4 +100,9 @@ std::vector<Bullet*> RangedWeapon::getBullets()
 void RangedWeapon::setBulletSpeed(float speed)
 {
 	m_bulletSpeed = speed;
+}
+
+void RangedWeapon::setBullets(std::vector<Bullet*> bullets)
+{
+	m_pBullets = bullets;
 }
