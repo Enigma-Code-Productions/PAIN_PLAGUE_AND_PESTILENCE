@@ -13,7 +13,7 @@ PotionThrower::PotionThrower(Player* player) : m_MaxPotions(3), m_pPlayer(player
 	getTransform()->position.y -= 40.0f;
 	m_buildAnimations();
 	
-	m_amountOfPotions[POISON_POTION] = 2;
+	m_amountOfPotions[POISON_POTION] = 100;
 	m_amountOfPotions[FIRE_POTION] = 2;
 	m_amountOfPotions[EXPLOSIVE_POTION] = 2;
 	m_loadPotionsSprites();

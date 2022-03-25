@@ -36,3 +36,7 @@ void FirePotion::update()
 		getParent()->removeChildAfterUpdate(this);
 	}
 }
+
+void FirePotion::m_buildAnimations()
+{
+}
