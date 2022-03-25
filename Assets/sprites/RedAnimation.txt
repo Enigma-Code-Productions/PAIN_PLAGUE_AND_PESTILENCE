@@ -1,0 +1,5 @@
+Red-Bottle-0 0 0 20 24
+Red-Bottle-1 20 0 20 24
+Red-Bottle-2 40 0 20 24
+Red-Bottle-3 60 0 30 24
+Red-Bottle-Empty 200 0 23 24
