@@ -223,6 +223,9 @@
     <ClCompile Include="..\src\Poison1.cpp">
       <Filter>Game Objects\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Fire1.cpp">
+      <Filter>Game Objects\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -437,6 +440,9 @@
       <Filter>Bullets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Poison1.h">
+      <Filter>Game Objects\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Fire1.h">
       <Filter>Game Objects\Effects</Filter>
     </ClInclude>
   </ItemGroup>

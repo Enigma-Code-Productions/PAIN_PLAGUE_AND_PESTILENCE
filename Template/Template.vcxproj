@@ -169,6 +169,7 @@
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Explosion1.cpp" />
     <ClCompile Include="..\src\ExplosionPotion.cpp" />
+    <ClCompile Include="..\src\Fire1.cpp" />
     <ClCompile Include="..\src\FirePotion.cpp" />
     <ClCompile Include="..\src\HealingPotion.cpp" />
     <ClCompile Include="..\src\HealthBar.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="..\src\DrawLayers.h" />
     <ClInclude Include="..\src\Explosion1.h" />
     <ClInclude Include="..\src\ExplosionPotion.h" />
+    <ClInclude Include="..\src\Fire1.h" />
     <ClInclude Include="..\src\FirePotion.h" />
     <ClInclude Include="..\src\HealingPotion.h" />
     <ClInclude Include="..\src\HealthBar.h" />

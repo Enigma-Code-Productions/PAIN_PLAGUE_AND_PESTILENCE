@@ -1,4 +1,6 @@
 #include "FirePotion.h"
+
+#include "Fire1.h"
 #include "Game.h"
 #include "TextureManager.h"
 
@@ -48,8 +50,8 @@ void FirePotion::update()
 		{
 			SoundManager::Instance().playSound("PotionBreak", 0, -1);
 
-			//getParent()->addChildAfterUpdate(new Explosion1(glm::vec2(getTransform()->position.x, getTransform()->position.y)), EFFECTS);
-			//m_effectTriggered = true;
+			getParent()->addChildAfterUpdate(new Fire1(glm::vec2(getTransform()->position.x, getTransform()->position.y)), EFFECTS);
+			m_effectTriggered = true;
 		}
 	}
 	if (getAnimation("breakingAnimation").current_frame == 4)
