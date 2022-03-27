@@ -470,6 +470,9 @@
     <Image Include="..\Assets\textures\Tiles.png">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="..\Assets\sprites\Dash-1.png">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\Assets\sprites\atlas.xml">

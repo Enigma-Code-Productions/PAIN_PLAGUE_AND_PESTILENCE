@@ -55,6 +55,7 @@ public: // Functions
 	// other functions 
 	void takeDamage(int damage);
 	void Death();
+	glm::vec2 Dash(glm::vec2);
 
 private: // Functions
 

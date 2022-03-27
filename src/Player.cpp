@@ -9,12 +9,6 @@ Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft
 
 {
 	
-	TextureManager::Instance().loadSpriteSheet(
-		"../Assets/sprites/Player-spritesheet.txt",
-		"../Assets/sprites/Player-spritesheet.png",
-		"Player");
-
-	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 
 	// Player sounds
 	SoundManager::Instance().load("../Assets/audio/Hit.wav", "Hit", SOUND_SFX);
@@ -90,6 +84,18 @@ void Player::draw()
 	case PLAYER_DEATH_LEFT:
 		TextureManager::Instance().playAnimation(this, "death", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
+	case PLAYER_START_DASH_RIGHT:
+		TextureManager::Instance().playAnimation(this, "startDash", 0.5f, 0, alpha);
+		break;
+	case PLAYER_START_DASH_LEFT:
+		TextureManager::Instance().playAnimation(this, "startDash", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
+		break;
+	case PLAYER_END_DASH_RIGHT:
+		TextureManager::Instance().playAnimation(this, "endDash", 0.5f, 0, alpha);
+		break;
+	case PLAYER_END_DASH_LEFT:
+		TextureManager::Instance().playAnimation(this, "endDash", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
+		break;
 	default:
 		break;
 	}
@@ -125,6 +131,12 @@ void Player::Death()
 		setAlive(false);
 		TheGame::Instance().changeSceneState(END_SCENE);
 	}
+}
+
+glm::vec2 Player::Dash(glm::vec2 d_pos)
+{
+	
+	return d_pos;
 }
 
 
@@ -186,7 +198,44 @@ void Player::update()
 
 
 		}
-
+		if (EventManager::Instance().keyPressed(SDL_SCANCODE_LSHIFT))
+		{
+			getWeapon()->setEnabled(false);
+			setCanMove(false);
+			if (isFacingRight())
+			{
+				setSpriteSheet(TextureManager::Instance().getSpriteSheet("dash"));
+				setAnimationState(PLAYER_START_DASH_RIGHT);
+				if (getAnimation("startDash").current_frame == 5) //When death animation is done, end game
+				{
+					//SoundManager::Instance().playSound("Portal", 0, -1);
+					d_pos.x -= 160;
+					setAnimationState(PLAYER_END_DASH_RIGHT);
+				}
+				if (getAnimation("endDash").current_frame == 3)
+				{
+					setCanMove(true);
+					setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
+				}
+			}
+			else
+			{
+				setSpriteSheet(TextureManager::Instance().getSpriteSheet("dash"));
+				setAnimationState(PLAYER_START_DASH_LEFT);
+				if (getAnimation("startDash").current_frame == 4) //When death animation is done, end game
+				{
+					//SoundManager::Instance().playSound("Portal", 0, -1);
+					d_pos.x += 160;
+					setAnimationState(PLAYER_END_DASH_LEFT);
+				}
+				if (getAnimation("endDash").current_frame == 3)
+				{
+					setCanMove(true);
+					setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
+				}
+			}
+			
+		}
 		if (running)
 		{
 			// walk sound
@@ -353,6 +402,16 @@ void Player::takeDamage(int damage)
 
 void Player::m_buildAnimations()
 {
+	TextureManager::Instance().loadSpriteSheet(
+		"../Assets/sprites/Player-spritesheet.txt",
+		"../Assets/sprites/Player-spritesheet.png",
+		"Player");
+
+	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
+
+	TextureManager::Instance().loadSpriteSheet("../Assets/sprites/Dash-1.txt", "../Assets/sprites/Dash-1.png", "dash");
+
+
 	Animation idleAnimation = Animation();
 
 	idleAnimation.name = "idle";
@@ -389,6 +448,31 @@ void Player::m_buildAnimations()
 	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-9"));
 
 	setAnimation(deathAnimation);
+
+	setSpriteSheet(TextureManager::Instance().getSpriteSheet("dash"));
+
+	Animation startDashAnimation = Animation();
+
+	startDashAnimation.name = "startDash";
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-0"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-1"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-2"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-3"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-empty"));
+
+	setAnimation(startDashAnimation);
+
+	Animation endDashAnimation = Animation();
+
+	endDashAnimation.name = "endDash";
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-5"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-6"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-7"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-empty"));
+
+	setAnimation(endDashAnimation);
+
+	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 }
 
 void Player::Heal()

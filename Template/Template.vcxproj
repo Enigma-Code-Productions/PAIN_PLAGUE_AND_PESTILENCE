@@ -290,6 +290,7 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Assets\sprites\Dash-1.png" />
     <Image Include="..\Assets\sprites\Explosion1.png" />
     <Image Include="..\Assets\sprites\GreenAnimation.png" />
     <Image Include="..\Assets\sprites\Player-animation.png" />
