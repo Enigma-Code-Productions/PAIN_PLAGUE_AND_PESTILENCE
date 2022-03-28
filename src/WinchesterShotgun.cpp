@@ -12,7 +12,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("WinchesterShotgun"));
 
-	SoundManager::Instance().load("../Assets/audio/Winchester.mp3", "Winchester", SOUND_SFX);
+	//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
 
 	setWidth(144);
 	setHeight(75);
@@ -35,70 +35,61 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 	m_buildAnimations();
 }
 
-WinchesterShotgun::~WinchesterShotgun() = default;
-
 void WinchesterShotgun::draw()
 {
 	const auto x = getTransform()->position.x;
 	const auto y = getTransform()->position.y;
 
-	auto  angle = (double)m_direction;
-	SDL_RendererFlip flip = SDL_FLIP_NONE;
-	std::string animation_name = "idle";
-
 	switch (m_currentAnimationState)
 	{
 	case WINCHESTER_SHOTGUN_IDLE_RIGHT:
-		if (m_direction <= -90 || m_direction > 90)
+		if (getDirection() <= -90 || getDirection() > 90)
 		{
-			flip = SDL_FLIP_VERTICAL;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)getDirection(), 255, true, SDL_FLIP_VERTICAL);
 		}
 		else
 		{
-			flip = SDL_FLIP_NONE;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)getDirection(), 255, true);
 		}
-		animation_name = "idle";
 		break;
-	case WINCHESTER_SHOTGUN_IDLE_LEFT:		
-		if (m_direction <= -90 || m_direction > 90)
+	case WINCHESTER_SHOTGUN_IDLE_LEFT:
+		if (getDirection() <= -90 || getDirection() > 90)
 		{
-			angle += 180;
-			flip = SDL_FLIP_NONE;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)getDirection() + 180, 255, true);
 		}
 		else
 		{
-			flip = SDL_FLIP_HORIZONTAL;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("idle"), x, y, 0.12f, (int)getDirection(), 255, true, SDL_FLIP_HORIZONTAL);
 		}
-		animation_name = "idle";
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_RIGHT:
-		if (m_direction <= -90 || m_direction > 90)
+		if (getDirection() <= -90 || getDirection() > 90)
 		{
-			flip = SDL_FLIP_VERTICAL;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)getDirection(), 255, true, SDL_FLIP_VERTICAL);
 		}
 		else
 		{
-			flip = SDL_FLIP_NONE;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)getDirection(), 255, true);
 		}
-		animation_name = "attack";
 		break;
 	case WINCHESTER_SHOTGUN_ATTACK_LEFT:
-		if (m_direction <= -90 || m_direction > 90)
+		if (getDirection() <= -90 || getDirection() > 90)
 		{
-			angle += 180;
-			flip = SDL_FLIP_NONE;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)getDirection() + 180, 255, true);
 		}
 		else
 		{
-			flip = SDL_FLIP_HORIZONTAL;
+			TextureManager::Instance().playAnimation("WinchesterShotgun", getAnimation("attack"), x, y, 1.0f, (int)getDirection(), 255, true, SDL_FLIP_HORIZONTAL);
 		}
-		animation_name = "attack";
 		break;
 	default:
 		break;
 	}
 
-	TextureManager::Instance().playAnimation(this, animation_name, 1.0f, angle, 255, flip);
+	/*for (unsigned i = 0; i < getBullets().size(); i++)
+	{
+		getBullets()[i]->draw();
+	}*/
 }
 
 void WinchesterShotgun::update()
@@ -133,35 +124,6 @@ void WinchesterShotgun::update()
 			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_LEFT);
 		}
 	}
-
-}
-
-void WinchesterShotgun::clean()
-{
-}
-
-void WinchesterShotgun::attack()
-{
-	if (!isAttacking())
-	{
-		SoundManager::Instance().playSound("Winchester", 0, 0);
-		SoundManager::Instance().setSoundVolume(6);
-
-		setAttackStart(TheGame::Instance().getFrames());
-		setIsAttacking(true);
-
-		for (int i = 0; i < m_bulletCount; i++)
-		{
-			float initialBulletDirection = m_direction + (Util::RandomRange(-1, 1)) * m_accuracy;
-			if (!getOwner()->isFacingRight())
-			{
-				initialBulletDirection += 180;
-			}
-			auto tempBullet = new Bullet(m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET);
-
-			dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
-		}
-	}
 }
 
 void WinchesterShotgun::setAnimationState(WinchesterShotgunAnimationState new_state)
@@ -194,70 +156,4 @@ void WinchesterShotgun::m_buildAnimations()
 	attackAnimation.frames.push_back(getSpriteSheet()->getFrame("WinchesterShotgun-reload-5"));
 
 	setAnimation(attackAnimation);
-}
-
-void WinchesterShotgun::m_move()
-{
-	/*if (getOwner()->isFacingRight())
-	{
-		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(45, 15));
-
-		if (m_direction <= -90 || m_direction > 90)
-		{
-			getTransform()->position.x -= 90;
-		}
-	}
-	else
-	{
-		getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(-45, 15));
-
-		if (m_direction <= -90 || m_direction > 90)
-		{
-			getTransform()->position.x += 90;
-		}
-	}*/
-
-	getTransform()->position = glm::vec2(getOwner()->getTransform()->position + glm::vec2(0, 25));
-}
-
-void WinchesterShotgun::setAccuracy(float accuracy)
-{
-	m_accuracy = accuracy;
-}
-
-void WinchesterShotgun::setBulletCount(int count)
-{
-	m_bulletCount = count;
-}
-
-void WinchesterShotgun::setDirection()
-{
-	float dx, dy;
-	
-	if (getOwner()->isFacingRight())
-	{
-		dx = getTransform()->position.x - EventManager::Instance().getMousePosition().x;
-		dy = getTransform()->position.y - EventManager::Instance().getMousePosition().y;
-		if (dy < 0)
-		{
-			m_direction = (Util::Rad2Deg * atanf(dx / dy) - 90) * -1;
-		}
-		if (dy >= 0)
-		{
-			m_direction = (Util::Rad2Deg * atanf(dx / dy) + 90) * -1;
-		}
-	}
-	else
-	{
-		dx = EventManager::Instance().getMousePosition().x - getTransform()->position.x;
-		dy = EventManager::Instance().getMousePosition().y - getTransform()->position.y;
-		if (dy < 0)
-		{
-			m_direction = (Util::Rad2Deg * atanf(dx / dy) - 90) * -1;
-		}
-		if (dy >= 0)
-		{
-			m_direction = (Util::Rad2Deg * atanf(dx / dy) + 90) * -1;
-		}
-	}
 }

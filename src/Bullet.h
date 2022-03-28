@@ -12,7 +12,7 @@ enum BulletOwner
 class Bullet : public Sprite
 {
 public:
-	Bullet(float speed, float initialDirection, glm::vec2 weaponPos, BulletOwner bullet_owner);
+	Bullet(float damage, float speed, float initialDirection, glm::vec2 weaponPos, BulletOwner bullet_owner);
 	~Bullet();
 
 	void draw() override;

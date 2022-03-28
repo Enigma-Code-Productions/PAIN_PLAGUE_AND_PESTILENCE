@@ -7,7 +7,7 @@
 class SpellCasterBullet : public Bullet
 {
 public:
-	SpellCasterBullet(float s, float d, glm::vec2 pos, BulletOwner o);
+	SpellCasterBullet(float damage, float s, float d, glm::vec2 pos, BulletOwner o);
 	void m_buildAnimations();
 	void draw();
 };

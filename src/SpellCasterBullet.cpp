@@ -2,7 +2,7 @@
 
 #include "TextureManager.h"
 
-SpellCasterBullet::SpellCasterBullet(float s, float d, glm::vec2 pos, BulletOwner o) : Bullet(s,d,pos,o)
+SpellCasterBullet::SpellCasterBullet(float damage, float s, float d, glm::vec2 pos, BulletOwner o) : Bullet(damage, s,d,pos,o)
 {
 	TextureManager::Instance().loadSpriteSheet(
 		"../Assets/sprites/SpellCasterBullet-animation.txt",

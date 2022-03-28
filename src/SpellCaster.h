@@ -28,6 +28,7 @@ private:
 	float m_shootDistance = 350;
 	float m_detectionRadius;
 	float m_bulletSpeed;
+	float m_bulletDamage;
 	float m_direction;
 	Player* m_pPlayer;
 };

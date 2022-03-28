@@ -4,10 +4,11 @@
 #include "PlayScene.h"
 #include "TextureManager.h"
 
-Bullet::Bullet(float speed, float initialDirection, glm::vec2 weaponPos, BulletOwner bullet_owner)
+Bullet::Bullet(float damage, float speed, float initialDirection, glm::vec2 weaponPos, BulletOwner bullet_owner)
 {
 	setOwner(bullet_owner);
 
+	m_bulletDamage = damage;
 	m_bulletSpeed = speed;
 	m_direction = initialDirection;
 
@@ -27,6 +28,7 @@ void Bullet::draw()
 void Bullet::update()
 {
 	m_move();
+	//draw();
 	if (getTransform()->position.x > 800 ||getTransform()->position.x < 0 ||getTransform()->position.y > 600 || getTransform()->position.y < 0)
 	{
 		dynamic_cast<PlayScene*>(getParent())->removeBullet(this);
