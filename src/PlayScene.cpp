@@ -28,6 +28,7 @@ void PlayScene::update()
 
 	collisionCheck();
 
+
 	deleteDeadEnemies();
 }
 
@@ -135,21 +136,18 @@ void PlayScene::collisionCheck()
 					}
 				}
 			}
-			else if (m_pPlayer->getWeapon()->getType() == RANGED_WEAPON)
+		}
+	}
+	for (unsigned i = 0; i < m_pEnemies.size(); i++)
+	{
+		for (unsigned j = 0; j < m_pPlayersBullets.size(); j++)
+		{
+			if (CollisionManager::AABBCheck(m_pPlayersBullets[j], m_pEnemies[i]))
 			{
-				for (unsigned i = 0; i < m_pEnemies.size(); i++)
-				{
-					for (unsigned j = 0; j < m_pPlayersBullets.size(); j++)
-					{
-						if (CollisionManager::AABBCheck(m_pPlayersBullets[j], m_pEnemies[i]))
-						{
-							m_pEnemies[i]->takeDamage(m_pPlayersBullets[j]->getBulletDamage());
+				m_pEnemies[i]->takeDamage(m_pPlayersBullets[j]->getBulletDamage());
 
-							//delete bullet
-							removeBullet(m_pPlayersBullets[j]);
-						}
-					}
-				}
+				//delete bullet
+				removeBullet(m_pPlayersBullets[j]);
 			}
 		}
 	}
