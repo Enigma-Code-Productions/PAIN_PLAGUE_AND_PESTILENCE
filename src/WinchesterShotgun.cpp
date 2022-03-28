@@ -124,11 +124,6 @@ void WinchesterShotgun::update()
 			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_LEFT);
 		}
 	}
-
-	for (unsigned i = 0; i < getBullets().size(); i++)
-	{
-		getBullets()[i]->update();
-	}
 }
 
 void WinchesterShotgun::setAnimationState(WinchesterShotgunAnimationState new_state)
