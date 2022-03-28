@@ -19,5 +19,7 @@ public:
 	virtual void start() override;
 
 private:
+	Label* m_pauseLabel{};
+	Label* m_instructionLabel{};
 };
 
