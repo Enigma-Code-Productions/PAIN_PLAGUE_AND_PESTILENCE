@@ -30,6 +30,7 @@ void PauseManager::PopScene()
 		s_scenes.pop_back();
 	}
 	Game::Instance().resumeSceneState(s_scenes.back(), previousScene);
+	s_scenes.clear();
 }
 
 std::vector<Scene*>& PauseManager::GetScenes()
@@ -37,11 +38,14 @@ std::vector<Scene*>& PauseManager::GetScenes()
 	return s_scenes;
 }
 
-std::vector<Scene*> PauseManager::s_scenes;
 
-bool PauseManager::m_isPaused = false;
-SceneState PauseManager::previousScene = NO_SCENE;
 const bool PauseManager::getIsPaused()
 {
 	return m_isPaused;
 }
+
+
+std::vector<Scene*> PauseManager::s_scenes;
+
+bool PauseManager::m_isPaused = false;
+SceneState PauseManager::previousScene = NO_SCENE;

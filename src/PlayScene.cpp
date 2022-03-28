@@ -11,7 +11,7 @@
 
 PlayScene::PlayScene()
 {
-
+	
 }
 
 PlayScene::~PlayScene()
@@ -29,6 +29,7 @@ void PlayScene::update()
 
 	if(EventManager::Instance().keyPressed(SDL_SCANCODE_P))
 	{
+		PAMA::AddScene(this);
 		PAMA::PushScene(new PauseScene());
 		return;
 	}
@@ -73,7 +74,7 @@ void PlayScene::handleEvents()
 void PlayScene::start()
 {
 
-	PAMA::AddScene(this);
+
 
 	// Set GUI Title
 	std::string m_guiTitle = "Play Scene";

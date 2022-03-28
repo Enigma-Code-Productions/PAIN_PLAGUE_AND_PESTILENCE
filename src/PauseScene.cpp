@@ -14,7 +14,7 @@ PauseScene::~PauseScene()
 void PauseScene::update()
 {
 	//std::cout << "PAUSE SCENE" << std::endl;
-	if (true/*EventManager::Instance().keyPressed(SDL_SCANCODE_R)*/)
+	if (EventManager::Instance().keyPressed(SDL_SCANCODE_R))
 	{
 		//std::cout << "POP" << std::endl;
 		PAMA::PopScene();
@@ -33,7 +33,7 @@ void PauseScene::draw()
 
 void PauseScene::handleEvents()
 {
-
+	EventManager::Instance().update();
 }
 
 void PauseScene::clean()

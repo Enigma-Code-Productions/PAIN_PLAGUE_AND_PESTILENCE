@@ -101,7 +101,7 @@ void Game::start()
 {
 	m_currentSceneState = NO_SCENE;
 
-	changeSceneState(LEVEL_1);
+	changeSceneState(START_SCENE);
 }
 
 bool Game::isRunning() const

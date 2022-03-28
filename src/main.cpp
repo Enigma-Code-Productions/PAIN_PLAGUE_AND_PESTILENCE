@@ -2,7 +2,7 @@
 #include <crtdbg.h>
 #include <iostream>
 #include <Windows.h>
-
+#include "PauseManager.h"
 #include "Game.h"
 
 const int FPS = 60;
@@ -37,7 +37,9 @@ int main(int argc, char* args[])
 		auto deltaTime = float(SDL_GetTicks() - frameStart) / 1000.0f;
 		TheGame::Instance().setDeltaTime(deltaTime);
 
-		frames++;
+		if (!PauseManager::getIsPaused())
+			frames++;
+
 		TheGame::Instance().setFrames(frames);
 
 	}
