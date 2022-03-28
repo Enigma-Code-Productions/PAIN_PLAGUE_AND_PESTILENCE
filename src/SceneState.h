@@ -8,6 +8,7 @@ enum SceneState
 	LEVEL_1,
 	END_SCENE,
 	WIN_SCENE,
+	PAUSE_SCENE,
 	NUM_OF_SCENE
 	
 };

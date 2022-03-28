@@ -4,12 +4,14 @@
 
 // required for IMGUI
 #include "imgui.h"
+#include "PauseManager.h"
+#include "PauseScene.h"
 #include "Renderer.h"
 #include "Util.h"
 
 PlayScene::PlayScene()
 {
-
+	
 }
 
 PlayScene::~PlayScene()
@@ -24,6 +26,14 @@ void PlayScene::draw()
 
 void PlayScene::update()
 {
+
+	if(EventManager::Instance().keyPressed(SDL_SCANCODE_P))
+	{
+		PAMA::AddScene(this);
+		PAMA::PushScene(new PauseScene());
+		return;
+	}
+
 	updateDisplayList();
 
 	collisionCheck();
@@ -64,6 +74,9 @@ void PlayScene::handleEvents()
 
 void PlayScene::start()
 {
+
+
+
 	// Set GUI Title
 	std::string m_guiTitle = "Play Scene";
 
