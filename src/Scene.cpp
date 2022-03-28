@@ -108,8 +108,9 @@ void Scene::updateDisplayList()
 			display_object->update();
 		}
 	}
-	m_removeChildrenInQueue();
+	
 	m_addChildInQueue();
+	m_removeChildrenInQueue();
 }
 
 void Scene::drawDisplayList()

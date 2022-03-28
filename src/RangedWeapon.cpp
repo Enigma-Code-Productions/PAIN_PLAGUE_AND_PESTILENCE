@@ -1,6 +1,7 @@
 #include "RangedWeapon.h"
 #include "Game.h"
 #include "WinchesterBullet.h"
+#include "SpellCasterBullet.h"
 
 void RangedWeapon::m_move()
 {
@@ -23,7 +24,10 @@ void RangedWeapon::attack()
 			{
 				initialBulletDirection += 180;
 			}
-			auto tempBullet = new WinchesterBullet(getDamage(), m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET);
+
+			// TODO: Change bullets back to normal
+
+			auto tempBullet = new SpellCasterBullet(getDamage(), m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET);
 			dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 		}
 	}
