@@ -70,7 +70,7 @@ public: // Functions
 	void setDrag(float drag);
 	
 private: //Functions
-	friend void Player::update();
+	friend class Player;
 	void moveAllObjects(glm::vec2 dPos);
 
 	// IMGUI Function

@@ -12,7 +12,7 @@
 class Player final : public AliveObject
 {
 private: //Properties
-	const int m_speed;
+	const float m_speed;
 	int m_invTime; // inv = invulnerability
 	int m_invTimeLeft;
 
@@ -59,6 +59,7 @@ public: // Functions
 private: // Functions
 
 	void m_buildAnimations();
+	virtual void move() override;
 	int getSpeed() const {return m_speed;}
 
 	void Heal();

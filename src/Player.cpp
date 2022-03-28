@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Util.h"
 
-Player::Player(): m_speed(5), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft(0),
+Player::Player(): m_speed(1), m_invTime(60), HEALING_TIME(66), m_healingTimeLeft(0),
 	m_healsLeft(3), m_bHealing(false), m_pHealingPotion(nullptr)
 
 {
@@ -143,31 +143,26 @@ void Player::update()
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
-
-			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y - m_speed)))
-				d_pos.y += m_speed;
+			getRigidBody()->acceleration.y += m_speed;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_S))
 		{
-			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x, getTransform()->position.y + m_speed)))
-				d_pos.y -= m_speed;
+			getRigidBody()->acceleration.y -= m_speed;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A))
 		{
-			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x - m_speed, getTransform()->position.y)))
-				d_pos.x += m_speed;
+			getRigidBody()->acceleration.x += m_speed;
 			facingRight = false;
 			running = true;
 		}
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D))
 		{
-			if (CollisionManager::canMoveWithoutCollison(this, glm::vec2(getTransform()->position.x + m_speed, getTransform()->position.y)))
-				d_pos.x -= m_speed;
+			getRigidBody()->acceleration.x -= m_speed;
 			
 			facingRight = true;
 			running = true;
@@ -206,12 +201,7 @@ void Player::update()
 				setAnimationState(PLAYER_IDLE_LEFT);
 		}
 #pragma endregion inputHandling
-
-		if (d_pos.x != 0.0f || d_pos.y != 0.0f)
-		{
-			dynamic_cast<PlayScene*>(getParent())->moveAllObjects(d_pos);
-		}
-
+		move();
 
 		if (m_pHealingPotion != nullptr)
 		{
@@ -389,6 +379,17 @@ void Player::m_buildAnimations()
 	deathAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-death-9"));
 
 	setAnimation(deathAnimation);
+}
+
+void Player::move()
+{
+	GameObject::move();
+
+	auto off_set = getTransform()->position - glm::vec2(400.0f, 300.0f);
+
+	dynamic_cast<PlayScene*>(getParent())->moveAllObjects(off_set);
+
+	getTransform()->position = glm::vec2(400.0f, 300.0f);
 }
 
 void Player::Heal()

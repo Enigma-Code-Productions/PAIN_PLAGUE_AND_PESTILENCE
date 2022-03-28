@@ -393,14 +393,14 @@ bool CollisionManager::LOSCheck(Agent* agent, glm::vec2 end_point, const std::ve
 	return false;
 }
 
-bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
+bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos, GameObject** collidedObject)
 {
 
 	const auto colliders = static_cast<PlayScene*>(Game::Instance().getCurrentScene())->getCollidables();
 
 	const auto p1 = pos - glm::vec2(obj->getWidth() / 2, obj->getHeight() / 2);
-	const float p1Width = obj->getWidth() - 1;
-	const float p1Height = obj->getHeight() - 1;
+	const float p1Width = obj->getWidth() ;
+	const float p1Height = obj->getHeight();
 
 	for (auto object : colliders)
 	{
@@ -408,8 +408,8 @@ bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 			continue;
 
 		const auto p2 = object->getTransform()->position - glm::vec2(object->getWidth() / 2, object->getHeight() / 2);
-		const float p2Width = object->getWidth() -1;
-		const float p2Height = object->getHeight() - 1;
+		const float p2Width = object->getWidth();
+		const float p2Height = object->getHeight();
 		if (
 			p1.x < p2.x + p2Width &&
 			p1.x + p1Width > p2.x &&
@@ -417,6 +417,10 @@ bool CollisionManager::canMoveWithoutCollison(GameObject* obj, glm::vec2 pos)
 			p1.y + p1Height > p2.y
 			)
 		{
+			if (collidedObject != nullptr)
+			{
+				*(collidedObject) = object;
+			}
 			return false;
 		}
 	}

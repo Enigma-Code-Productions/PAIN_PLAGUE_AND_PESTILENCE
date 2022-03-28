@@ -19,6 +19,11 @@ void PlayScene::draw()
 {
 	drawDisplayList();
 
+	for (auto obj : m_pCollidableObjects)
+	{
+		Util::DrawRect(obj->getTransform()->position - glm::vec2(obj->getWidth() / 2, obj->getHeight() / 2), obj->getWidth(), obj->getHeight());
+	}
+
 	SDL_SetRenderDrawColor(Renderer::Instance().getRenderer(), 255, 255, 255, 255);
 }
 
@@ -71,7 +76,7 @@ void PlayScene::start()
 	addChild(m_pPlayer, OBJECTS);
 	m_pPlayer->setCanMove(true);
 
-	setDrag(0.95f);
+	setDrag(0.86f);
 	//Ui
 	m_scoreCounter = 0;
 
