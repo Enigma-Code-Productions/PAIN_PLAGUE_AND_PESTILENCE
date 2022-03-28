@@ -24,7 +24,6 @@ void RangedWeapon::attack()
 				initialBulletDirection += 180;
 			}
 			auto tempBullet = new WinchesterBullet(getDamage(), m_bulletSpeed, initialBulletDirection, getTransform()->position, PLAYER_BULLET);
-			m_pBullets.push_back(tempBullet);
 			dynamic_cast<PlayScene*>(getParent())->addBullet(tempBullet);
 		}
 	}
@@ -92,17 +91,7 @@ float RangedWeapon::getDirection()
 	return m_direction;
 }
 
-std::vector<Bullet*> RangedWeapon::getBullets()
-{
-	return m_pBullets;
-}
-
 void RangedWeapon::setBulletSpeed(float speed)
 {
 	m_bulletSpeed = speed;
-}
-
-void RangedWeapon::setBullets(std::vector<Bullet*> bullets)
-{
-	m_pBullets = bullets;
 }

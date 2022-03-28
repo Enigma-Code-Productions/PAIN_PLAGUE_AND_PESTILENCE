@@ -6,7 +6,6 @@
 class RangedWeapon : public Weapon
 {
 private:
-	std::vector<Bullet*> m_pBullets;
 	float m_bulletSpeed;
 	int m_bulletCount;
 	float m_accuracy; //lower accuracy is better, and 0 is the best
@@ -27,13 +26,12 @@ public:
 	void setAccuracy(float accuracy);
 	void setDirection();
 	void setBulletSpeed(float speed);
-	void setBullets(std::vector<Bullet*> bullets);
 
 	//getters
 	int getBulletCount();
 	int getAccuracy();
 	float getDirection();
-	std::vector<Bullet*> getBullets();
+
 	
 };
 
