@@ -204,7 +204,7 @@ void Player::update()
 			setCanMove(false);
 			if (isFacingRight())
 			{
-				setSpriteSheet(TextureManager::Instance().getSpriteSheet("dash"));
+				
 				setAnimationState(PLAYER_START_DASH_RIGHT);
 				if (getAnimation("startDash").current_frame == 5) //When death animation is done, end game
 				{
@@ -215,12 +215,12 @@ void Player::update()
 				if (getAnimation("endDash").current_frame == 3)
 				{
 					setCanMove(true);
-					setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
+					
 				}
 			}
 			else
 			{
-				setSpriteSheet(TextureManager::Instance().getSpriteSheet("dash"));
+				
 				setAnimationState(PLAYER_START_DASH_LEFT);
 				if (getAnimation("startDash").current_frame == 4) //When death animation is done, end game
 				{
@@ -231,7 +231,7 @@ void Player::update()
 				if (getAnimation("endDash").current_frame == 3)
 				{
 					setCanMove(true);
-					setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
+					
 				}
 			}
 			
@@ -409,8 +409,6 @@ void Player::m_buildAnimations()
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 
-	TextureManager::Instance().loadSpriteSheet("../Assets/sprites/Dash-1.txt", "../Assets/sprites/Dash-1.png", "dash");
-
 
 	Animation idleAnimation = Animation();
 
@@ -449,30 +447,27 @@ void Player::m_buildAnimations()
 
 	setAnimation(deathAnimation);
 
-	setSpriteSheet(TextureManager::Instance().getSpriteSheet("dash"));
-
 	Animation startDashAnimation = Animation();
 
 	startDashAnimation.name = "startDash";
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-0"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-1"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-2"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-3"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-empty"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-0"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-1"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-2"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-3"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-empty"));
 
 	setAnimation(startDashAnimation);
 
 	Animation endDashAnimation = Animation();
 
 	endDashAnimation.name = "endDash";
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-5"));
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-6"));
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-7"));
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Dash-1-empty"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-5"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-6"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-7"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-empty"));
 
 	setAnimation(endDashAnimation);
 
-	setSpriteSheet(TextureManager::Instance().getSpriteSheet("Player"));
 }
 
 void Player::Heal()
