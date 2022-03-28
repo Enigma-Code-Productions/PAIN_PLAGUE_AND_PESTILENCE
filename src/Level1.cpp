@@ -74,23 +74,23 @@ void Level1::checkWin()
 
 void Level1::spawnEnemy()
 {
-	//spawn skull every 1 seconds.
-	const int enemySpawnInterval = 2 * 60;
-	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
-	{
-		int x = rand() % 800;
-		int y = rand() % 600;
-		m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
-		addChild(m_pEnemies.back());
-	}
-	//10 seconds
-	const int ZombieSpawnInterval = 4 * 60;
-	if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
-	{
-		int x = rand() % 800;
-		int y = rand() % 600;
-		m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
-		addChild(m_pEnemies.back());
-	}
+	////spawn skull every 1 seconds.
+	//const int enemySpawnInterval = 2 * 60;
+	//if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
+	//{
+	//	int x = rand() % 800;
+	//	int y = rand() % 600;
+	//	m_pEnemies.push_back(new Skull(m_pPlayer, glm::vec2(x, y)));
+	//	addChild(m_pEnemies.back());
+	//}
+	////10 seconds
+	//const int ZombieSpawnInterval = 4 * 60;
+	//if (TheGame::Instance().getFrames() % ZombieSpawnInterval == 0)
+	//{
+	//	int x = rand() % 800;
+	//	int y = rand() % 600;
+	//	m_pEnemies.push_back(new Zombie(m_pPlayer, glm::vec2(x, y)));
+	//	addChild(m_pEnemies.back());
+	//}
 
 }

@@ -21,7 +21,7 @@ private: //Properties
 	int m_healsLeft;
 	bool m_bHealing;
 	bool m_bCanMove;
-
+	bool m_isDashing = false;
 	PlayerUI* m_pPlayerUI;
 	Weapon* m_pWeapon;
 	HealingPotion* m_pHealingPotion;
@@ -56,6 +56,7 @@ public: // Functions
 	void takeDamage(int damage);
 	void Death();
 	glm::vec2 Dash(glm::vec2);
+	
 
 private: // Functions
 

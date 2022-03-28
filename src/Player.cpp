@@ -85,10 +85,10 @@ void Player::draw()
 		TextureManager::Instance().playAnimation(this, "death", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_START_DASH_RIGHT:
-		TextureManager::Instance().playAnimation(this, "startDash", 0.5f, 0, alpha);
+		TextureManager::Instance().playAnimation(this, "startDash", 0.05f, 0, alpha);
 		break;
 	case PLAYER_START_DASH_LEFT:
-		TextureManager::Instance().playAnimation(this, "startDash", 0.5f, 0, alpha, SDL_FLIP_HORIZONTAL);
+		TextureManager::Instance().playAnimation(this, "startDash", 0.05f, 0, alpha, SDL_FLIP_HORIZONTAL);
 		break;
 	case PLAYER_END_DASH_RIGHT:
 		TextureManager::Instance().playAnimation(this, "endDash", 0.5f, 0, alpha);
@@ -135,23 +135,84 @@ void Player::Death()
 
 glm::vec2 Player::Dash(glm::vec2 d_pos)
 {
-	
-	return d_pos;
+	if (EventManager::Instance().keyPressed(SDL_SCANCODE_LSHIFT))
+	{
+		m_isDashing = true;
+	}
+	if (m_isDashing)
+	{
+
+		getWeapon()->setEnabled(false);
+		setCanMove(false);
+		setInvTime(1000);
+		if (isFacingRight())
+		{
+			setAnimationState(PLAYER_START_DASH_RIGHT);
+		}
+
+		else
+		{
+			setAnimationState(PLAYER_START_DASH_LEFT);
+		}
+
+		if (getAnimation("startDash").current_frame == 4)// || m_currentAnimationState == PLAYER_START_DASH_RIGHT) //&& isFacingRight()) //|| m_currentAnimationState == PLAYER_START_DASH_RIGHT) //When death animation is done, end game
+		{
+			//SoundManager::Instance().playSound("Portal", 0, -1);
+			d_pos.x -= 160;
+			setAnimationState(PLAYER_END_DASH_RIGHT);
+			getAnimation("startDash").current_frame = 0;
+			return d_pos;
+		}
+
+		else if (getAnimation("startDash").current_frame == 4) //|| m_currentAnimationState == PLAYER_START_DASH_LEFT) //When death animation is done, end game
+		{
+			//SoundManager::Instance().playSound("Portal", 0, -1);
+			d_pos.x += 160;
+			setAnimationState(PLAYER_END_DASH_LEFT);
+			getAnimation("startDash").current_frame = 0;
+			return d_pos;
+		}
+
+		if (getAnimation("endDash").current_frame == 2)
+		{
+			setCanMove(true);
+			getWeapon()->setEnabled(true);
+			m_isDashing = false;
+			getAnimation("endDash").current_frame == 0;
+		}
+
+		if (isFacingRight())
+		{
+			setAnimationState(PLAYER_IDLE_RIGHT);
+		}
+		else
+		{
+			setAnimationState(PLAYER_IDLE_LEFT);
+		}
+	}
+	return glm::vec2(0, 0);
 }
 
 
 void Player::update()
 {
-
+	glm::vec2 d_pos = glm::vec2(0.0f, 0.0f);
 	//Player Movement
 	bool running = false;
 	bool facingRight = isFacingRight();
+	std::cout << getAnimation("startDash").current_frame << std::endl;
+	d_pos+= Dash(d_pos);
+	
 
 #pragma region inputHandling
 
+
 	if(m_bCanMove)
 	{
-		glm::vec2 d_pos = glm::vec2(0.0f, 0.0f);
+		
+
+
+
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_W))
 		{
@@ -198,44 +259,7 @@ void Player::update()
 
 
 		}
-		if (EventManager::Instance().keyPressed(SDL_SCANCODE_LSHIFT))
-		{
-			getWeapon()->setEnabled(false);
-			setCanMove(false);
-			if (isFacingRight())
-			{
-				
-				setAnimationState(PLAYER_START_DASH_RIGHT);
-				if (getAnimation("startDash").current_frame == 5) //When death animation is done, end game
-				{
-					//SoundManager::Instance().playSound("Portal", 0, -1);
-					d_pos.x -= 160;
-					setAnimationState(PLAYER_END_DASH_RIGHT);
-				}
-				if (getAnimation("endDash").current_frame == 3)
-				{
-					setCanMove(true);
-					
-				}
-			}
-			else
-			{
-				
-				setAnimationState(PLAYER_START_DASH_LEFT);
-				if (getAnimation("startDash").current_frame == 4) //When death animation is done, end game
-				{
-					//SoundManager::Instance().playSound("Portal", 0, -1);
-					d_pos.x += 160;
-					setAnimationState(PLAYER_END_DASH_LEFT);
-				}
-				if (getAnimation("endDash").current_frame == 3)
-				{
-					setCanMove(true);
-					
-				}
-			}
-			
-		}
+		
 		if (running)
 		{
 			// walk sound
@@ -254,6 +278,7 @@ void Player::update()
 			else
 				setAnimationState(PLAYER_IDLE_LEFT);
 		}
+
 #pragma endregion inputHandling
 
 		if (d_pos.x != 0.0f || d_pos.y != 0.0f)
@@ -285,6 +310,9 @@ void Player::update()
 			m_invTimeLeft--;
 		}
 	}
+
+
+
 	if (m_invTimeLeft > 0)
 	{
 		m_invTimeLeft--;
@@ -450,21 +478,21 @@ void Player::m_buildAnimations()
 	Animation startDashAnimation = Animation();
 
 	startDashAnimation.name = "startDash";
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-0"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-1"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-2"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-3"));
-	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-empty"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-0"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-2"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-3"));
+	startDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-4"));
 
 	setAnimation(startDashAnimation);
 
 	Animation endDashAnimation = Animation();
 
 	endDashAnimation.name = "endDash";
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-5"));
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-6"));
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-7"));
-	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-1-empty"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-EndDash-0"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-EndDash-1"));
+	endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-EndDash-2"));
+	//endDashAnimation.frames.push_back(getSpriteSheet()->getFrame("Player-Dash-4"));
 
 	setAnimation(endDashAnimation);
 
