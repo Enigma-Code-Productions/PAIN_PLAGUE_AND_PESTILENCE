@@ -1,16 +1,18 @@
 #include "Level1.h"
 
 #include "Game.h"
+#include "PauseManager.h"
 #include "SoundManager.h"
 
 void Level1::update()
 {
-	PlayScene::update();
 
-	if (m_pPlayer->isAlive())
-	{
-		checkWin();
-	}
+	PlayScene::update();
+	if (!PAMA::getIsPaused())
+		if (m_pPlayer->isAlive())
+		{
+			checkWin();
+		}
 }
 
 void Level1::start()

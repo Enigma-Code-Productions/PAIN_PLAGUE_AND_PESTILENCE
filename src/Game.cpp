@@ -6,6 +6,8 @@
 #include "Renderer.h"
 #include "EventManager.h"
 #include "Level1.h"
+#include "PauseManager.h"
+#include "PauseScene.h"
 
 
 //Game* Game::s_pInstance = nullptr;
@@ -137,6 +139,7 @@ void Game::changeSceneState(const SceneState new_state)
 {
 	if (new_state != m_currentSceneState) {
 
+
 		// scene clean up
 		if (m_currentSceneState != NO_SCENE)
 		{
@@ -150,8 +153,8 @@ void Game::changeSceneState(const SceneState new_state)
 			std::cout << "clearing ImGui Window" << std::endl;
 		}
 
-		m_currentScene = nullptr;
 
+		m_currentScene = nullptr;
 		m_currentSceneState = new_state;
 
 		EventManager::Instance().reset();
@@ -186,6 +189,25 @@ void Game::changeSceneState(const SceneState new_state)
 
 }
 
+void Game::pauseSceneState(SceneState new_state, Scene* new_scene)
+{
+	m_currentSceneState = new_state;
+
+	if(m_currentSceneState == PAUSE_SCENE)
+	{
+		m_currentScene = new_scene;
+		m_currentScene->start();
+	}
+}
+
+
+void Game::resumeSceneState(Scene* resume_scene, SceneState resume_state)
+{
+	m_currentSceneState = resume_state;
+	m_currentScene = resume_scene;
+}
+
+
 Scene* Game::getCurrentScene()
 {
 	return  m_currentScene;
@@ -214,6 +236,7 @@ void Game::render() const
 
 void Game::update() const
 {
+	//std::cout << m_currentScene << std::endl;
 	m_currentScene->update();
 }
 
@@ -234,3 +257,9 @@ void Game::handleEvents() const
 {
 	m_currentScene->handleEvents();
 }
+
+SceneState Game::getCurrentSceneState()
+{
+	return m_currentSceneState;
+}
+

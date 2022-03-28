@@ -174,6 +174,8 @@
     <ClCompile Include="..\src\HealthBar.cpp" />
     <ClCompile Include="..\src\ImGuiWindowFrame.cpp" />
     <ClCompile Include="..\src\Level1.cpp" />
+    <ClCompile Include="..\src\PauseManager.cpp" />
+    <ClCompile Include="..\src\PauseScene.cpp" />
     <ClCompile Include="..\src\PlayerUI.cpp" />
     <ClCompile Include="..\src\Poison1.cpp" />
     <ClCompile Include="..\src\PoisonPotion.cpp" />
@@ -235,6 +237,8 @@
     <ClInclude Include="..\src\HealingPotion.h" />
     <ClInclude Include="..\src\HealthBar.h" />
     <ClInclude Include="..\src\Level1.h" />
+    <ClInclude Include="..\src\PauseManager.h" />
+    <ClInclude Include="..\src\PauseScene.h" />
     <ClInclude Include="..\src\PlayerUI.h" />
     <ClInclude Include="..\src\Poison1.h" />
     <ClInclude Include="..\src\PoisonPotion.h" />
