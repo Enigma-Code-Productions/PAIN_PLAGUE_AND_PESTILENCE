@@ -12,7 +12,7 @@ WinchesterShotgun::WinchesterShotgun(Player* player)
 
 	setSpriteSheet(TextureManager::Instance().getSpriteSheet("WinchesterShotgun"));
 
-	//SoundManager::Instance().load("../Assets/audio/Knife.flac", "Knife", SOUND_SFX);
+	SoundManager::Instance().load("../Assets/audio/Winchester.mp3", "Winchester", SOUND_SFX);
 
 	setWidth(144);
 	setHeight(75);
@@ -118,10 +118,12 @@ void WinchesterShotgun::update()
 		if (getOwner()->isFacingRight())
 		{
 			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_RIGHT);
+			SoundManager::Instance().playSound("Winchester", 0, -1);
 		}
 		else
 		{
 			setAnimationState(WINCHESTER_SHOTGUN_ATTACK_LEFT);
+			SoundManager::Instance().playSound("Winchester", 0, -1);
 		}
 	}
 }
