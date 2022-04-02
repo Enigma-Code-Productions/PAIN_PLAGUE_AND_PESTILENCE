@@ -17,6 +17,7 @@ public:
 	static void PopScene();
 	static void PushScene(Scene* pScene);
 	static void AddScene(Scene* aScene);
+	static void ExitScene();
 	static std::vector<Scene*>& GetScenes();
 	static const bool getIsPaused();
 };

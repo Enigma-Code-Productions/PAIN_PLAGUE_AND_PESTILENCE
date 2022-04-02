@@ -6,7 +6,7 @@
 
 StartScene::StartScene()
 {
-
+	start();
 }
 
 StartScene::~StartScene()

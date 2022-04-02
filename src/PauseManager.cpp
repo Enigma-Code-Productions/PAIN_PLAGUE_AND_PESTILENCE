@@ -33,6 +33,22 @@ void PauseManager::PopScene()
 	s_scenes.clear();
 }
 
+void PauseManager::ExitScene()
+{
+	m_isPaused = false;
+	if (s_scenes.size() <= 1) return;
+	if (!s_scenes.empty())
+	{
+		s_scenes.back()->clean();
+		delete s_scenes.back();
+		s_scenes.back() = nullptr;
+		s_scenes.pop_back();
+	}
+	Scene* mainMenu = new StartScene();
+	Game::Instance().resumeSceneState(mainMenu, START_SCENE);
+	s_scenes.clear();
+}
+
 std::vector<Scene*>& PauseManager::GetScenes()
 {
 	return s_scenes;
