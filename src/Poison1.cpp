@@ -61,8 +61,7 @@ void Poison1::dealDamage()
 
 	if (CollisionManager::circleAABBCheck(this, pPlayer))
 	{
-		pPlayer->takeDamage(10);
-
+		pPlayer->takeDamage(90);
 		pPlayer->getRigidBody()->isColliding = false;
 	}
 	for (auto enemy : *(pEnemies))
