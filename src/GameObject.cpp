@@ -103,6 +103,7 @@ void GameObject::move()
 			const auto p2 = object->getTransform()->position - glm::vec2(object->getWidth() / 2, object->getHeight() / 2);
 			const float p2Width = object->getWidth();
 			const float p2Height = object->getHeight();
+			glm::vec2 d_pos(0, 0);
 			if (
 				p1.x < p2.x + p2Width &&
 				p1.x + p1Width > p2.x &&
@@ -110,44 +111,45 @@ void GameObject::move()
 				p1.y + p1Height > p2.y
 				)
 			{
-				if (dynamic_cast<Player*>(this))
-				{
-					std::cout << std::endl;
-				}
-
+				
 				//if colliding with top side
-				if ((getTransform()->position.y + getHeight() / 2) >= object->getTransform()->position.y - object->getHeight() / 2)
+				if ((getTransform()->position.y + getHeight() / 2) - rigid_body->velocity.y <= object->getTransform()->position.y - object->getHeight() / 2)
 				{
 					rigid_body->velocity.y = 0;
-					getTransform()->position.y = object->getTransform()->position.y - ((float)object->getHeight() / 2.0f) - ((float)getHeight() / 2.0f);
+					d_pos.y += object->getTransform()->position.y - ((float)object->getHeight() / 2.0f) - ((float)getHeight() / 2.0f) - getTransform()->position.y;
+					//getTransform()->position.y = object->getTransform()->position.y - ((float)object->getHeight() / 2.0f) - ((float)getHeight() / 2.0f);
 					// pObj->SetY(pTile->y - pBound->h);
 
 				}
 				// if colliding with a bottom
-				else if (getTransform()->position.y - getHeight() / 2  <= object->getTransform()->position.y + object->getHeight() / 2)
+				else if (getTransform()->position.y - getHeight() / 2 - rigid_body->velocity.y >= object->getTransform()->position.y + object->getHeight() / 2)
 				{
 					rigid_body->velocity.y = 0;
-					getTransform()->position.y = object->getTransform()->position.y + ((float)object->getHeight() / 2.0f) + ((float)getHeight() / 2.0f);
+					d_pos.y += object->getTransform()->position.y + ((float)object->getHeight() / 2.0f) + ((float)getHeight() / 2.0f) - getTransform()->position.y;
+					//getTransform()->position.y = object->getTransform()->position.y + ((float)object->getHeight() / 2.0f) + ((float)getHeight() / 2.0f);
 					// pObj->SetY(pTile->y + pTile->h);
 
 				}
 				//if colliding with left side
-				else if ((getTransform()->position.x + getWidth() / 2) >= object->getTransform()->position.x - object->getWidth() / 2)
+				if ((getTransform()->position.x + getWidth() / 2) - rigid_body->velocity.x <= object->getTransform()->position.x - object->getWidth() / 2)
 				{
 					rigid_body->velocity.x = 0;
-					getTransform()->position.x = object->getTransform()->position.x - ((float)object->getWidth() / 2.0f) - ((float)getWidth() / 2.0f);
+					d_pos.x += object->getTransform()->position.x - ((float)object->getWidth() / 2.0f) - ((float)getWidth() / 2.0f) - getTransform()->position.x;
+					//getTransform()->position.x = object->getTransform()->position.x - ((float)object->getWidth() / 2.0f) - ((float)getWidth() / 2.0f);
 					// pObj->SetX(pTile->x - pBound->w);
 
 				}
 				// if colliding with right side
-				else if ((getTransform()->position.x - getWidth() / 2) <= object->getTransform()->position.x + object->getWidth() / 2)
+				else if ((getTransform()->position.x - getWidth() / 2) - rigid_body->velocity.y >= object->getTransform()->position.x + object->getWidth() / 2)
 				{
 					rigid_body->velocity.x = 0;
-					getTransform()->position.x = object->getTransform()->position.x + ((float)object->getWidth() / 2.0f) + ((float)getWidth() / 2.0f);
+					d_pos.x += object->getTransform()->position.x + ((float)object->getWidth() / 2.0f) + ((float)getWidth() / 2.0f) - getTransform()->position.x;
+					//getTransform()->position.x = object->getTransform()->position.x + ((float)object->getWidth() / 2.0f) + ((float)getWidth() / 2.0f);
 					// pObj->SetX(pTile->x + pTile->w);
 
 				}
 			}
+			getTransform()->position += d_pos;
 		}
 	}
 }

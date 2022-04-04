@@ -75,7 +75,7 @@ void Level1::checkWin()
 void Level1::spawnEnemy()
 {
 	//spawn skull every 1 seconds.
-	const int enemySpawnInterval = 2 * 60;
+	const int enemySpawnInterval = 10 * 60;
 	if (TheGame::Instance().getFrames() % enemySpawnInterval == 0)
 	{
 		int x = rand() % 800;
